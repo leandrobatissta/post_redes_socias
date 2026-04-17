@@ -228,6 +228,132 @@
             color: #7f8c8d;
         }
 
+        /* ── Paper assets ─────────────────────────────────── */
+        .paper-assets {
+            display: flex;
+            gap: 20px;
+            margin: 24px 0;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .paper-preview-img {
+            flex: 0 0 auto;
+            width: 200px;
+            border: 2px solid #dce1e7;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .paper-preview-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        }
+
+        .paper-preview-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .paper-preview-img span {
+            display: block;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            padding: 5px 0;
+            background: #f8f9fa;
+        }
+
+        .paper-download-box {
+            flex: 1;
+            min-width: 220px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 10px;
+            padding: 20px 24px;
+            color: #fff;
+        }
+
+        .paper-download-box h4 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: #a8d8ea;
+            letter-spacing: 0.04em;
+        }
+
+        .paper-download-box p {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .dl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            margin: 4px 4px 4px 0;
+            transition: opacity 0.2s ease, transform 0.15s ease;
+        }
+
+        .dl-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+        .dl-btn-pdf {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .dl-btn-jpg {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .paper-inline-preview {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #dce1e7;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .paper-inline-preview img {
+            width: 100%;
+            max-width: 780px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .paper-inline-preview span {
+            display: block;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            padding: 6px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+
+        .asset-badge {
+            display: inline-block;
+            background: #2c3e50;
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -276,6 +402,21 @@
             </div>
 
             <div id="x-content" class="post-content">
+
+                <!-- Paper Assets -->
+                <div class="paper-assets">
+                    <div class="paper-preview-img">
+                        <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
+                        <span>📄 Paper Técnico — v1.0</span>
+                    </div>
+                    <div class="paper-download-box">
+                        <h4>📑 Paper Técnico Completo</h4>
+                        <p>Documento acadêmico com arquitetura detalhada, sistema de bloqueio em 6 camadas, análise de IA no desenvolvimento e validação em campo.</p>
+                        <a class="dl-btn dl-btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download>⬇ Baixar PDF</a>
+                        <a class="dl-btn dl-btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download>🖼 Baixar JPG</a>
+                    </div>
+                </div>
+
                 <div class="tweet-thread">
                     <div class="tweet">
                         <div class="tweet-number">Tweet 1/5</div>
@@ -436,6 +577,21 @@
             </div>
 
             <div id="linkedin-content" class="post-content">
+
+                <!-- Paper Assets -->
+                <div class="paper-assets">
+                    <div class="paper-preview-img">
+                        <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
+                        <span>📄 Paper Técnico — v1.0</span>
+                    </div>
+                    <div class="paper-download-box">
+                        <h4>📑 Paper Técnico Completo</h4>
+                        <p>Arquitetura, proteção em 4 camadas, bloqueio físico em 6 métodos, papel da IA no desenvolvimento e validação em campo. Documento público — sem dados sensíveis.</p>
+                        <a class="dl-btn dl-btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download>⬇ Baixar PDF</a>
+                        <a class="dl-btn dl-btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download>🖼 Baixar JPG</a>
+                    </div>
+                </div>
+
                 <h3>Título Sugerido:</h3>
                 <p><strong>"Sistema Kiosk Protegido com Arquitetura Multi-Camadas e Operação 24/7"</strong></p>
 
@@ -573,6 +729,13 @@
             </div>
 
             <div id="instagram-content" class="post-content">
+
+                <!-- Paper Assets -->
+                <div class="paper-inline-preview">
+                    <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
+                    <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
+                </div>
+
                 <p>Sistema Kiosk completo com proteção multi-camada e operação 24/7.<br>
                 Feito em 7 dias. Por uma pessoa. Código, deploy e testes.</p>
                 <p>Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia.<br>
@@ -722,6 +885,21 @@
             </div>
 
             <div id="paper-content" class="post-content">
+
+                <!-- Paper Assets -->
+                <div class="paper-assets" style="margin-bottom:28px">
+                    <div class="paper-preview-img" style="width:260px">
+                        <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
+                        <span>📄 Capa do Paper — v1.0</span>
+                    </div>
+                    <div class="paper-download-box">
+                        <h4>📑 Paper Técnico — Sistema Kiosk Protegido 24/7</h4>
+                        <p>Versão completa do documento acadêmico com todas as seções: arquitetura, protocolo proprietário, bloqueio em 6 camadas, Updater, Launcher, IA no desenvolvimento, validação em campo e referências.</p>
+                        <p style="font-size:0.8rem;color:#aaa">Documento público — dados sensíveis omitidos intencionalmente.</p>
+                        <a class="dl-btn dl-btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download>⬇ Baixar PDF (503 KB)</a>
+                        <a class="dl-btn dl-btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download>🖼 Baixar JPG (198 KB)</a>
+                    </div>
+                </div>
 
                 <h2>Autores e Créditos</h2>
                 <p><strong>Cleyton Pedroza</strong><br>
