@@ -12,13 +12,13 @@
 Criador dos componentes fundamentais do sistema. Responsável pela concepção da arquitetura base, desenvolvimento do protocolo de comunicação proprietário, criação da infraestrutura de servidores, criptografia e design original dos fluxos de operação. A base técnica sobre a qual todo o sistema foi construído.
 
 **Leandro Batista**  
-Responsável pelo aperfeiçoamento, implementação prática e desenvolvimento de hardware. Transformou a base arquitetural em produto funcional em produção — implementando os drivers, o sistema de bloqueio físico multi-camada, a automação de deploy e os processos de recuperação autônoma. A fase v1.0 foi concluída em 7 dias por uma única pessoa, com auxílio de ferramentas de Inteligência Artificial.
+Responsável pelo aperfeiçoamento, implementação prática e desenvolvimento de hardware. Transformou a base arquitetural em produto funcional em produção — implementando os drivers, o sistema de bloqueio físico multi-camada, a automação de build e processos de recuperação autônoma. A fase v1.0 foi concluída em 7 dias por uma única pessoa, com auxílio de ferramentas de Inteligência Artificial.
 
 ---
 
 ## Resumo
 
-Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional. O ambiente de execução é baseado em Linux com gerenciador de janelas minimalista, gerenciamento de serviços via daemon e binários compilados para distribuição segura. A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.
+Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional. O ambiente de execução é baseado em Linux com gerenciador de janelas minimalista, gerenciamento de serviços via daemon de sistema e binários compilados para distribuição segura. A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.
 
 **Palavras-chave:** Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.
 
@@ -50,14 +50,14 @@ O sistema é composto por cinco componentes principais organizados em uma arquit
 | 4 | System Lock | Bloqueio físico de dispositivos de entrada | Produção |
 | 5 | Game Module | Jogos Interativos | Em desenvolvimento |
 
-Todos os componentes se comunicam via protocolo serial proprietário e são orquestrados por um gerenciador de janelas minimalista com inicialização sequencial controlada via daemon de serviços do sistema.
+Todos os componentes se comunicam via protocolo serial proprietário e são orquestrados por um gerenciador de interface gráfica minimalista com inicialização sequencial controlada via daemon de serviços do sistema.
 
 ### 2.2 Ambiente de Execução
 
 | Categoria | Tecnologia |
 |---|---|
 | Sistema Operacional | Linux |
-| Window Manager | Minimalista (sem desktop environment) |
+| Gerenciador de Interface Gráfica | Minimalista (sem ambiente de desktop) |
 | Gerenciador de Serviços | Daemon de inicialização do sistema |
 | Linguagem | Python 3 |
 | Compilação/Distribuição | Compilador de binários Python |
@@ -71,7 +71,7 @@ O sistema segue uma sequência de boot determinística com delays controlados en
 
 ```
 Estágio 1 → Boot do Sistema Linux
-Estágio 2 → Window Manager carrega (ambiente minimalista)
+Estágio 2 → Gerenciador de Interface Gráfica carrega (ambiente minimalista)
 Estágio 3 → Scripts de autostart executam
 Estágio 4 → Driver Principal inicia (protocolo de comunicação)
 Estágio 5 → Updater inicia (após intervalo controlado)
@@ -150,25 +150,25 @@ O sistema implementa seis métodos independentes e complementares de bloqueio, g
 
 Remoção completa de permissões de acesso ao dispositivo no sistema de arquivos Linux, combinada com desabilitamento via interface sysfs no nível do kernel. Esta é a camada de maior prioridade e menor latência.
 
-**Camada 2 — Bloqueio via Camada de Gráficos (X11/xinput)**
+**Camada 2 — Bloqueio via Camada Gráfica**
 
-Desabilitamento do dispositivo na camada de servidor gráfico via ferramentas de gerenciamento de input do X Window System. Garante que mesmo dispositivos com permissões de sistema não possam enviar eventos para aplicações gráficas.
+Desabilitamento do dispositivo na camada de servidor gráfico do sistema. Garante que mesmo dispositivos com permissões de sistema não possam enviar eventos para aplicações gráficas.
 
 **Camada 3 — Remoção de Módulos do Kernel**
 
-Descarregamento dos módulos do kernel responsáveis pelo suporte a dispositivos HID (Human Interface Devices). Atua na raiz do suporte ao hardware, impedindo que o kernel processe eventos do dispositivo. Aplicado seletivamente para não afetar periféricos legítimos do sistema.
+Descarregamento dos módulos do kernel responsáveis pelo suporte a dispositivos de interface humana. Atua na raiz do suporte ao hardware, impedindo que o kernel processe eventos do dispositivo. Aplicado seletivamente para não afetar periféricos legítimos do sistema.
 
-**Camada 4 — Bloqueio de Dispositivos HIDRAW (Wireless/Bluetooth)**
+**Camada 4 — Bloqueio de Interface de Dispositivo (Wireless/Bluetooth)**
 
-Bloqueio específico para dispositivos que comunicam via interface HIDRAW, cobrindo teclados wireless RF, dongles 2.4GHz proprietários e dispositivos Bluetooth. Aplica remoção de permissões nos nós de dispositivo correspondentes.
+Bloqueio específico para dispositivos que comunicam via interface de entrada de baixo nível, cobrindo teclados wireless RF, dongles 2.4GHz e dispositivos Bluetooth. Aplica remoção de permissões nos nós de dispositivo correspondentes.
 
-**Camada 5 — Captura Exclusiva via IOCTL (EVIOCGRAB)**
+**Camada 5 — Captura Exclusiva via Chamada de Sistema**
 
-Utilização da chamada de sistema IOCTL com flag EVIOCGRAB para captura exclusiva do dispositivo. Neste modo, apenas o processo que detém o grab recebe os eventos, impedindo que qualquer outra aplicação processe entradas do dispositivo bloqueado.
+Utilização de chamada de sistema específica para captura exclusiva do dispositivo. Neste modo, apenas o processo que detém o grab recebe os eventos, impedindo que qualquer outra aplicação processe entradas do dispositivo bloqueado.
 
-**Camada 6 — Regras Persistentes de Gerenciamento de Dispositivos (UDEV)**
+**Camada 6 — Regras Persistentes de Gerenciamento de Dispositivos**
 
-Criação de regras no sistema udev para garantir que o bloqueio persista após reinicializações e seja aplicado automaticamente a qualquer novo dispositivo do mesmo tipo que seja conectado. Esta camada garante a persistência de todas as demais.
+Criação de regras no sistema de gerenciamento de dispositivos para garantir que o bloqueio persista após reinicializações e seja aplicado automaticamente a qualquer novo dispositivo do mesmo tipo que seja conectado. Esta camada garante a persistência de todas as demais.
 
 ### 5.3 Dispositivos Cobertos
 
@@ -178,8 +178,8 @@ Criação de regras no sistema udev para garantir que o bloqueio persista após 
 | Teclados PS2 | Portas legadas | Bloqueado |
 | Teclados Wireless RF | 2.4GHz, proprietários | Bloqueado |
 | Teclados Bluetooth | Todos os profiles | Bloqueado |
-| Receptores Universais | HID multi-dispositivo | Bloqueado e validado |
-| Dispositivos HID genéricos | Interface humana | Bloqueado |
+| Receptores Universais | Multi-dispositivo | Bloqueado e validado |
+| Dispositivos de interface humana genéricos | Interface humana | Bloqueado |
 
 ### 5.4 Monitoramento Contínuo e Hotplug
 
@@ -187,7 +187,7 @@ O System Lock implementa um loop de monitoramento com verificação em intervalo
 
 - **Latência máxima de detecção:** 1 segundo
 - **Latência de bloqueio após detecção:** imediata (síncrona)
-- **Cobertura:** qualquer dispositivo HID conectado após o boot
+- **Cobertura:** qualquer dispositivo de entrada conectado após o boot
 
 ### 5.5 Serviço de Sistema (Daemon)
 
@@ -335,10 +335,10 @@ Passo 8 — Rollback automático (se necessário)
 | Categoria | Proteção | Mecanismo |
 |---|---|---|
 | Física | Bloqueio de teclados USB | 6 camadas independentes no kernel |
-| Física | Bloqueio de teclados wireless | HIDRAW + UDEV + kernel modules |
+| Física | Bloqueio de teclados wireless | Interface de dispositivo + persistência + módulos de kernel |
 | Física | Proteção contra hotplug | Monitoramento com latência de 1s |
 | Software | Ambiente Kiosk isolado | Sem acesso ao SO subjacente |
-| Software | Sem interface de linha de comando | Window manager minimalista |
+| Software | Sem interface de linha de comando | Gerenciador de interface gráfica minimalista |
 | Sistema | Boot sem interação manual | Daemon de inicialização automática |
 | Sistema | Atualizações sem interrupção | Updater com rollback |
 | Operacional | Recuperação de falhas | Restart automático todos os serviços |
@@ -410,11 +410,11 @@ O sistema encontra-se em fase de **stage/teste em campo** com cliente. Os seguin
 |---|---|
 | Linguagem | Python 3 |
 | Sistema Operacional | Linux |
-| Window Manager | Minimalista (OpenBox) |
-| Gerenciador de Serviços | SystemD |
+| Gerenciador de Interface Gráfica | Minimalista |
+| Gerenciador de Serviços | Daemon de Serviços do Sistema |
 | Comunicação Serial | Interface serial física (protocolo proprietário) |
-| Simulação de Eventos | xdotool |
-| Compilação | PyInstaller / Nuitka |
+| Simulação de Eventos | Simulador de Eventos de Entrada |
+| Compilação | Compilador de Binários |
 | Versionamento | Git |
 | Build Automation | Makefile |
 | Criptografia/Integridade | Checksum criptográfico (algoritmo não divulgado) |
@@ -443,11 +443,11 @@ O resultado é um produto funcional, em fase de validação em campo, com 4 cama
 
 [3] LINUX KERNEL DOCUMENTATION. *Input Subsystem — Event Interface*. The Linux Kernel Archives. Disponível em: https://www.kernel.org/doc/html/latest/input/input.html
 
-[4] FREEDESKTOP.ORG. *udev — Dynamic Device Management*. Systemd Documentation, 2024. Disponível em: https://www.freedesktop.org/software/systemd/man/udev.html
+[4] FREEDESKTOP.ORG. *Dynamic Device Management — Linux Kernel Documentation*. 2024. Disponível em: https://www.kernel.org/doc/html/latest/driver-api/usb/index.html
 
-[5] OPENBOX PROJECT. *Openbox Window Manager Documentation*. Disponível em: http://openbox.org/wiki/Main_Page
+[5] THE LINUX DOCUMENTATION PROJECT. *Gerenciamento de Interface Gráfica em Ambientes Embarcados*. Disponível em: https://tldp.org
 
-[6] PYINSTALLER DEVELOPMENT TEAM. *PyInstaller Manual*. Disponível em: https://pyinstaller.org/en/stable/
+[6] PYTHON SOFTWARE FOUNDATION. *Python Deployment and Distribution*. Disponível em: https://docs.python.org/3/distributing/
 
 [7] PARADOXO DE JEVONS. In: POLIMENI, R.; FABIAN, F. *Microeconomics*. McGraw-Hill, 2019. Cap. 4 — Efficiency Paradox and Resource Consumption.
 
