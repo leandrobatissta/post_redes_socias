@@ -2,15 +2,32 @@
 
 ## Legenda Principal:
 
-Sistema Kiosk completo com proteção multi-camada e operação 24/7.
-Feito em 7 dias. Por uma pessoa. Código, deploy e testes.
+Me disseram que a IA ia mudar tudo. Não acreditei.
 
-Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia.
-Mas implementar, integrar, testar e colocar em produção levaria entre 30 a 60 dias no modelo tradicional, com uma equipe.
+Até que precisei entregar um sistema em produção sozinho.
 
-Com IA como parceira de desenvolvimento, uma única pessoa escreveu os drivers, automatizou o deploy, testou cada camada de proteção e entregou o produto funcional em 7 dias.
+O que levaria 30 a 60 dias com uma equipe, levou 7 dias. Por uma pessoa.
 
-Não foi magia. Foi arquitetura sólida + execução acelerada pela IA. 🚀
+Não estava errado em duvidar. Estava olhando para o lugar errado.
+
+Como o próprio CEO da Anthropic disse:
+
+> "A IA já escreve 90% do código das nossas equipes. Isso não significa que precisamos de menos engenheiros — significa que cada um deles tem 10x mais alavancagem."
+>
+> Dario Amodei — CEO, Anthropic · Dreamforce, out. 2025
+> Fonte: Exame — https://exame.com/inteligencia-artificial/ia-escreve-90-do-codigo-da-anthropic-mas-ceo-nao-demite-engenheiros/
+
+Isso já aconteceu antes:
+
+→ Compiladores substituíram assembly. "Programadores vão sumir."
+→ Frameworks substituíram boilerplate. "Programadores vão sumir."
+→ Cloud substituiu servidores físicos. "Programadores vão sumir."
+
+Resultado de cada vez: mais engenheiros. Produtos mais complexos. Mercado maior.
+
+Quando software fica mais barato de construir, mais problemas se tornam viáveis de resolver com software. O denominador encolhe. O numerador explode. Isso se chama Paradoxo de Jevons.
+
+Eu não acreditei. Até construir. Documentei tudo. Tem um paper técnico completo para baixar no final — PDF e JPG disponíveis. �
 
 ---
 
