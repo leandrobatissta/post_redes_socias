@@ -16,9 +16,9 @@ PDF_OUTPUT  = os.path.join(BASE_DIR, "PAPER_SISTEMA_KIOSK.pdf")
 JPG_OUTPUT  = os.path.join(BASE_DIR, "PAPER_SISTEMA_KIOSK.jpg")
 CHROME_BIN  = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-# Dimensões JPG: A4 a 96dpi (794 x 1123 px) — mesma base do PDF
+# Dimensões JPG: largura A4, altura grande para capturar página completa
 JPG_WIDTH   = 794
-JPG_HEIGHT  = 1123
+JPG_HEIGHT  = 8000
 
 # ── Validações ───────────────────────────────────────────────────────────────
 
