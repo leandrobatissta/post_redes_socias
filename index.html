@@ -329,7 +329,7 @@
             display: block;
             position: relative;
             overflow: hidden;
-            height: 520px;
+            height: 680px;
             cursor: zoom-in;
         }
 
@@ -352,7 +352,7 @@
             display: block;
             object-fit: cover;
             object-position: top;
-            height: 520px;
+            height: 680px;
             transition: transform 0.3s ease;
         }
 
@@ -433,7 +433,7 @@
 
                 <!-- Paper Assets -->
                 <div class="paper-inline-preview">
-                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
+                    <a class="preview-link" href="paper_viewer.html" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
                     </a>
                     <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
@@ -602,7 +602,7 @@
 
                 <!-- Paper Assets -->
                 <div class="paper-inline-preview">
-                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
+                    <a class="preview-link" href="paper_viewer.html" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
                     </a>
                     <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
@@ -748,7 +748,7 @@
 
                 <!-- Paper Assets -->
                 <div class="paper-inline-preview">
-                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
+                    <a class="preview-link" href="paper_viewer.html" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
                     </a>
                     <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
@@ -906,10 +906,10 @@
 
                 <!-- Paper Assets -->
                 <div class="paper-inline-preview">
-                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
+                    <a class="preview-link" href="paper_viewer.html" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
                     </a>
-                    <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF (503 KB)</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG (857 KB)</a> &nbsp;— Documento público, dados sensíveis omitidos.</span>
+                    <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF (503 KB)</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG (844 KB)</a> &nbsp;— Documento público, dados sensíveis omitidos.</span>
                 </div>
 
                 <h2>Autores e Créditos</h2>
@@ -924,8 +924,8 @@
 
                 <h2>1. Introdução</h2>
                 <p>Sistemas de Kiosk são amplamente utilizados em aplicações comerciais que exigem operação contínua e segura sem supervisão humana direta. O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas — tudo isso com latência mínima e sem interrupção do serviço.</p>
-                <p>Este trabalho apresenta a arquitetura e implementação de um sistema Kiosk desenvolvido sobre Linux com interface minimalista (tela preta), protocolo de comunicação serial customizado, sistema de bloqueio físico de dispositivos de entrada e automação completa de boot, atualizações e recuperação.</p>
                 <p>O sistema foi concebido com uma base técnica sólida pré-existente — arquitetura, protocolos e criptografia desenvolvidos por Cleyton Pedroza — e implementado em sua totalidade funcional por Leandro Batista em 7 dias, com auxílio de ferramentas de IA. Este resultado representa uma redução de 75–90% no tempo de desenvolvimento estimado pelo modelo tradicional (30–60 dias com equipe).</p>
+                <p><strong>Requisito fundamental de operação:</strong> o sistema só entra em funcionamento se a máquina estiver previamente cadastrada e liberada no banco de dados remoto. No boot, o Launcher verifica o Machine ID da máquina — identificador único derivado do hardware. Se não estiver cadastrada, o sistema exibe um QR Code com o Machine ID, bloqueia toda a operação e permanece nesse estado até que o administrador realize o cadastro e a liberação no painel remoto. Após liberação, reinicialização obrigatória. O Launcher também libera o acesso ao módulo de jogos apenas para máquinas com cadastro válido e ativo.</p>
                 <blockquote style="border-left:4px solid #e74c3c;padding:8px 14px;background:#fff5f5;color:#555;margin:12px 0;font-style:italic"><strong>Nota:</strong> Detalhes de configuração, caminhos de instalação, mensagens do protocolo e identificadores internos foram omitidos intencionalmente. O sistema encontra-se em fase de stage/teste em campo.</blockquote>
 
                 <h2>2. Arquitetura do Sistema</h2>
@@ -973,36 +973,19 @@ Estágio 7   → System Lock inicia via serviço do daemon
 Estágio 8   → Monitoramento contínuo ativo em todos os componentes</pre>
 
                 <h2>2.4 Validação de Máquina (Machine ID)</h2>
-                <p>Antes de permitir a operação normal do sistema, o Launcher executa uma validação de identidade da máquina contra um banco de dados remoto. Este mecanismo garante que apenas máquinas autorizadas e cadastradas pelo administrador possam operar o sistema Kiosk.</p>
-
-                <h3>Fluxo de Validação</h3>
-                <pre style="background:#f3f3f3;border:1px solid #ccc;padding:12px;font-size:0.82rem;line-height:1.8;overflow-x:auto">Início → Gera Machine ID único (hardware)
-         │
-         ▼
-         Consulta banco de dados remoto
-         │
-         ├── [NÃO ENCONTRADA] → Gera QR Code + exibe Machine ID na tela
-         │                       Estado: AGUARDANDO CADASTRO (bloqueada)
-         │                       Admin cadastra no painel remoto
-         │                       Sistema detecta liberação na próxima verificação
-         ├── [CADASTRADA / PENDENTE] → Aguarda liberação pelo admin
-         └── [CADASTRADA E LIBERADA] → Prossegue operação normal
-                                       (reinicialização necessária)</pre>
-
-                <h3>Estados da Máquina</h3>
+                <p>O Launcher verifica, a cada inicialização (estágio 3.5 do boot), se a máquina está cadastrada e liberada no banco de dados remoto. O acesso ao módulo de jogos também é condicionado a esse cadastro — o Launcher só libera o jogo para máquinas com registro ativo e válido.</p>
                 <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
-                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Estado</th><th style="padding:8px;text-align:left">Descrição</th><th style="padding:8px;text-align:left">Operação</th></tr></thead>
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Estado</th><th style="padding:8px;text-align:left">Comportamento do sistema</th></tr></thead>
                     <tbody>
-                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px"><strong>NÃO CADASTRADA</strong></td><td style="padding:8px">Machine ID não encontrado no banco</td><td style="padding:8px;color:#e74c3c;font-weight:600">Bloqueada — exibe QR Code</td></tr>
-                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px"><strong>AGUARDANDO CADASTRO</strong></td><td style="padding:8px">Cadastro submetido, aguardando aprovação do admin</td><td style="padding:8px;color:#e67e22;font-weight:600">Bloqueada</td></tr>
-                        <tr><td style="padding:8px"><strong>LIBERADA</strong></td><td style="padding:8px">Aprovada pelo administrador</td><td style="padding:8px;color:#27ae60;font-weight:600">Operação normal permitida</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px"><strong>Não cadastrada</strong></td><td style="padding:8px;color:#e74c3c">Exibe QR Code com Machine ID. Toda operação bloqueada.</td></tr>
+                        <tr><td style="padding:8px"><strong>Cadastrada e liberada</strong></td><td style="padding:8px;color:#27ae60">Sistema reinicia e entra em operação normal.</td></tr>
                     </tbody>
                 </table>
                 <ul style="margin:8px 0 8px 20px;font-size:0.92rem;line-height:1.9">
-                    <li>Machine ID derivado de identificadores únicos de hardware — não falsificável por software</li>
-                    <li>Liberação exclusivamente via painel administrativo remoto</li>
-                    <li>Após liberação, reinicialização obrigatória para ativar operação normal</li>
-                    <li>QR Code gerado dinamicamente com Machine ID para facilitar cadastro pelo administrador</li>
+                    <li><strong>Machine ID</strong> derivado de hardware — não falsificável por software</li>
+                    <li><strong>Bloqueio total</strong> enquanto a máquina não estiver cadastrada e liberada</li>
+                    <li><strong>Liberação</strong> exclusivamente via painel administrativo remoto</li>
+                    <li><strong>Reinicialização obrigatória</strong> após liberação para ativar operação normal</li>
                 </ul>
                 <blockquote style="border-left:4px solid #e74c3c;padding:8px 14px;background:#fff5f5;color:#555;margin:12px 0;font-style:italic"><strong>Nota de segurança:</strong> O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.</blockquote>
 
@@ -1025,7 +1008,7 @@ Estágio 8   → Monitoramento contínuo ativo em todos os componentes</pre>
                         <tr><td style="padding:8px">Auditoria</td><td style="padding:8px">Logging completo de operações</td></tr>
                     </tbody>
                 </table>
-                <p>Compilado em binário nativo para Linux — código-fonte não exposto no ambiente de produção. Deploy remoto automatizado com rollback automático para versão anterior em caso de falha.</p>
+                <p>Compilado em binário nativo para Linux — código-fonte não exposto no ambiente de produção. Deploy remoto automatizado com rollback automático. O Driver Principal aplica o mesmo fluxo de validação de Machine ID do Launcher, garantindo operação somente em máquinas autorizadas.</p>
 
                 <h2>5. Sistema de Bloqueio Físico (System Lock)</h2>
                 <h3>5.1 Motivação</h3>
@@ -1124,6 +1107,8 @@ Estágio 8   → Monitoramento contínuo ativo em todos os componentes</pre>
                 <h2>10. Validação e Status em Campo</h2>
                 <p>O sistema encontra-se em fase de <strong>stage/teste em campo</strong> com cliente. Cenários validados:</p>
                 <ul style="margin:10px 0 10px 20px;line-height:2;font-size:0.92rem">
+                    <li>Validação de Machine ID: máquina não cadastrada exibe QR Code e bloqueia operação ✅</li>
+                    <li>Liberação remota e reinicialização ativando operação normal ✅</li>
                     <li>Boot completo do sistema sem interação manual ✅</li>
                     <li>Bloqueio de teclado USB após hotplug ✅</li>
                     <li>Bloqueio de receptor wireless universal ✅</li>

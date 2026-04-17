@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Técnico — Sistema Kiosk Protegido 24/7</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #1a1a2e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: -apple-system, sans-serif;
+        }
+
+        .toolbar {
+            width: 100%;
+            max-width: 860px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar a {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .toolbar a:hover { opacity: 0.85; }
+
+        .btn-pdf  { background: #e74c3c; color: #fff; }
+        .btn-jpg  { background: #27ae60; color: #fff; }
+        .btn-back { background: #2c3e50; color: #fff; }
+
+        .paper-img {
+            width: 100%;
+            max-width: 860px;
+            display: block;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+            border-radius: 4px;
+        }
+
+        .caption {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: #aaa;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <a class="btn-back" href="javascript:history.back()">← Voltar</a>
+        <a class="btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" download>⬇ Baixar PDF</a>
+        <a class="btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" download>🖼 Baixar JPG</a>
+    </div>
+
+    <img class="paper-img" src="PAPER_SISTEMA_KIOSK.jpg" alt="Paper Técnico — Sistema Kiosk Protegido 24/7">
+
+    <p class="caption">Paper Técnico — Sistema Kiosk Protegido 24/7 · Documento público · Dados sensíveis omitidos intencionalmente.</p>
+</body>
+</html>

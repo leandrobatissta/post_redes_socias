@@ -392,6 +392,7 @@
     <h2 class="section-title">1. Introdução</h2>
     <p>Sistemas de Kiosk são amplamente utilizados em aplicações comerciais que exigem operação contínua e segura sem supervisão humana direta. O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas — tudo isso com latência mínima e sem interrupção do serviço.</p>
     <p>O sistema foi concebido com uma base técnica sólida pré-existente — arquitetura, protocolos e criptografia desenvolvidos por Cleyton Pedroza — e implementado em sua totalidade funcional por Leandro Batista em 7 dias, com auxílio de ferramentas de IA. Este resultado representa uma redução de 75–90% no tempo de desenvolvimento estimado pelo modelo tradicional (30–60 dias com equipe).</p>
+    <p><strong>Requisito fundamental de operação:</strong> o sistema só entra em funcionamento se a máquina estiver previamente cadastrada e liberada no banco de dados remoto. No boot, o Launcher verifica o Machine ID da máquina — um identificador único derivado do hardware. Se a máquina não estiver cadastrada, o sistema exibe um QR Code com o Machine ID, bloqueia toda a operação e permanece nesse estado até que o administrador realize o cadastro e a liberação no painel remoto. Após a liberação, o sistema deve ser reinicializado para entrar em operação normal. O Launcher também é responsável por liberar o acesso ao módulo de jogos apenas para máquinas com cadastro válido e ativo.</p>
     <div class="security-note">
         <strong>Nota:</strong> Detalhes de configuração, caminhos de instalação, mensagens do protocolo e identificadores internos foram omitidos intencionalmente. O sistema encontra-se em fase de stage/teste em campo.
     </div>
@@ -448,49 +449,19 @@ Estágio 8 → Monitoramento contínuo ativo em todos os componentes
 
     <!-- SECTION 2.4 -->
     <h2 class="section-title">2.4 Validação de Máquina (Machine ID)</h2>
-
-    <h3 class="subsection-title">Descrição</h3>
-    <p>Antes de permitir a operação normal do sistema, o Launcher executa uma validação de identidade da máquina contra um banco de dados remoto. Este mecanismo garante que apenas máquinas autorizadas e cadastradas pelo administrador possam operar o sistema Kiosk.</p>
-
-    <h3 class="subsection-title">Fluxo de Validação</h3>
-    <div class="boot-sequence">
-Início do sistema<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
-Gera Machine ID único (derivado de identificadores de hardware)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
-Consulta banco de dados remoto<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [NÃO ENCONTRADA] ───────────────────────────────────────┐<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;Gera QR Code com Machine ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;Exibe na tela: QR Code + ID alfanumérico&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;Estado: AGUARDANDO CADASTRO (operação bloqueada)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;[Admin cadastra a máquina no painel remoto]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;[Sistema detecta liberação na próxima verificação] ◄──────┘<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [CADASTRADA / PENDENTE] → Aguarda liberação pelo admin<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── [CADASTRADA E LIBERADA] → Prossegue operação normal<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reinicialização necessária)
-    </div>
-
-    <h3 class="subsection-title">Estados da Máquina</h3>
+    <p>O Launcher é responsável por verificar, a cada inicialização, se a máquina está cadastrada e liberada no banco de dados remoto. Essa validação ocorre no estágio 3.5 do boot, antes de qualquer driver ou serviço entrar em operação. O acesso ao módulo de jogos também é condicionado a esse cadastro — o Launcher só libera o jogo para máquinas com registro ativo e válido.</p>
     <table>
-        <thead><tr><th>Estado</th><th>Descrição</th><th>Operação</th></tr></thead>
+        <thead><tr><th>Estado</th><th>Comportamento do sistema</th></tr></thead>
         <tbody>
-            <tr><td><strong>NÃO CADASTRADA</strong></td><td>Machine ID não encontrado no banco</td><td>Bloqueada — exibe QR Code</td></tr>
-            <tr><td><strong>AGUARDANDO CADASTRO</strong></td><td>Cadastro submetido, aguardando aprovação do admin</td><td>Bloqueada</td></tr>
-            <tr><td><strong>LIBERADA</strong></td><td>Aprovada pelo administrador</td><td>Operação normal permitida</td></tr>
+            <tr><td><strong>Não cadastrada</strong></td><td>Exibe QR Code com Machine ID na tela. Toda a operação fica bloqueada.</td></tr>
+            <tr><td><strong>Cadastrada e liberada</strong></td><td>Sistema reinicia e entra em operação normal.</td></tr>
         </tbody>
     </table>
-
-    <h3 class="subsection-title">Segurança</h3>
     <ul style="margin:8px 0 8px 20px;font-size:10.5pt;line-height:1.8">
-        <li>O Machine ID é derivado de identificadores únicos de hardware — não pode ser falsificado por software</li>
-        <li>A liberação ocorre exclusivamente via painel administrativo remoto</li>
-        <li>Após liberação, o sistema requer reinicialização para ativar operação normal</li>
-        <li>O QR Code é gerado dinamicamente e contém o Machine ID para facilitar o cadastro pelo administrador</li>
+        <li><strong>Machine ID</strong> derivado de identificadores únicos de hardware — não falsificável por software</li>
+        <li><strong>Bloqueio total</strong> enquanto a máquina não estiver cadastrada e liberada</li>
+        <li><strong>Liberação</strong> exclusivamente via painel administrativo remoto</li>
+        <li><strong>Reinicialização obrigatória</strong> após liberação para ativar operação normal</li>
     </ul>
     <div class="security-note">
         <strong>Nota de segurança:</strong> O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.
@@ -520,7 +491,7 @@ Consulta banco de dados remoto<br>
             <tr><td>Auditoria</td><td>Logging completo de operações</td></tr>
         </tbody>
     </table>
-    <p>Compilado em binário nativo para Linux — código-fonte não exposto no ambiente de produção. Deploy remoto automatizado com rollback automático para versão anterior em caso de falha.</p>
+    <p>Compilado em binário nativo para Linux — código-fonte não exposto no ambiente de produção. Deploy remoto automatizado com rollback automático para versão anterior em caso de falha. O Driver Principal aplica o mesmo fluxo de validação de Machine ID do Launcher para garantir que opera somente em máquinas autorizadas.</p>
 
     <!-- SECTION 5 -->
     <h2 class="section-title">5. Sistema de Bloqueio Físico (System Lock)</h2>
