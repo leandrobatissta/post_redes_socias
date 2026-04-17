@@ -913,96 +913,221 @@
                 </div>
 
                 <h2>Autores e Créditos</h2>
-                <p><strong>Cleyton Pedroza</strong><br>
-                Criador dos componentes fundamentais do sistema. Responsável pela concepção da arquitetura base, desenvolvimento do protocolo de comunicação proprietário, criação da infraestrutura de servidores, criptografia e design original dos fluxos de operação. A base técnica sobre a qual todo o sistema foi construído.</p>
-                <p><strong>Leandro Batista</strong><br>
-                Responsável pelo aperfeiçoamento, implementação prática e desenvolvimento de hardware. Transformou a base arquitetural em produto funcional em produção — implementando os drivers, o sistema de bloqueio físico multi-camada, a automação de deploy e os processos de recuperação autônoma. A fase v1.0 foi concluída em 7 dias por uma única pessoa, com auxílio de ferramentas de Inteligência Artificial.</p>
+                <p><strong>Cleyton Pedroza</strong><br>Criador dos componentes fundamentais do sistema. Responsável pela concepção da arquitetura base, desenvolvimento do protocolo de comunicação proprietário, criação da infraestrutura de servidores, criptografia e design original dos fluxos de operação. A base técnica sobre a qual todo o sistema foi construído.</p>
+                <p><strong>Leandro Batista</strong><br>Responsável pelo aperfeiçoamento, implementação prática e desenvolvimento de hardware. Transformou a base arquitetural em produto funcional em produção — implementando os drivers, o sistema de bloqueio físico multi-camada, a automação de build e processos de recuperação autônoma. A fase v1.0 foi concluída em 7 dias por uma única pessoa, com auxílio de ferramentas de Inteligência Artificial.</p>
 
                 <h2>Resumo</h2>
-                <p>Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional.</p>
-                <p>A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.</p>
-                <p><em>Palavras-chave: Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.</em></p>
+                <p>Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional. O ambiente de execução é baseado em Linux com gerenciador de interface gráfica minimalista, gerenciamento de serviços via daemon de sistema e binários compilados para distribuição segura. A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.</p>
+                <p><em><strong>Palavras-chave:</strong> Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.</em></p>
+
+                <hr>
 
                 <h2>1. Introdução</h2>
-                <p>Sistemas de Kiosk são amplamente utilizados em aplicações comerciais que exigem operação contínua e segura sem supervisão humana direta. O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas.</p>
+                <p>Sistemas de Kiosk são amplamente utilizados em aplicações comerciais que exigem operação contínua e segura sem supervisão humana direta. O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas — tudo isso com latência mínima e sem interrupção do serviço.</p>
+                <p>Este trabalho apresenta a arquitetura e implementação de um sistema Kiosk desenvolvido sobre Linux com interface minimalista (tela preta), protocolo de comunicação serial customizado, sistema de bloqueio físico de dispositivos de entrada e automação completa de boot, atualizações e recuperação.</p>
                 <p>O sistema foi concebido com uma base técnica sólida pré-existente — arquitetura, protocolos e criptografia desenvolvidos por Cleyton Pedroza — e implementado em sua totalidade funcional por Leandro Batista em 7 dias, com auxílio de ferramentas de IA. Este resultado representa uma redução de 75–90% no tempo de desenvolvimento estimado pelo modelo tradicional (30–60 dias com equipe).</p>
-                <blockquote style="border-left:4px solid #e74c3c;padding-left:1rem;color:#aaa;margin:1rem 0"><strong>Nota:</strong> Detalhes de configuração, caminhos de instalação, mensagens do protocolo e identificadores internos foram omitidos intencionalmente. O sistema encontra-se em fase de stage/teste em campo.</blockquote>
+                <blockquote style="border-left:4px solid #e74c3c;padding:8px 14px;background:#fff5f5;color:#555;margin:12px 0;font-style:italic"><strong>Nota:</strong> Detalhes de configuração, caminhos de instalação, mensagens do protocolo e identificadores internos foram omitidos intencionalmente. O sistema encontra-se em fase de stage/teste em campo.</blockquote>
 
                 <h2>2. Arquitetura do Sistema</h2>
-                <table style="width:100%;border-collapse:collapse;margin:1rem 0">
-                    <thead><tr style="background:#2c2c2c"><th style="padding:8px;text-align:left">Componente</th><th style="padding:8px;text-align:left">Função</th><th style="padding:8px;text-align:left">Status</th></tr></thead>
+                <h3>2.1 Componentes Principais</h3>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px">#</th><th style="padding:8px;text-align:left">Componente</th><th style="padding:8px;text-align:left">Função</th><th style="padding:8px;text-align:left">Status</th></tr></thead>
                     <tbody>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Driver Principal</td><td style="padding:8px">Core do protocolo de comunicação (botões, sensores, periféricos)</td><td style="padding:8px;color:#2ecc71">✅ Produção</td></tr>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Updater</td><td style="padding:8px">Atualização automática com rollback</td><td style="padding:8px;color:#2ecc71">✅ Produção</td></tr>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Launcher</td><td style="padding:8px">Interface Kiosk fullscreen</td><td style="padding:8px;color:#2ecc71">✅ Produção</td></tr>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">System Lock</td><td style="padding:8px">Bloqueio físico de dispositivos de entrada</td><td style="padding:8px;color:#2ecc71">✅ Produção</td></tr>
-                        <tr><td style="padding:8px">Game Module</td><td style="padding:8px">Jogos Interativos</td><td style="padding:8px;color:#f39c12">⚙️ Em desenvolvimento</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">1</td><td style="padding:8px">Driver Principal</td><td style="padding:8px">Core do protocolo serial proprietário (botões, sensores, periféricos)</td><td style="padding:8px;color:#27ae60;font-weight:600">✔ Produção</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">2</td><td style="padding:8px">Updater</td><td style="padding:8px">Atualização automática com rollback</td><td style="padding:8px;color:#27ae60;font-weight:600">✔ Produção</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">3</td><td style="padding:8px">Launcher</td><td style="padding:8px">Interface Kiosk fullscreen isolada</td><td style="padding:8px;color:#27ae60;font-weight:600">✔ Produção</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">4</td><td style="padding:8px">System Lock</td><td style="padding:8px">Bloqueio físico de dispositivos de entrada</td><td style="padding:8px;color:#27ae60;font-weight:600">✔ Produção</td></tr>
+                        <tr><td style="padding:8px">5</td><td style="padding:8px">Game Module</td><td style="padding:8px">Jogos Interativos</td><td style="padding:8px;color:#e67e22;font-weight:600">⚙ Em desenvolvimento</td></tr>
                     </tbody>
                 </table>
+
+                <h3>2.2 Ambiente de Execução</h3>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Categoria</th><th style="padding:8px;text-align:left">Tecnologia</th></tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Sistema Operacional</td><td style="padding:8px">Linux</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Gerenciador de Interface Gráfica</td><td style="padding:8px">Minimalista (sem ambiente de desktop)</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Gerenciador de Serviços</td><td style="padding:8px">Daemon de Serviços do Sistema</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Linguagem</td><td style="padding:8px">Python 3</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Compilação / Distribuição</td><td style="padding:8px">Compilador de Binários</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Versionamento</td><td style="padding:8px">Git</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Automação de Build</td><td style="padding:8px">Ferramenta de Build Automatizado</td></tr>
+                        <tr><td style="padding:8px">Integridade</td><td style="padding:8px">Checksum criptográfico (algoritmo não divulgado)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>2.3 Sequência de Boot Determinística</h3>
+                <pre style="background:#f3f3f3;border:1px solid #ccc;padding:12px;font-size:0.85rem;line-height:1.8;overflow-x:auto">Estágio 1 → Boot do Sistema Linux
+Estágio 2 → Gerenciador de Interface Gráfica carrega (ambiente minimalista)
+Estágio 3 → Scripts de autostart executam
+Estágio 4 → Driver Principal inicia (protocolo de comunicação)
+Estágio 5 → Updater inicia (após intervalo controlado)
+Estágio 6 → Launcher Kiosk inicia (após intervalo controlado)
+Estágio 7 → System Lock inicia via serviço do daemon
+Estágio 8 → Monitoramento contínuo ativo em todos os componentes</pre>
 
                 <h2>3. Protocolo de Comunicação Proprietário</h2>
-                <p>Protocolo serial proprietário desenvolvido por Cleyton Pedroza para padronizar a troca de mensagens entre os componentes e os periféricos de hardware.</p>
-                <blockquote style="border-left:4px solid #e74c3c;padding-left:1rem;color:#aaa;margin:1rem 0"><strong>Nota de segurança:</strong> A estrutura de mensagens, identificadores de comandos, endereçamento e parâmetros do protocolo são informações proprietárias e não são divulgados neste documento.</blockquote>
-                <p>Garantias implementadas: integridade por checksum, timeout com prevenção de deadlocks, reconexão automática, monitoramento contínuo de componentes e isolamento do sistema de bloqueio.</p>
+                <p>Protocolo serial proprietário desenvolvido por Cleyton Pedroza para padronizar a troca de mensagens entre os componentes e os periféricos de hardware. Opera sobre interface serial física e define comandos para controle de sensores físicos, periféricos de entrada de valores e iluminação.</p>
+                <blockquote style="border-left:4px solid #e74c3c;padding:8px 14px;background:#fff5f5;color:#555;margin:12px 0;font-style:italic"><strong>Nota de segurança:</strong> A estrutura de mensagens, identificadores de comandos, endereçamento e parâmetros do protocolo são informações proprietárias e não são divulgados neste documento.</blockquote>
+                <p>Garantias implementadas: integridade por checksum por mensagem, timeout com prevenção de deadlocks, reconexão automática serial, monitoramento contínuo de componentes e isolamento total do sistema de bloqueio físico.</p>
 
-                <h2>4. Sistema de Bloqueio Físico (System Lock)</h2>
-                <p>Em sistemas Kiosk de uso público, um vetor de ataque comum é a inserção de dispositivos de entrada externos. O System Lock mitiga esse vetor com <strong>6 camadas independentes</strong> de bloqueio no kernel Linux:</p>
-                <ul>
-                    <li><strong>Camada 1 — Bloqueio Direto:</strong> Remoção de permissões no sistema de arquivos + desabilitamento via sysfs no nível do kernel.</li>
-                    <li><strong>Camada 2 — Bloqueio xinput (X11):</strong> Desabilitamento do dispositivo na camada de servidor gráfico via X Window System.</li>
-                    <li><strong>Camada 3 — Módulos do Kernel:</strong> Descarregamento seletivo dos módulos HID, impedindo processamento de eventos pelo kernel.</li>
-                    <li><strong>Camada 4 — HIDRAW (Wireless/Bluetooth):</strong> Bloqueio de dispositivos via interface HIDRAW, cobrindo dongles RF e Bluetooth.</li>
-                    <li><strong>Camada 5 — EVIOCGRAB (IOCTL):</strong> Captura exclusiva do dispositivo via IOCTL, impedindo que outras aplicações recebam eventos.</li>
-                    <li><strong>Camada 6 — UDEV (Persistência):</strong> Regras de sistema que garantem bloqueio persistente após reinicialização e hotplug automático.</li>
-                </ul>
-                <p><strong>Latência máxima de detecção de novo dispositivo:</strong> 1 segundo. <strong>Latência de bloqueio:</strong> imediata (síncrona).</p>
-
-                <h2>5. Interface Kiosk (Launcher)</h2>
-                <p>Implementa o princípio de mínima exposição ao sistema operacional: tela preta fullscreen, sem barra de tarefas, cursor invisível, sem opção de saída e reinicialização automática em falhas.</p>
-                <p>Subsistemas integrados: detecção e gerenciamento de display, gerenciamento de rede com reconexão automática, monitoramento de processos com whitelist/blacklist e motor de análise preditiva.</p>
-
-                <h2>6. Sistema de Atualização (Updater)</h2>
-                <p>Ciclo completo de atualização silenciosa: verificação de versão → download seguro → backup → validação de integridade → instalação → teste → limpeza → rollback automático se necessário.</p>
-
-                <h2>7. Camadas de Proteção — Visão Consolidada</h2>
-                <table style="width:100%;border-collapse:collapse;margin:1rem 0">
-                    <thead><tr style="background:#2c2c2c"><th style="padding:8px;text-align:left">Camada</th><th style="padding:8px;text-align:left">Proteção</th><th style="padding:8px;text-align:left">Mecanismo</th></tr></thead>
+                <h2>4. Driver Principal</h2>
+                <p>Núcleo do sistema, responsável pela implementação completa do protocolo de comunicação proprietário e gerenciamento bidirecional de todos os periféricos de hardware.</p>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Responsabilidade</th><th style="padding:8px;text-align:left">Detalhe</th></tr></thead>
                     <tbody>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Física</td><td style="padding:8px">Bloqueio de teclados USB/Wireless/Bluetooth</td><td style="padding:8px">6 métodos independentes no kernel</td></tr>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Software</td><td style="padding:8px">Ambiente Kiosk isolado</td><td style="padding:8px">Sem acesso ao SO subjacente</td></tr>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Sistema</td><td style="padding:8px">Boot seguro + atualizações automáticas</td><td style="padding:8px">Daemon + rollback</td></tr>
-                        <tr><td style="padding:8px">Operacional</td><td style="padding:8px">Recuperação de falhas + rastreabilidade</td><td style="padding:8px">Restart automático + logs de auditoria</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Protocolo proprietário</td><td style="padding:8px">Implementação completa com validação de checksum por mensagem</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Sensores físicos</td><td style="padding:8px">Gerenciamento de botões de interação</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Periférico de valores</td><td style="padding:8px">Controle e leitura de estado</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Iluminação</td><td style="padding:8px">Controle do sistema de iluminação</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Simulação de eventos</td><td style="padding:8px">Geração de eventos de entrada para o sistema de jogos</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Health check</td><td style="padding:8px">Verificação contínua de todos os componentes integrados</td></tr>
+                        <tr><td style="padding:8px">Auditoria</td><td style="padding:8px">Logging completo de operações</td></tr>
                     </tbody>
                 </table>
+                <p>Compilado em binário nativo para Linux — código-fonte não exposto no ambiente de produção. Deploy remoto automatizado com rollback automático para versão anterior em caso de falha.</p>
 
-                <h2>8. O Papel da IA no Desenvolvimento</h2>
-                <table style="width:100%;border-collapse:collapse;margin:1rem 0">
-                    <thead><tr style="background:#2c2c2c"><th style="padding:8px;text-align:left">Modelo</th><th style="padding:8px;text-align:left">Equipe</th><th style="padding:8px;text-align:left">Tempo Estimado</th></tr></thead>
+                <h2>5. Sistema de Bloqueio Físico (System Lock)</h2>
+                <h3>5.1 Motivação</h3>
+                <p>Em sistemas Kiosk de uso público, um vetor de ataque comum é a inserção de dispositivos de entrada externos para obter acesso ao sistema operacional subjacente. O System Lock mitiga esse vetor com <strong>6 camadas independentes</strong> de bloqueio no kernel Linux — garantindo que, mesmo que uma camada seja contornada, as demais continuem ativas.</p>
+
+                <h3>5.2 As 6 Camadas Independentes</h3>
+                <div style="border:1px solid #ddd;padding:10px 14px;margin:8px 0;border-radius:4px"><strong>Camada 1 — Bloqueio Direto via Sistema de Arquivos (Prioridade Máxima)</strong><br><span style="font-size:0.9rem;color:#444">Remoção completa de permissões de acesso ao dispositivo no sistema de arquivos Linux, combinada com desabilitamento via interface de controle do kernel. Maior prioridade e menor latência.</span></div>
+                <div style="border:1px solid #ddd;padding:10px 14px;margin:8px 0;border-radius:4px"><strong>Camada 2 — Bloqueio via Camada Gráfica</strong><br><span style="font-size:0.9rem;color:#444">Desabilitamento do dispositivo na camada de servidor gráfico do sistema. Garante que dispositivos com permissões de sistema não possam enviar eventos para aplicações gráficas.</span></div>
+                <div style="border:1px solid #ddd;padding:10px 14px;margin:8px 0;border-radius:4px"><strong>Camada 3 — Remoção de Módulos do Kernel</strong><br><span style="font-size:0.9rem;color:#444">Descarregamento seletivo dos módulos do kernel responsáveis pelo suporte a dispositivos de interface humana. Impede que o kernel processe eventos do dispositivo na raiz do suporte ao hardware.</span></div>
+                <div style="border:1px solid #ddd;padding:10px 14px;margin:8px 0;border-radius:4px"><strong>Camada 4 — Bloqueio de Interface de Dispositivo (Wireless / Bluetooth)</strong><br><span style="font-size:0.9rem;color:#444">Bloqueio específico para dispositivos wireless RF, dongles 2.4GHz e Bluetooth via interface de entrada de baixo nível. Remoção de permissões nos nós de dispositivo correspondentes.</span></div>
+                <div style="border:1px solid #ddd;padding:10px 14px;margin:8px 0;border-radius:4px"><strong>Camada 5 — Captura Exclusiva via Chamada de Sistema</strong><br><span style="font-size:0.9rem;color:#444">Chamada de sistema para captura exclusiva do dispositivo. Apenas o processo detentor recebe os eventos, impedindo que qualquer outra aplicação processe entradas do dispositivo bloqueado.</span></div>
+                <div style="border:1px solid #ddd;padding:10px 14px;margin:8px 0;border-radius:4px"><strong>Camada 6 — Regras Persistentes de Gerenciamento de Dispositivos</strong><br><span style="font-size:0.9rem;color:#444">Regras no sistema de gerenciamento de dispositivos que garantem bloqueio persistente após reinicializações e aplicação automática a qualquer novo dispositivo inserido.</span></div>
+
+                <h3>5.3 Dispositivos Cobertos</h3>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Tipo</th><th style="padding:8px;text-align:left">Tecnologia</th><th style="padding:8px;text-align:left">Status</th></tr></thead>
                     <tbody>
-                        <tr style="border-bottom:1px solid #333"><td style="padding:8px">Tradicional (sem IA)</td><td style="padding:8px">3–5 pessoas</td><td style="padding:8px">30–60 dias</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Teclados USB</td><td style="padding:8px">Todos os tipos e fabricantes</td><td style="padding:8px;color:#27ae60;font-weight:600">Bloqueado</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Teclados PS2</td><td style="padding:8px">Portas legadas</td><td style="padding:8px;color:#27ae60;font-weight:600">Bloqueado</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Teclados Wireless RF</td><td style="padding:8px">2.4GHz, proprietários</td><td style="padding:8px;color:#27ae60;font-weight:600">Bloqueado</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Teclados Bluetooth</td><td style="padding:8px">Todos os profiles</td><td style="padding:8px;color:#27ae60;font-weight:600">Bloqueado</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Receptores Universais</td><td style="padding:8px">Multi-dispositivo</td><td style="padding:8px;color:#27ae60;font-weight:600">Bloqueado e validado</td></tr>
+                        <tr><td style="padding:8px">Dispositivos de interface humana</td><td style="padding:8px">Genéricos</td><td style="padding:8px;color:#27ae60;font-weight:600">Bloqueado</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>Latência máxima de detecção:</strong> 1 segundo. <strong>Latência de bloqueio após detecção:</strong> imediata (síncrona). <strong>Cobertura:</strong> qualquer dispositivo de entrada conectado após o boot.</p>
+
+                <h2>6. Interface Kiosk (Launcher)</h2>
+                <p>Implementa o princípio de mínima exposição ao sistema operacional:</p>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Proteção</th><th style="padding:8px;text-align:left">Mecanismo</th></tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Fullscreen lock</td><td style="padding:8px">Não pode ser minimizado ou redimensionado</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Sem acesso ao SO</td><td style="padding:8px">Sem terminal, sem gerenciador de arquivos</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Process protection</td><td style="padding:8px">Processo não pode ser encerrado pelo usuário</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Auto-restart</td><td style="padding:8px">Recuperação automática em menos de 3 segundos</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Cursor invisível</td><td style="padding:8px">Experiência Kiosk pura</td></tr>
+                        <tr><td style="padding:8px">Input validation</td><td style="padding:8px">Apenas entradas autorizadas pelo protocolo são processadas</td></tr>
+                    </tbody>
+                </table>
+                <p>Subsistemas integrados: detecção automática de display com suporte multi-monitor, gerenciamento de rede com reconexão automática, monitoramento de processos com controle por lista de permissões e motor de análise preditiva para detecção antecipada de falhas.</p>
+
+                <h2>7. Sistema de Atualização (Updater)</h2>
+                <p>Ciclo completo de atualização silenciosa sem interrupção do serviço:</p>
+                <ol style="margin:10px 0 10px 20px;font-size:0.92rem;line-height:2">
+                    <li><strong>Verificação de versão</strong> — Comparação entre versão local e versão disponível no servidor remoto.</li>
+                    <li><strong>Download seguro</strong> — Transferência via canal criptografado com verificação de autenticidade.</li>
+                    <li><strong>Backup da versão atual</strong> — Preservação completa antes de qualquer modificação.</li>
+                    <li><strong>Validação de integridade</strong> — Checksum criptográfico do artefato antes da instalação.</li>
+                    <li><strong>Instalação silenciosa</strong> — Sem interação do usuário e sem interrupção do serviço.</li>
+                    <li><strong>Teste pós-instalação</strong> — Verificação de funcionamento do componente atualizado.</li>
+                    <li><strong>Limpeza</strong> — Remoção de arquivos temporários.</li>
+                    <li><strong>Rollback automático</strong> — Em caso de falha em qualquer passo, restauração da versão anterior.</li>
+                </ol>
+
+                <h2>8. Camadas de Proteção — Visão Consolidada</h2>
+                <pre style="background:#f3f3f3;border:1px solid #ccc;padding:12px;font-size:0.8rem;line-height:1.9;text-align:center;overflow-x:auto">┌──────────────────────────────────────────────────────┐
+│              CAMADA 4: OPERACIONAL                   │
+│  Monitoramento contínuo · Recuperação automática     │
+│  Logs de auditoria · Health check · Alertas          │
+├──────────────────────────────────────────────────────┤
+│              CAMADA 3: SISTEMA                       │
+│  Boot seguro · Atualizações automáticas              │
+│  Rollback · Validação de integridade · Daemon        │
+├──────────────────────────────────────────────────────┤
+│              CAMADA 2: SOFTWARE                      │
+│  Tela preta Kiosk · Sem terminal acessível           │
+│  Cursor invisível · Restart automático               │
+├──────────────────────────────────────────────────────┤
+│              CAMADA 1: FÍSICA                        │
+│  Bloqueio USB · PS2 · Wireless · Bluetooth           │
+│  6 métodos independentes · Detecção hotplug 1s       │
+└──────────────────────────────────────────────────────┘</pre>
+
+                <h2>9. O Papel da Inteligência Artificial no Desenvolvimento</h2>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Modelo</th><th style="padding:8px;text-align:left">Equipe</th><th style="padding:8px;text-align:left">Tempo Estimado</th></tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Tradicional (sem IA)</td><td style="padding:8px">3–5 pessoas</td><td style="padding:8px">30–60 dias</td></tr>
                         <tr><td style="padding:8px"><strong>Com IA como parceira</strong></td><td style="padding:8px"><strong>1 pessoa</strong></td><td style="padding:8px"><strong>7 dias</strong></td></tr>
+                    </tbody>
+                </table>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Área</th><th style="padding:8px;text-align:left">Contribuição da IA</th></tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Implementação de drivers</td><td style="padding:8px">Estrutura base gerada e validada iterativamente</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Debug</td><td style="padding:8px">Identificação e resolução de problemas em tempo real</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Padronização</td><td style="padding:8px">Consistência entre os 5 componentes mantida automaticamente</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Documentação</td><td style="padding:8px">Geração e organização da documentação técnica</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Arquitetura</td><td style="padding:8px">Validação de decisões e sugestão de padrões</td></tr>
+                        <tr><td style="padding:8px">Testes</td><td style="padding:8px">Geração de casos de teste e análise de cobertura</td></tr>
                     </tbody>
                 </table>
                 <p>O uso de IA não substitui o conhecimento técnico — ele amplifica a capacidade de execução. A base técnica sólida pré-existente foi o fator habilitador fundamental. <em>A profissão não foi substituída — ela foi comprimida e amplificada.</em></p>
 
-                <h2>9. Validação e Status em Produção</h2>
-                <ul>
-                    <li>Boot completo sem interação manual ✅</li>
+                <h2>10. Validação e Status em Campo</h2>
+                <p>O sistema encontra-se em fase de <strong>stage/teste em campo</strong> com cliente. Cenários validados:</p>
+                <ul style="margin:10px 0 10px 20px;line-height:2;font-size:0.92rem">
+                    <li>Boot completo do sistema sem interação manual ✅</li>
                     <li>Bloqueio de teclado USB após hotplug ✅</li>
                     <li>Bloqueio de receptor wireless universal ✅</li>
-                    <li>Protocolo de comunicação com System Lock ativo ✅</li>
+                    <li>Protocolo de comunicação com System Lock ativo simultaneamente ✅</li>
                     <li>Atualização remota sem interrupção do serviço ✅</li>
                     <li>Recuperação automática após falha simulada ✅</li>
                     <li>Operação contínua em janela de 24 horas ✅</li>
                 </ul>
                 <p><strong>✅ Fase v1.0 concluída em 16/04/2026.</strong> Sistema em fase de stage/teste em campo com cliente.</p>
 
-                <h2>10. Conclusão</h2>
-                <p>Este paper apresentou a arquitetura e implementação de um sistema Kiosk com operação autônoma 24/7, proteção multi-camada e automação completa de ciclo de vida, combinando três elementos fundamentais:</p>
-                <ol>
+                <h2>11. Stack Tecnológico</h2>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Categoria</th><th style="padding:8px;text-align:left">Tecnologia</th></tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Linguagem</td><td style="padding:8px">Python 3</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Sistema Operacional</td><td style="padding:8px">Linux</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Gerenciador de Interface Gráfica</td><td style="padding:8px">Minimalista</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Gerenciador de Serviços</td><td style="padding:8px">Daemon de Serviços do Sistema</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Comunicação Serial</td><td style="padding:8px">Interface serial física (protocolo proprietário)</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Simulação de Eventos</td><td style="padding:8px">Simulador de Eventos de Entrada</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Compilação</td><td style="padding:8px">Compilador de Binários</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Versionamento</td><td style="padding:8px">Git</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px">Automação de Build</td><td style="padding:8px">Ferramenta de Build Automatizado</td></tr>
+                        <tr><td style="padding:8px">Criptografia / Integridade</td><td style="padding:8px">Checksum criptográfico (algoritmo não divulgado)</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>12. Conclusão</h2>
+                <p>Este paper apresentou a arquitetura e implementação de um sistema Kiosk com operação autônoma 24/7, proteção multi-camada e automação completa de ciclo de vida. O sistema demonstra que é possível construir infraestrutura de software embarcado robusta e de produção combinando três elementos fundamentais:</p>
+                <ol style="margin:10px 0 10px 20px;line-height:2;font-size:0.92rem">
                     <li><strong>Arquitetura bem definida como fundação</strong> — concepção técnica sólida que define protocolos, fluxos e interfaces (contribuição de Cleyton Pedroza)</li>
                     <li><strong>Implementação focada com conhecimento de domínio</strong> — transformação da arquitetura em produto funcional, testado e em produção (contribuição de Leandro Batista)</li>
                     <li><strong>IA como acelerador de execução</strong> — compressão do ciclo de 30–60 dias para 7 dias, mantendo qualidade técnica</li>
+                </ol>
+
+                <h2>Referências</h2>
+                <ol style="margin:10px 0 10px 20px;font-size:0.88rem;line-height:1.8;color:#444">
+                    <li>KIOSK INDUSTRY ASSOCIATION. <em>Best Practices for Unattended Kiosk Deployment and Security</em>. 2023.</li>
+                    <li>CHEN, M.; TWOREK, J. et al. <em>Evaluating Large Language Models Trained on Code</em>. OpenAI, 2021. arXiv:2107.03374.</li>
+                    <li>LINUX KERNEL DOCUMENTATION. <em>Input Subsystem — Event Interface</em>. The Linux Kernel Archives.</li>
+                    <li>FREEDESKTOP.ORG. <em>Dynamic Device Management — Linux Kernel Documentation</em>. 2024.</li>
+                    <li>THE LINUX DOCUMENTATION PROJECT. <em>Gerenciamento de Interface Gráfica em Ambientes Embarcados</em>.</li>
+                    <li>PYTHON SOFTWARE FOUNDATION. <em>Python Deployment and Distribution</em>.</li>
+                    <li>CORBET, J.; RUBINI, A.; KROAH-HARTMAN, G. <em>Linux Device Drivers</em>, 3rd ed. O'Reilly Media, 2005.</li>
                 </ol>
 
             </div>
