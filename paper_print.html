@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Técnico — Sistema Kiosk Protegido 24/7</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 11pt;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm 22mm 20mm 22mm;
+        }
+
+        /* HEADER */
+        .paper-header {
+            text-align: center;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+
+        .paper-header h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .paper-meta {
+            font-size: 9.5pt;
+            color: #444;
+            font-style: italic;
+        }
+
+        .classification-notice {
+            font-size: 9pt;
+            color: #c0392b;
+            font-style: italic;
+            margin-top: 6px;
+        }
+
+        /* AUTHORS */
+        .authors-box {
+            border: 1px solid #ccc;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+
+        .authors-box h2 {
+            font-size: 11pt;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .author-entry {
+            margin-bottom: 8px;
+        }
+
+        .author-entry strong {
+            font-size: 10.5pt;
+        }
+
+        .author-entry p {
+            font-size: 9.5pt;
+            color: #333;
+            margin-top: 2px;
+        }
+
+        /* ABSTRACT */
+        .abstract-box {
+            border-left: 4px solid #1a1a1a;
+            padding: 10px 14px;
+            margin-bottom: 22px;
+            background: #f7f7f7;
+        }
+
+        .abstract-box h2 {
+            font-size: 10pt;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .abstract-box p {
+            font-size: 10pt;
+            text-align: justify;
+        }
+
+        .keywords {
+            font-size: 9.5pt;
+            font-style: italic;
+            margin-top: 6px;
+            color: #444;
+        }
+
+        /* SECTIONS */
+        h2.section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 1.5px solid #1a1a1a;
+            padding-bottom: 3px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        h3.subsection-title {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 14px;
+            margin-bottom: 6px;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 8px;
+            font-size: 10.5pt;
+        }
+
+        /* SECURITY NOTE */
+        .security-note {
+            border-left: 4px solid #c0392b;
+            padding: 6px 12px;
+            background: #fff5f5;
+            margin: 10px 0;
+            font-size: 9.5pt;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 9.5pt;
+        }
+
+        thead tr {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        thead th {
+            padding: 7px 10px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 9pt;
+            letter-spacing: 0.03em;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f3f3f3;
+        }
+
+        tbody td {
+            padding: 6px 10px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        .status-ok { color: #1a7a3c; font-weight: bold; }
+        .status-dev { color: #b7800a; font-weight: bold; }
+
+        /* LAYERS */
+        .layer-block {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 2px;
+        }
+
+        .layer-block strong {
+            display: block;
+            font-size: 10pt;
+            margin-bottom: 3px;
+        }
+
+        .layer-block p {
+            font-size: 9.5pt;
+            margin: 0;
+            color: #333;
+        }
+
+        /* BOOT SEQUENCE */
+        .boot-sequence {
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            background: #f3f3f3;
+            border: 1px solid #ccc;
+            padding: 10px 14px;
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        /* UPDATE FLOW */
+        .flow-list {
+            counter-reset: flow;
+            list-style: none;
+            padding: 0;
+            margin: 8px 0;
+        }
+
+        .flow-list li {
+            counter-increment: flow;
+            font-size: 9.5pt;
+            padding: 4px 0 4px 28px;
+            position: relative;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .flow-list li::before {
+            content: counter(flow);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 8pt;
+            top: 5px;
+        }
+
+        /* PROTECTION DIAGRAM */
+        .protection-diagram {
+            font-family: 'Courier New', monospace;
+            font-size: 8.5pt;
+            background: #f3f3f3;
+            border: 1px solid #bbb;
+            padding: 12px;
+            margin: 12px 0;
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        /* AI COMPARISON */
+        .comparison-box {
+            display: flex;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .comp-card {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .comp-card .value {
+            font-size: 22pt;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .comp-card .label {
+            font-size: 9pt;
+            color: #555;
+            margin-top: 4px;
+        }
+
+        .comp-card.highlight {
+            border: 2px solid #1a1a1a;
+            background: #fafafa;
+        }
+
+        /* VALIDATION LIST */
+        .validation-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0;
+        }
+
+        .validation-list li {
+            font-size: 10pt;
+            padding: 3px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .check { color: #1a7a3c; font-weight: bold; margin-right: 6px; }
+
+        /* CONCLUSION */
+        .conclusion-items {
+            counter-reset: conc;
+            list-style: none;
+            padding: 0;
+        }
+
+        .conclusion-items li {
+            counter-increment: conc;
+            font-size: 10pt;
+            padding: 6px 0 6px 28px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .conclusion-items li::before {
+            content: counter(conc) ".";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* REFERENCES */
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            font-size: 9.5pt;
+            margin-bottom: 5px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        .paper-footer {
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            text-align: center;
+            font-size: 8.5pt;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* PAGE BREAK */
+        .page-break { page-break-before: always; }
+
+        @media print {
+            body { padding: 0; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="paper-header">
+        <h1>Sistema Kiosk Protegido com Operação Autônoma 24/7:<br>
+        Arquitetura, Proteção Multi-Camada e Aceleração por Inteligência Artificial</h1>
+        <div class="paper-meta">
+            Versão 1.0.0 — Produção &nbsp;|&nbsp; Fase v1.0 concluída em 16 de abril de 2026
+        </div>
+        <div class="classification-notice">
+            Documento público — dados sensíveis de configuração, protocolo e infraestrutura omitidos intencionalmente.
+        </div>
+    </div>
+
+    <!-- AUTHORS -->
+    <div class="authors-box">
+        <h2>Autores e Créditos</h2>
+        <div class="author-entry">
+            <strong>Cleyton Pedroza</strong>
+            <p>Criador dos componentes fundamentais do sistema. Responsável pela concepção da arquitetura base, desenvolvimento do protocolo de comunicação proprietário, criação da infraestrutura de servidores, criptografia e design original dos fluxos de operação.</p>
+        </div>
+        <div class="author-entry">
+            <strong>Leandro Batista</strong>
+            <p>Responsável pelo aperfeiçoamento, implementação prática e desenvolvimento de hardware. Transformou a base arquitetural em produto funcional em produção — implementando os drivers, o sistema de bloqueio físico multi-camada, a automação de build e os processos de recuperação autônoma. Fase v1.0 concluída em 7 dias com auxílio de IA.</p>
+        </div>
+    </div>
+
+    <!-- ABSTRACT -->
+    <div class="abstract-box">
+        <h2>Resumo</h2>
+        <p>Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional. A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.</p>
+        <p class="keywords"><strong>Palavras-chave:</strong> Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.</p>
+    </div>
+
+    <!-- SECTION 1 -->
+    <h2 class="section-title">1. Introdução</h2>
+    <p>Sistemas de Kiosk são amplamente utilizados em aplicações comerciais que exigem operação contínua e segura sem supervisão humana direta. O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas — tudo isso com latência mínima e sem interrupção do serviço.</p>
+    <p>O sistema foi concebido com uma base técnica sólida pré-existente — arquitetura, protocolos e criptografia desenvolvidos por Cleyton Pedroza — e implementado em sua totalidade funcional por Leandro Batista em 7 dias, com auxílio de ferramentas de IA. Este resultado representa uma redução de 75–90% no tempo de desenvolvimento estimado pelo modelo tradicional (30–60 dias com equipe).</p>
+    <div class="security-note">
+        <strong>Nota:</strong> Detalhes de configuração, caminhos de instalação, mensagens do protocolo e identificadores internos foram omitidos intencionalmente. O sistema encontra-se em fase de stage/teste em campo.
+    </div>
+
+    <!-- SECTION 2 -->
+    <h2 class="section-title">2. Arquitetura do Sistema</h2>
+
+    <h3 class="subsection-title">2.1 Componentes Principais</h3>
+    <table>
+        <thead>
+            <tr><th>#</th><th>Componente</th><th>Função</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>Driver Principal</td><td>Core do protocolo serial proprietário (botões, sensores, periféricos)</td><td class="status-ok">✔ Produção</td></tr>
+            <tr><td>2</td><td>Updater</td><td>Atualização automática com rollback</td><td class="status-ok">✔ Produção</td></tr>
+            <tr><td>3</td><td>Launcher</td><td>Interface Kiosk fullscreen isolada</td><td class="status-ok">✔ Produção</td></tr>
+            <tr><td>4</td><td>System Lock</td><td>Bloqueio físico de dispositivos de entrada</td><td class="status-ok">✔ Produção</td></tr>
+            <tr><td>5</td><td>Game Module</td><td>Jogos Interativos</td><td class="status-dev">⚙ Em desenvolvimento</td></tr>
+        </tbody>
+    </table>
+
+    <h3 class="subsection-title">2.2 Ambiente de Execução</h3>
+    <table>
+        <thead><tr><th>Categoria</th><th>Tecnologia</th></tr></thead>
+        <tbody>
+            <tr><td>Sistema Operacional</td><td>Linux</td></tr>
+            <tr><td>Gerenciador de Interface Gráfica</td><td>Minimalista (sem ambiente de desktop)</td></tr>
+            <tr><td>Gerenciador de Serviços</td><td>Daemon de Serviços do Sistema</td></tr>
+            <tr><td>Linguagem</td><td>Python 3</td></tr>
+            <tr><td>Compilação / Distribuição</td><td>Compilador de Binários</td></tr>
+            <tr><td>Versionamento</td><td>Git</td></tr>
+            <tr><td>Automação de Build</td><td>Ferramenta de Build Automatizado</td></tr>
+            <tr><td>Integridade</td><td>Checksum criptográfico (algoritmo não divulgado)</td></tr>
+        </tbody>
+    </table>
+
+    <h3 class="subsection-title">2.3 Sequência de Boot Determinística</h3>
+    <div class="boot-sequence">
+Estágio 1 → Boot do Sistema Linux<br>
+Estágio 2 → Gerenciador de Interface Gráfica carrega (ambiente minimalista)<br>
+Estágio 3 → Scripts de autostart executam<br>
+Estágio 4 → Driver Principal inicia (protocolo de comunicação)<br>
+Estágio 5 → Updater inicia (após intervalo controlado)<br>
+Estágio 6 → Launcher Kiosk inicia (após intervalo controlado)<br>
+Estágio 7 → System Lock inicia via serviço do daemon<br>
+Estágio 8 → Monitoramento contínuo ativo em todos os componentes
+    </div>
+
+    <!-- SECTION 3 -->
+    <h2 class="section-title">3. Protocolo de Comunicação Proprietário</h2>
+    <p>Protocolo serial proprietário desenvolvido por Cleyton Pedroza para padronizar a troca de mensagens entre os componentes e os periféricos de hardware. Opera sobre interface serial física e define comandos para controle de sensores físicos, periféricos de entrada de valores e iluminação.</p>
+    <div class="security-note">
+        <strong>Nota de segurança:</strong> A estrutura de mensagens, identificadores de comandos, endereçamento e parâmetros do protocolo são informações proprietárias e não são divulgados neste documento.
+    </div>
+    <p>Garantias implementadas: integridade por checksum por mensagem, timeout com prevenção de deadlocks, reconexão automática serial, monitoramento contínuo de componentes e isolamento total do sistema de bloqueio físico.</p>
+
+    <!-- SECTION 4 -->
+    <div class="page-break"></div>
+    <h2 class="section-title">4. Driver Principal</h2>
+    <p>Núcleo do sistema, responsável pela implementação completa do protocolo de comunicação proprietário e gerenciamento bidirecional de todos os periféricos de hardware.</p>
+    <table>
+        <thead><tr><th>Responsabilidade</th><th>Detalhe</th></tr></thead>
+        <tbody>
+            <tr><td>Protocolo proprietário</td><td>Implementação completa com validação de checksum por mensagem</td></tr>
+            <tr><td>Sensores físicos</td><td>Gerenciamento de botões de interação</td></tr>
+            <tr><td>Periférico de valores</td><td>Controle e leitura de estado</td></tr>
+            <tr><td>Iluminação</td><td>Controle do sistema de iluminação</td></tr>
+            <tr><td>Simulação de eventos</td><td>Geração de eventos de entrada para o sistema de jogos</td></tr>
+            <tr><td>Health check</td><td>Verificação contínua de todos os componentes integrados</td></tr>
+            <tr><td>Auditoria</td><td>Logging completo de operações</td></tr>
+        </tbody>
+    </table>
+    <p>Compilado em binário nativo para Linux — código-fonte não exposto no ambiente de produção. Deploy remoto automatizado com rollback automático para versão anterior em caso de falha.</p>
+
+    <!-- SECTION 5 -->
+    <h2 class="section-title">5. Sistema de Bloqueio Físico (System Lock)</h2>
+
+    <h3 class="subsection-title">5.1 Motivação</h3>
+    <p>Em sistemas Kiosk de uso público, um vetor de ataque comum é a inserção de dispositivos de entrada externos para obter acesso ao sistema operacional subjacente. O System Lock mitiga esse vetor com seis camadas independentes de bloqueio no kernel Linux — garantindo que, mesmo que uma camada seja contornada, as demais continuem ativas.</p>
+
+    <h3 class="subsection-title">5.2 Arquitetura em 6 Camadas Independentes</h3>
+
+    <div class="layer-block">
+        <strong>Camada 1 — Bloqueio Direto via Sistema de Arquivos (Prioridade Máxima)</strong>
+        <p>Remoção completa de permissões de acesso ao dispositivo no sistema de arquivos Linux, combinada com desabilitamento via interface de controle do kernel. Maior prioridade e menor latência.</p>
+    </div>
+    <div class="layer-block">
+        <strong>Camada 2 — Bloqueio via Camada Gráfica</strong>
+        <p>Desabilitamento do dispositivo na camada de servidor gráfico do sistema. Garante que dispositivos com permissões de sistema não possam enviar eventos para aplicações gráficas.</p>
+    </div>
+    <div class="layer-block">
+        <strong>Camada 3 — Remoção de Módulos do Kernel</strong>
+        <p>Descarregamento seletivo dos módulos do kernel responsáveis pelo suporte a dispositivos de interface humana. Impede que o kernel processe eventos do dispositivo na raiz do suporte ao hardware.</p>
+    </div>
+    <div class="layer-block">
+        <strong>Camada 4 — Bloqueio de Interface de Dispositivo (Wireless / Bluetooth)</strong>
+        <p>Bloqueio específico para dispositivos que comunicam via interface de entrada de baixo nível, cobrindo wireless RF, dongles 2.4GHz e Bluetooth. Remoção de permissões nos nós de dispositivo correspondentes.</p>
+    </div>
+    <div class="layer-block">
+        <strong>Camada 5 — Captura Exclusiva via Chamada de Sistema</strong>
+        <p>Chamada de sistema para captura exclusiva do dispositivo. Apenas o processo detentor recebe os eventos, impedindo que qualquer outra aplicação processe entradas do dispositivo bloqueado.</p>
+    </div>
+    <div class="layer-block">
+        <strong>Camada 6 — Regras Persistentes de Gerenciamento de Dispositivos</strong>
+        <p>Regras no sistema de gerenciamento de dispositivos que garantem bloqueio persistente após reinicializações e aplicação automática a qualquer novo dispositivo inserido.</p>
+    </div>
+
+    <h3 class="subsection-title">5.3 Dispositivos Cobertos</h3>
+    <table>
+        <thead><tr><th>Tipo</th><th>Tecnologia</th><th>Status</th></tr></thead>
+        <tbody>
+            <tr><td>Teclados USB</td><td>Todos os tipos e fabricantes</td><td class="status-ok">Bloqueado</td></tr>
+            <tr><td>Teclados PS2</td><td>Portas legadas</td><td class="status-ok">Bloqueado</td></tr>
+            <tr><td>Teclados Wireless RF</td><td>2.4GHz, proprietários</td><td class="status-ok">Bloqueado</td></tr>
+            <tr><td>Teclados Bluetooth</td><td>Todos os profiles</td><td class="status-ok">Bloqueado</td></tr>
+            <tr><td>Receptores Universais</td><td>Multi-dispositivo</td><td class="status-ok">Bloqueado e validado</td></tr>
+            <tr><td>Dispositivos de interface humana</td><td>Genéricos</td><td class="status-ok">Bloqueado</td></tr>
+        </tbody>
+    </table>
+
+    <h3 class="subsection-title">5.4 Monitoramento e Hotplug</h3>
+    <p>Loop de monitoramento com verificação a cada 1 segundo via análise de timestamps do sistema de arquivos. Ao detectar novo dispositivo de entrada, todas as 6 camadas são aplicadas imediatamente.</p>
+    <table>
+        <thead><tr><th>Métrica</th><th>Valor</th></tr></thead>
+        <tbody>
+            <tr><td>Latência máxima de detecção</td><td>1 segundo</td></tr>
+            <tr><td>Latência de bloqueio após detecção</td><td>Imediata (síncrona)</td></tr>
+            <tr><td>Cobertura</td><td>Qualquer dispositivo de entrada conectado após o boot</td></tr>
+        </tbody>
+    </table>
+
+    <!-- SECTION 6 -->
+    <div class="page-break"></div>
+    <h2 class="section-title">6. Interface Kiosk (Launcher)</h2>
+    <p>Implementa o princípio de mínima exposição ao sistema operacional:</p>
+    <table>
+        <thead><tr><th>Proteção</th><th>Mecanismo</th></tr></thead>
+        <tbody>
+            <tr><td>Fullscreen lock</td><td>Não pode ser minimizado ou redimensionado</td></tr>
+            <tr><td>Sem acesso ao SO</td><td>Sem terminal, sem gerenciador de arquivos</td></tr>
+            <tr><td>Process protection</td><td>Processo não pode ser encerrado pelo usuário</td></tr>
+            <tr><td>Auto-restart</td><td>Recuperação automática em menos de 3 segundos</td></tr>
+            <tr><td>Cursor invisível</td><td>Experiência Kiosk pura</td></tr>
+            <tr><td>Input validation</td><td>Apenas entradas autorizadas pelo protocolo são processadas</td></tr>
+        </tbody>
+    </table>
+    <p>Subsistemas integrados: detecção automática de display com suporte multi-monitor, gerenciamento de rede com reconexão automática, monitoramento de processos com controle por lista de permissões e motor de análise preditiva para detecção antecipada de falhas.</p>
+
+    <!-- SECTION 7 -->
+    <h2 class="section-title">7. Sistema de Atualização (Updater)</h2>
+    <ul class="flow-list">
+        <li><strong>Verificação de versão</strong> — Comparação entre versão local e versão disponível no servidor remoto.</li>
+        <li><strong>Download seguro</strong> — Transferência via canal criptografado com verificação de autenticidade.</li>
+        <li><strong>Backup da versão atual</strong> — Preservação completa antes de qualquer modificação.</li>
+        <li><strong>Validação de integridade</strong> — Checksum criptográfico do artefato antes da instalação.</li>
+        <li><strong>Instalação silenciosa</strong> — Sem interação do usuário e sem interrupção do serviço.</li>
+        <li><strong>Teste pós-instalação</strong> — Verificação de funcionamento do componente atualizado.</li>
+        <li><strong>Limpeza</strong> — Remoção de arquivos temporários.</li>
+        <li><strong>Rollback automático</strong> — Em caso de falha em qualquer passo, restauração da versão anterior.</li>
+    </ul>
+
+    <!-- SECTION 8 -->
+    <h2 class="section-title">8. Camadas de Proteção — Visão Consolidada</h2>
+    <div class="protection-diagram">
+┌──────────────────────────────────────────────────────┐<br>
+│              CAMADA 4: OPERACIONAL                   │<br>
+│  Monitoramento contínuo · Recuperação automática     │<br>
+│  Logs de auditoria · Health check · Alertas          │<br>
+├──────────────────────────────────────────────────────┤<br>
+│              CAMADA 3: SISTEMA                       │<br>
+│  Boot seguro · Atualizações automáticas              │<br>
+│  Rollback · Validação de integridade · Daemon        │<br>
+├──────────────────────────────────────────────────────┤<br>
+│              CAMADA 2: SOFTWARE                      │<br>
+│  Tela preta Kiosk · Sem terminal acessível           │<br>
+│  Cursor invisível · Restart automático               │<br>
+├──────────────────────────────────────────────────────┤<br>
+│              CAMADA 1: FÍSICA                        │<br>
+│  Bloqueio USB · PS2 · Wireless · Bluetooth           │<br>
+│  6 métodos independentes · Detecção hotplug 1s       │<br>
+└──────────────────────────────────────────────────────┘
+    </div>
+
+    <!-- SECTION 9 -->
+    <h2 class="section-title">9. O Papel da Inteligência Artificial no Desenvolvimento</h2>
+
+    <div class="comparison-box">
+        <div class="comp-card">
+            <div class="value">30–60</div>
+            <div class="label">dias · modelo tradicional<br>3–5 pessoas</div>
+        </div>
+        <div class="comp-card highlight">
+            <div class="value">7</div>
+            <div class="label">dias · com IA como parceira<br>1 pessoa</div>
+        </div>
+    </div>
+
+    <table>
+        <thead><tr><th>Área</th><th>Contribuição da IA</th></tr></thead>
+        <tbody>
+            <tr><td>Implementação de drivers</td><td>Estrutura base gerada e validada iterativamente</td></tr>
+            <tr><td>Debug</td><td>Identificação e resolução de problemas em tempo real</td></tr>
+            <tr><td>Padronização</td><td>Consistência entre os 5 componentes mantida automaticamente</td></tr>
+            <tr><td>Documentação</td><td>Geração e organização da documentação técnica</td></tr>
+            <tr><td>Arquitetura</td><td>Validação de decisões e sugestão de padrões</td></tr>
+            <tr><td>Testes</td><td>Geração de casos de teste e análise de cobertura</td></tr>
+        </tbody>
+    </table>
+    <p>O uso de IA não substitui o conhecimento técnico — ele amplifica a capacidade de execução. A base técnica sólida pré-existente foi o fator habilitador fundamental. <em>A profissão não foi substituída — ela foi comprimida e amplificada.</em></p>
+
+    <!-- SECTION 10 -->
+    <div class="page-break"></div>
+    <h2 class="section-title">10. Validação e Status em Campo</h2>
+    <p>O sistema encontra-se em fase de <strong>stage/teste em campo</strong> com cliente. Cenários validados:</p>
+    <ul class="validation-list">
+        <li><span class="check">✔</span> Boot completo do sistema sem interação manual</li>
+        <li><span class="check">✔</span> Bloqueio de teclado USB após hotplug</li>
+        <li><span class="check">✔</span> Bloqueio de receptor wireless universal</li>
+        <li><span class="check">✔</span> Protocolo de comunicação com System Lock ativo simultaneamente</li>
+        <li><span class="check">✔</span> Atualização remota sem interrupção do serviço</li>
+        <li><span class="check">✔</span> Recuperação automática após falha simulada</li>
+        <li><span class="check">✔</span> Operação contínua em janela de 24 horas</li>
+    </ul>
+
+    <!-- SECTION 11 -->
+    <h2 class="section-title">11. Stack Tecnológico</h2>
+    <table>
+        <thead><tr><th>Categoria</th><th>Tecnologia</th></tr></thead>
+        <tbody>
+            <tr><td>Linguagem</td><td>Python 3</td></tr>
+            <tr><td>Sistema Operacional</td><td>Linux</td></tr>
+            <tr><td>Gerenciador de Interface Gráfica</td><td>Minimalista</td></tr>
+            <tr><td>Gerenciador de Serviços</td><td>Daemon de Serviços do Sistema</td></tr>
+            <tr><td>Comunicação Serial</td><td>Interface serial física (protocolo proprietário)</td></tr>
+            <tr><td>Simulação de Eventos</td><td>Simulador de Eventos de Entrada</td></tr>
+            <tr><td>Compilação</td><td>Compilador de Binários</td></tr>
+            <tr><td>Versionamento</td><td>Git</td></tr>
+            <tr><td>Automação de Build</td><td>Ferramenta de Build Automatizado</td></tr>
+            <tr><td>Criptografia / Integridade</td><td>Checksum criptográfico (algoritmo não divulgado)</td></tr>
+        </tbody>
+    </table>
+
+    <!-- SECTION 12 -->
+    <h2 class="section-title">12. Conclusão</h2>
+    <p>Este paper apresentou a arquitetura e implementação de um sistema Kiosk com operação autônoma 24/7, proteção multi-camada e automação completa de ciclo de vida. O sistema demonstra que é possível construir infraestrutura de software embarcado robusta e de produção combinando três elementos fundamentais:</p>
+    <ol class="conclusion-items">
+        <li><strong>Arquitetura bem definida como fundação</strong> — concepção técnica sólida que define protocolos, fluxos e interfaces (contribuição de Cleyton Pedroza)</li>
+        <li><strong>Implementação focada com conhecimento de domínio</strong> — transformação da arquitetura em produto funcional, testado e em produção (contribuição de Leandro Batista)</li>
+        <li><strong>IA como acelerador de execução</strong> — compressão do ciclo de 30–60 dias para 7 dias, mantendo qualidade técnica</li>
+    </ol>
+    <p style="margin-top:12px"><strong>✔ Fase v1.0 concluída em 16/04/2026.</strong> Sistema em fase de stage/teste em campo com cliente.</p>
+
+    <!-- REFERENCES -->
+    <div class="references">
+        <h2 class="section-title">Referências</h2>
+        <ol>
+            <li>KIOSK INDUSTRY ASSOCIATION. <em>Best Practices for Unattended Kiosk Deployment and Security</em>. 2023. Disponível em: https://kioskindustry.org</li>
+            <li>CHEN, M.; TWOREK, J. et al. <em>Evaluating Large Language Models Trained on Code</em>. OpenAI, 2021. arXiv:2107.03374.</li>
+            <li>LINUX KERNEL DOCUMENTATION. <em>Input Subsystem — Event Interface</em>. The Linux Kernel Archives. Disponível em: https://www.kernel.org/doc/html/latest/input/input.html</li>
+            <li>FREEDESKTOP.ORG. <em>Dynamic Device Management — Linux Kernel Documentation</em>. 2024. Disponível em: https://www.kernel.org/doc/html/latest/driver-api/usb/index.html</li>
+            <li>THE LINUX DOCUMENTATION PROJECT. <em>Gerenciamento de Interface Gráfica em Ambientes Embarcados</em>. Disponível em: https://tldp.org</li>
+            <li>PYTHON SOFTWARE FOUNDATION. <em>Python Deployment and Distribution</em>. Disponível em: https://docs.python.org/3/distributing/</li>
+            <li>CORBET, J.; RUBINI, A.; KROAH-HARTMAN, G. <em>Linux Device Drivers</em>, 3rd ed. O'Reilly Media, 2005.</li>
+        </ol>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="paper-footer">
+        Sistema Kiosk Protegido e Automatizado &nbsp;·&nbsp; Versão 1.0.0 — Produção &nbsp;·&nbsp; Fase v1.0 concluída em 16/04/2026<br>
+        Documento público — informações sensíveis de configuração e protocolo omitidas intencionalmente.
+    </div>
+
+</body>
+</html>
