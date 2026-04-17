@@ -325,18 +325,46 @@
             text-align: center;
         }
 
-        .paper-inline-preview img {
-            width: 100%;
-            max-width: 780px;
+        .paper-inline-preview a.preview-link {
             display: block;
-            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            height: 320px;
+            cursor: zoom-in;
+        }
+
+        .paper-inline-preview a.preview-link::after {
+            content: '🔍 Clique para ver completo';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .paper-inline-preview a.preview-link img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: top;
+            height: 320px;
+            transition: transform 0.3s ease;
+        }
+
+        .paper-inline-preview a.preview-link:hover img {
+            transform: scale(1.02);
         }
 
         .paper-inline-preview span {
             display: block;
             font-size: 0.8rem;
             color: #7f8c8d;
-            padding: 6px;
+            padding: 7px 10px;
             background: #f8f9fa;
             border-top: 1px solid #eee;
         }
@@ -404,17 +432,11 @@
             <div id="x-content" class="post-content">
 
                 <!-- Paper Assets -->
-                <div class="paper-assets">
-                    <div class="paper-preview-img">
+                <div class="paper-inline-preview">
+                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
-                        <span>📄 Paper Técnico — v1.0</span>
-                    </div>
-                    <div class="paper-download-box">
-                        <h4>📑 Paper Técnico Completo</h4>
-                        <p>Documento acadêmico com arquitetura detalhada, sistema de bloqueio em 6 camadas, análise de IA no desenvolvimento e validação em campo.</p>
-                        <a class="dl-btn dl-btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download>⬇ Baixar PDF</a>
-                        <a class="dl-btn dl-btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download>🖼 Baixar JPG</a>
-                    </div>
+                    </a>
+                    <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
                 </div>
 
                 <div class="tweet-thread">
@@ -579,17 +601,11 @@
             <div id="linkedin-content" class="post-content">
 
                 <!-- Paper Assets -->
-                <div class="paper-assets">
-                    <div class="paper-preview-img">
+                <div class="paper-inline-preview">
+                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
-                        <span>📄 Paper Técnico — v1.0</span>
-                    </div>
-                    <div class="paper-download-box">
-                        <h4>📑 Paper Técnico Completo</h4>
-                        <p>Arquitetura, proteção em 4 camadas, bloqueio físico em 6 métodos, papel da IA no desenvolvimento e validação em campo. Documento público — sem dados sensíveis.</p>
-                        <a class="dl-btn dl-btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download>⬇ Baixar PDF</a>
-                        <a class="dl-btn dl-btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download>🖼 Baixar JPG</a>
-                    </div>
+                    </a>
+                    <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
                 </div>
 
                 <h3>Título Sugerido:</h3>
@@ -732,7 +748,9 @@
 
                 <!-- Paper Assets -->
                 <div class="paper-inline-preview">
-                    <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
+                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
+                        <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
+                    </a>
                     <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG</a></span>
                 </div>
 
@@ -887,18 +905,11 @@
             <div id="paper-content" class="post-content">
 
                 <!-- Paper Assets -->
-                <div class="paper-assets" style="margin-bottom:28px">
-                    <div class="paper-preview-img" style="width:260px">
+                <div class="paper-inline-preview">
+                    <a class="preview-link" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank">
                         <img src="PAPER_SISTEMA_KIOSK.jpg" alt="Preview do Paper Técnico" loading="lazy">
-                        <span>📄 Capa do Paper — v1.0</span>
-                    </div>
-                    <div class="paper-download-box">
-                        <h4>📑 Paper Técnico — Sistema Kiosk Protegido 24/7</h4>
-                        <p>Versão completa do documento acadêmico com todas as seções: arquitetura, protocolo proprietário, bloqueio em 6 camadas, Updater, Launcher, IA no desenvolvimento, validação em campo e referências.</p>
-                        <p style="font-size:0.8rem;color:#aaa">Documento público — dados sensíveis omitidos intencionalmente.</p>
-                        <a class="dl-btn dl-btn-pdf" href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download>⬇ Baixar PDF (503 KB)</a>
-                        <a class="dl-btn dl-btn-jpg" href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download>🖼 Baixar JPG (198 KB)</a>
-                    </div>
+                    </a>
+                    <span>📄 Paper Técnico Completo — <a href="PAPER_SISTEMA_KIOSK.pdf" target="_blank" download style="color:#3498db">⬇ Baixar PDF (503 KB)</a> &nbsp;|&nbsp; <a href="PAPER_SISTEMA_KIOSK.jpg" target="_blank" download style="color:#27ae60">🖼 Baixar JPG (218 KB)</a> &nbsp;— Documento público, dados sensíveis omitidos.</span>
                 </div>
 
                 <h2>Autores e Créditos</h2>
