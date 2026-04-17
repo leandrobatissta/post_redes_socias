@@ -325,7 +325,7 @@ Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller
 Logo minimalista com texto "Sistema Kiosk Protegido" sobre fundo preto. Interface futurista mostrando tela preta com texto verde/amarelo e indicadores de status. Design clean e tecnológico.
 
 **Tweet 2 - Arquitetura Simplificada:**
-Diagrama mostrando 5 blocos interconectados: driver_principal (centro - botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.
+Diagrama mostrando 5 blocos interconectados: driver_principal (botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.
 
 **Tweet 3 - Camadas de Proteção:**
 Infográfico em 3 níveis:

@@ -1,8 +1,27 @@
 # X (Twitter) Post - Sistema Kiosk Protegido
 
-## Thread Principal (Tweet 1/4):
+## Tweet 1/5 - Introdução:
 
-**Sistema Kiosk Protegido com Operação 24/7!** 
+Sistema Kiosk completo com proteção multi-camada e operação 24/7.
+
+Feito em 7 dias. Por uma pessoa. Código, deploy e testes.
+
+Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia.
+Mas implementar, integrar, testar e colocar em produção levaria entre 30 a 60 dias no modelo tradicional, com uma equipe.
+
+Com IA como parceira de desenvolvimento, uma única pessoa escreveu os drivers, automatizou o deploy, testou cada camada de proteção e entregou o produto funcional em 7 dias.
+
+Não foi magia. Foi arquitetura sólida + execução acelerada pela IA.
+
+Essa thread conta como foi feito. 👇
+
+#IA #DesenvolvimentoDeSoftware #Inovação
+
+---
+
+## Tweet 2/5 - Visão Geral:
+
+**Sistema Kiosk Protegido com Operação 24/7!**
 
 Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada que opera autonomamente sem intervenção manual.
 
@@ -16,7 +35,7 @@ Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispos
 
 ---
 
-## Tweet 2/4 - Arquitetura:
+## Tweet 3/5 - Arquitetura:
 
 **Arquitetura Multi-Camadas:**
 
@@ -33,7 +52,7 @@ Tudo integrado via protocolo V18F customizado!
 
 ---
 
-## Tweet 3/4 - Desafios e Proteção:
+## Tweet 4/5 - Desafios e Proteção:
 
 **Desafios Superados:**
 
@@ -51,7 +70,7 @@ Proteção física + digital + sistema!
 
 ---
 
-## Tweet 4/4 - Reconhecimento e Tecnologias:
+## Tweet 5/5 - Reconhecimento e Tecnologias:
 
 **Referências Técnicas:**
 
@@ -94,7 +113,7 @@ Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller
 Logo minimalista com texto "Sistema Kiosk Protegido" sobre fundo preto. Interface futurista mostrando tela preta com texto verde/amarelo e indicadores de status. Design clean e tecnológico.
 
 **Tweet 2 - Arquitetura Simplificada:**
-Diagrama mostrando 5 blocos interconectados: driver_principal (centro - botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.
+Diagrama mostrando 5 blocos interconectados: driver_principal (botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.
 
 **Tweet 3 - Camadas de Proteção:**
 Infográfico em 3 níveis:
