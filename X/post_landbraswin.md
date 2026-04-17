@@ -42,9 +42,9 @@ Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispos
 5 drivers principais em produção:
 1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
 2. auto_updater - Atualizações automáticas com rollback
-3. kiosk_launcher - Interface Kiosk com IA integrada
+3. kiosk_launcher - Interface Kiosk
 4. system_lock - Bloqueio físico (desenvolvimento específico)
-5. game_ai - IA para jogos (em desenvolvimento)
+5. game - Jogos Interativos (em desenvolvimento)
 
 Tudo integrado via protocolo V18F customizado!
 
@@ -81,17 +81,12 @@ Proteção física + digital + sistema!
 - Criação da infraestrutura de servidores e criptografia
 - Design original dos fluxos fundamentais
 
-*Todos os componentes base foram criados pelo Cleyton Pedroza.*
-
 **Leandro Batista** @LeandroBatista
 - Aperfeiçoamento e implementação
 - Melhoria dos componentes criados pelo Cleyton
 - Sistema de bloqueio desenvolvido e otimizado
 - Interface e automação final implementadas
 
-*Leandro aperfeiçoou muitas coisas criadas pelo Cleyton neste projeto.*
-
-*Componentes fundamentais criados por Cleyton Pedroza, com aperfeiçoamento prático por Leandro Batista*
 
 **🚀 Aceleração com IA:**
 - Desenvolvimento 60% mais rápido

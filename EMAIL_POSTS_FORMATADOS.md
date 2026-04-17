@@ -37,9 +37,9 @@ O sistema é composto por 5 drivers principais em produção:
 
 1. **driver_principal** - Core do protocolo V18F (botões, sensores, noteiro, lâmpadas)
 2. **auto_updater** - Sistema de atualização automática com rollback
-3. **kiosk_launcher** - Interface Kiosk com machine learning integrado
+3. **kiosk_launcher** - Interface Kiosk
 4. **system_lock** - Sistema de bloqueio físico de teclados (desenvolvimento específico)
-5. **game_ai** - IA para jogos (em desenvolvimento)
+5. **game** - Jogos Interativos (em desenvolvimento)
 
 ### Desafios Técnicos Superados
 
@@ -132,9 +132,9 @@ Imagine um "caixa eletrônico inteligente" que funciona 24h sozinho!
 5 drivers principais em produção:
 1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
 2. auto_updater - Atualizações automáticas  
-3. kiosk_launcher - Interface Kiosk com IA
+3. kiosk_launcher - Interface Kiosk
 4. system_lock - Bloqueio físico (desenvolvimento específico)
-5. game_ai - IA para jogos (em desenvolvimento)
+5. game - Jogos Interativos (em desenvolvimento)
 
 ### Desafios de Desenvolvimento
 O desenvolvimento de um sistema seguro que opera autonomamente apresentou desafios técnicos:
@@ -262,9 +262,9 @@ Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispos
 5 drivers principais em produção:
 1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
 2. auto_updater - Atualizações automáticas com rollback
-3. kiosk_launcher - Interface Kiosk com IA integrada
+3. kiosk_launcher - Interface Kiosk
 4. system_lock - Bloqueio físico (desenvolvimento específico)
-5. game_ai - IA para jogos (em desenvolvimento)
+5. game - Jogos Interativos (em desenvolvimento)
 
 Tudo integrado via protocolo V18F customizado!
 

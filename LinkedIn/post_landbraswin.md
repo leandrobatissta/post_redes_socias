@@ -44,9 +44,9 @@ O sistema é composto por 5 drivers principais em produção:
 
 1. **driver_principal** - Core do protocolo V18F (botões, sensores, noteiro, lâmpadas)
 2. **auto_updater** - Sistema de atualização automática com rollback
-3. **kiosk_launcher** - Interface Kiosk com machine learning integrado
+3. **kiosk_launcher** - Interface Kiosk
 4. **system_lock** - Sistema de bloqueio físico de teclados (desenvolvimento específico)
-5. **game_ai** - IA para jogos (em desenvolvimento)
+5. **game** - Jogos Interativos (em desenvolvimento)
 
 ### Desafios Técnicos Superados
 
@@ -76,12 +76,6 @@ Este acelerou significativamente o desenvolvimento, reduzindo tempo em ~60% enqu
 
 - **Arquitetura conceitual**: Design completo da estrutura fundamental do sistema
 - **Protocolos de comunicação**: Criação original dos protocolos de autenticação e transmissão
-- **Infraestrutura de servidores**: Arquitetura base de sistemas seguros e escaláveis
-- **Criptografia e segurança**: Desenvolvimento original dos protocolos de segurança
-- **Design de fluxos**: Criação da metodologia e componentes base
-- **Orientação técnica**: Mentoria completa do desenvolvimento conceitual
-
-*Todos os componentes fundamentais do sistema foram criados pelo Cleyton Pedroza, servindo como base para todo o projeto.*
 
 Leandro Batista - Aperfeiçoamento e implementação:
 
@@ -91,10 +85,6 @@ Leandro Batista - Aperfeiçoamento e implementação:
 - **Protocolo V18F**: Implementação otimizada da comunicação entre componentes
 - **Sistemas de automação**: Desenvolvimento dos processos de boot e recuperação
 - **Interface Kiosk**: Desenvolvimento da interface e integração final
-
-*Leandro Batista aperfeiçoou e implementou muitas das coisas criadas pelo Cleyton Pedroza neste projeto, levando a tecnologia base para um nível prático e funcional.*
-
-*Componentes fundamentais criados por Cleyton Pedroza, com aperfeiçoamento prático e implementação por Leandro Batista*
 
 ### Impacto e Resultados
 
