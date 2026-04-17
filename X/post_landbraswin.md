@@ -28,13 +28,15 @@ Resultado de cada vez: mais engenheiros. Produtos mais complexos. Mercado maior.
 Quando software fica mais barato de construir, mais problemas se tornam viáveis de resolver com software.
 O denominador encolhe. O numerador explode. Isso se chama Paradoxo de Jevons.
 
-Eu não acreditei. Até construir. Documentei tudo. Tem um paper técnico completo para baixar no final — PDF e JPG disponíveis. 👇
+Eu não acreditei. Até construir.
 
 O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas — com latência mínima e sem interrupção do serviço.
 
 **Dependência de internet:** O sistema requer conexão ativa para validação do Machine ID e atualizações remotas. O bloqueio de dispositivos é exclusivamente físico no kernel — não há bloqueio via rede ou firewall.
 
 **Requisito fundamental:** o sistema só opera se a máquina estiver cadastrada e liberada no banco remoto. No boot, o Launcher verifica o Machine ID — identificador único de hardware. Se não cadastrada: QR Code na tela, operação bloqueada até o admin liberar. Após liberação: reinicialização obrigatória.
+
+Documentei tudo. Tem um paper técnico completo para baixar no final — PDF e JPG disponíveis. 👇
 
 #IA #DesenvolvimentoDeSoftware #Inovação
 
