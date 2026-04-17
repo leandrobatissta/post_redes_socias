@@ -28,7 +28,15 @@ Este documento apresenta um sistema completo de Kiosk/Loja virtual desenvolvido 
 4. **system_lock** — Bloqueio físico em 6 camadas independentes no kernel. Cobre USB, PS2, wireless e Bluetooth. Latência máxima de detecção: 1 segundo.
 5. **game** — Jogos Interativos (em desenvolvimento)
 
-Boot determinístico com sequência de inicialização controlada por daemon de sistema. Cada componente possui restart automático independente.
+Boot determinístico com 8 estágios. No estágio 3.5, **antes de qualquer driver subir**, ocorre a validação de máquina:
+
+- Gera Machine ID único derivado do hardware
+- Consulta banco de dados remoto
+- Máquina não cadastrada: exibe QR Code + ID alfanumérico e bloqueia operação
+- Administrador cadastra no painel remoto e libera
+- Após liberação: reinicialização obrigatória para operação normal
+
+Machine ID derivado de hardware — não falsificável por software. Cada componente possui restart automático independente.
 
 ### Proteção em 4 Camadas
 

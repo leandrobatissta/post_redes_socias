@@ -28,7 +28,10 @@ Apresentação de um sistema de Kiosk/Loja virtual com arquitetura multi-camadas
 4. **system_lock** — Bloqueio físico em 6 camadas no kernel. USB, wireless e Bluetooth bloqueados em até 1 segundo.
 5. **game** — Jogos Interativos (em desenvolvimento)
 
-Boot determinístico com daemon de sistema gerenciando toda a sequência de inicialização.
+Boot determinístico com 8 estágios. Estágio 3.5 — antes de qualquer driver:
+
+🔐 **Validação de máquina** contra banco de dados remoto.
+Máquina não cadastrada exibe QR Code + Machine ID e fica bloqueada até o admin liberar. Após liberação: reinicialização para operação normal.
 
 ### Proteção em 4 Camadas 🛡️
 

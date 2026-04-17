@@ -433,11 +433,67 @@
 Estágio 1 → Boot do Sistema Linux<br>
 Estágio 2 → Gerenciador de Interface Gráfica carrega (ambiente minimalista)<br>
 Estágio 3 → Scripts de autostart executam<br>
+Estágio 3.5 → Validação de Máquina (Machine ID)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ Gera Machine ID único a partir do hardware<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ Consulta banco de dados remoto<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ [NÃO CADASTRADA] → Exibe QR Code + Machine ID em tela<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ Sistema fica em estado AGUARDANDO CADASTRO<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ [CADASTRADA E LIBERADA] → Prossegue para Estágio 4<br>
 Estágio 4 → Driver Principal inicia (protocolo de comunicação)<br>
 Estágio 5 → Updater inicia (após intervalo controlado)<br>
 Estágio 6 → Launcher Kiosk inicia (após intervalo controlado)<br>
 Estágio 7 → System Lock inicia via serviço do daemon<br>
 Estágio 8 → Monitoramento contínuo ativo em todos os componentes
+    </div>
+
+    <!-- SECTION 2.4 -->
+    <h2 class="section-title">2.4 Validação de Máquina (Machine ID)</h2>
+
+    <h3 class="subsection-title">Descrição</h3>
+    <p>Antes de permitir a operação normal do sistema, o Launcher executa uma validação de identidade da máquina contra um banco de dados remoto. Este mecanismo garante que apenas máquinas autorizadas e cadastradas pelo administrador possam operar o sistema Kiosk.</p>
+
+    <h3 class="subsection-title">Fluxo de Validação</h3>
+    <div class="boot-sequence">
+Início do sistema<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+Gera Machine ID único (derivado de identificadores de hardware)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+Consulta banco de dados remoto<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [NÃO ENCONTRADA] ───────────────────────────────────────┐<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;Gera QR Code com Machine ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;Exibe na tela: QR Code + ID alfanumérico&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;Estado: AGUARDANDO CADASTRO (operação bloqueada)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;[Admin cadastra a máquina no painel remoto]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;[Sistema detecta liberação na próxima verificação] ◄──────┘<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── [CADASTRADA / PENDENTE] → Aguarda liberação pelo admin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── [CADASTRADA E LIBERADA] → Prossegue operação normal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reinicialização necessária)
+    </div>
+
+    <h3 class="subsection-title">Estados da Máquina</h3>
+    <table>
+        <thead><tr><th>Estado</th><th>Descrição</th><th>Operação</th></tr></thead>
+        <tbody>
+            <tr><td><strong>NÃO CADASTRADA</strong></td><td>Machine ID não encontrado no banco</td><td>Bloqueada — exibe QR Code</td></tr>
+            <tr><td><strong>AGUARDANDO CADASTRO</strong></td><td>Cadastro submetido, aguardando aprovação do admin</td><td>Bloqueada</td></tr>
+            <tr><td><strong>LIBERADA</strong></td><td>Aprovada pelo administrador</td><td>Operação normal permitida</td></tr>
+        </tbody>
+    </table>
+
+    <h3 class="subsection-title">Segurança</h3>
+    <ul style="margin:8px 0 8px 20px;font-size:10.5pt;line-height:1.8">
+        <li>O Machine ID é derivado de identificadores únicos de hardware — não pode ser falsificado por software</li>
+        <li>A liberação ocorre exclusivamente via painel administrativo remoto</li>
+        <li>Após liberação, o sistema requer reinicialização para ativar operação normal</li>
+        <li>O QR Code é gerado dinamicamente e contém o Machine ID para facilitar o cadastro pelo administrador</li>
+    </ul>
+    <div class="security-note">
+        <strong>Nota de segurança:</strong> O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.
     </div>
 
     <!-- SECTION 3 -->

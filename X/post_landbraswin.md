@@ -43,7 +43,13 @@ Opera com interface minimalista (tela preta), sem acesso ao sistema operacional 
 4. system_lock — Bloqueio físico em 6 camadas independentes no kernel. Latência de detecção: 1 segundo.
 5. game — Jogos Interativos (em desenvolvimento)
 
-Boot determinístico com sequência de inicialização controlada por daemon de sistema.
+Boot determinístico com 8 estágios. No estágio 3.5, antes de qualquer driver subir:
+
+🔐 **Validação de máquina contra banco de dados remoto.**
+
+— Máquina não cadastrada? Gera QR Code + Machine ID na tela e bloqueia operação até o administrador liberar.
+— Máquina liberada? Reinicia e opera normally.
+— Machine ID derivado de hardware — não falsificável por software.
 
 #Python #Linux #SoftwareEmbarcado
 
@@ -51,7 +57,9 @@ Boot determinístico com sequência de inicialização controlada por daemon de 
 
 ## Tweet 4/5 - Proteção em 4 Camadas:
 
-**O maior desafio: operar 24/7 sem que ninguém consiga acessar o sistema.**
+**O maior desafio: operar 24/7 sem que ninguém consiga acessar o sistema sem autorização.**
+
+Camada 0 — Autorização de máquina: Machine ID validado contra banco remoto antes de qualquer operação. Máquina não cadastrada exibe QR Code e fica bloqueada.
 
 Camada 1 — Física: bloqueio de teclados USB, wireless e Bluetooth em 6 métodos independentes no kernel. Qualquer dispositivo inserido é bloqueado em até 1 segundo.
 

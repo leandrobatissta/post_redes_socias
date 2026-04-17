@@ -957,14 +957,54 @@
                 </table>
 
                 <h3>2.3 Sequência de Boot Determinística</h3>
-                <pre style="background:#f3f3f3;border:1px solid #ccc;padding:12px;font-size:0.85rem;line-height:1.8;overflow-x:auto">Estágio 1 → Boot do Sistema Linux
-Estágio 2 → Gerenciador de Interface Gráfica carrega (ambiente minimalista)
-Estágio 3 → Scripts de autostart executam
-Estágio 4 → Driver Principal inicia (protocolo de comunicação)
-Estágio 5 → Updater inicia (após intervalo controlado)
-Estágio 6 → Launcher Kiosk inicia (após intervalo controlado)
-Estágio 7 → System Lock inicia via serviço do daemon
-Estágio 8 → Monitoramento contínuo ativo em todos os componentes</pre>
+                <pre style="background:#f3f3f3;border:1px solid #ccc;padding:12px;font-size:0.85rem;line-height:1.8;overflow-x:auto">Estágio 1   → Boot do Sistema Linux
+Estágio 2   → Gerenciador de Interface Gráfica carrega (ambiente minimalista)
+Estágio 3   → Scripts de autostart executam
+Estágio 3.5 → Validação de Máquina (Machine ID)
+               ├─ Gera Machine ID único a partir do hardware
+               ├─ Consulta banco de dados remoto
+               ├─ [NÃO CADASTRADA] → Exibe QR Code + Machine ID em tela
+               │   └─ Sistema fica em estado AGUARDANDO CADASTRO
+               └─ [CADASTRADA E LIBERADA] → Prossegue para Estágio 4
+Estágio 4   → Driver Principal inicia (protocolo de comunicação)
+Estágio 5   → Updater inicia (após intervalo controlado)
+Estágio 6   → Launcher Kiosk inicia (após intervalo controlado)
+Estágio 7   → System Lock inicia via serviço do daemon
+Estágio 8   → Monitoramento contínuo ativo em todos os componentes</pre>
+
+                <h2>2.4 Validação de Máquina (Machine ID)</h2>
+                <p>Antes de permitir a operação normal do sistema, o Launcher executa uma validação de identidade da máquina contra um banco de dados remoto. Este mecanismo garante que apenas máquinas autorizadas e cadastradas pelo administrador possam operar o sistema Kiosk.</p>
+
+                <h3>Fluxo de Validação</h3>
+                <pre style="background:#f3f3f3;border:1px solid #ccc;padding:12px;font-size:0.82rem;line-height:1.8;overflow-x:auto">Início → Gera Machine ID único (hardware)
+         │
+         ▼
+         Consulta banco de dados remoto
+         │
+         ├── [NÃO ENCONTRADA] → Gera QR Code + exibe Machine ID na tela
+         │                       Estado: AGUARDANDO CADASTRO (bloqueada)
+         │                       Admin cadastra no painel remoto
+         │                       Sistema detecta liberação na próxima verificação
+         ├── [CADASTRADA / PENDENTE] → Aguarda liberação pelo admin
+         └── [CADASTRADA E LIBERADA] → Prossegue operação normal
+                                       (reinicialização necessária)</pre>
+
+                <h3>Estados da Máquina</h3>
+                <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.92rem">
+                    <thead><tr style="background:#2c3e50;color:#fff"><th style="padding:8px;text-align:left">Estado</th><th style="padding:8px;text-align:left">Descrição</th><th style="padding:8px;text-align:left">Operação</th></tr></thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px"><strong>NÃO CADASTRADA</strong></td><td style="padding:8px">Machine ID não encontrado no banco</td><td style="padding:8px;color:#e74c3c;font-weight:600">Bloqueada — exibe QR Code</td></tr>
+                        <tr style="border-bottom:1px solid #ddd"><td style="padding:8px"><strong>AGUARDANDO CADASTRO</strong></td><td style="padding:8px">Cadastro submetido, aguardando aprovação do admin</td><td style="padding:8px;color:#e67e22;font-weight:600">Bloqueada</td></tr>
+                        <tr><td style="padding:8px"><strong>LIBERADA</strong></td><td style="padding:8px">Aprovada pelo administrador</td><td style="padding:8px;color:#27ae60;font-weight:600">Operação normal permitida</td></tr>
+                    </tbody>
+                </table>
+                <ul style="margin:8px 0 8px 20px;font-size:0.92rem;line-height:1.9">
+                    <li>Machine ID derivado de identificadores únicos de hardware — não falsificável por software</li>
+                    <li>Liberação exclusivamente via painel administrativo remoto</li>
+                    <li>Após liberação, reinicialização obrigatória para ativar operação normal</li>
+                    <li>QR Code gerado dinamicamente com Machine ID para facilitar cadastro pelo administrador</li>
+                </ul>
+                <blockquote style="border-left:4px solid #e74c3c;padding:8px 14px;background:#fff5f5;color:#555;margin:12px 0;font-style:italic"><strong>Nota de segurança:</strong> O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.</blockquote>
 
                 <h2>3. Protocolo de Comunicação Proprietário</h2>
                 <p>Protocolo serial proprietário desenvolvido por Cleyton Pedroza para padronizar a troca de mensagens entre os componentes e os periféricos de hardware. Opera sobre interface serial física e define comandos para controle de sensores físicos, periféricos de entrada de valores e iluminação.</p>

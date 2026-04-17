@@ -73,12 +73,73 @@ O sistema segue uma sequência de boot determinística com delays controlados en
 Estágio 1 → Boot do Sistema Linux
 Estágio 2 → Gerenciador de Interface Gráfica carrega (ambiente minimalista)
 Estágio 3 → Scripts de autostart executam
+Estágio 3.5 → Validação de Máquina (Machine ID)
+              ├─ Gera Machine ID único a partir do hardware
+              ├─ Consulta banco de dados remoto
+              ├─ [SE NÃO CADASTRADA] Exibe QR Code + Machine ID em tela
+              │   └─ Sistema fica em estado AGUARDANDO CADASTRO
+              │       (operação bloqueada até liberação pelo administrador)
+              └─ [SE CADASTRADA E LIBERADA] Prossegue para Estágio 4
 Estágio 4 → Driver Principal inicia (protocolo de comunicação)
 Estágio 5 → Updater inicia (após intervalo controlado)
 Estágio 6 → Launcher Kiosk inicia (após intervalo controlado)
 Estágio 7 → System Lock inicia via serviço do daemon
 Estágio 8 → Monitoramento contínuo ativo em todos os componentes
 ```
+
+---
+
+## 2.4 Validação de Máquina (Machine ID)
+
+### Descrição
+
+Antes de permitir a operação normal do sistema, o Launcher executa uma validação de identidade da máquina contra um banco de dados remoto. Este mecanismo garante que apenas máquinas autorizadas e cadastradas pelo administrador possam operar o sistema Kiosk.
+
+### Fluxo de Validação
+
+```
+Início do sistema
+       │
+       ▼
+Gera Machine ID único
+(derivado de identificadores de hardware)
+       │
+       ▼
+Consulta banco de dados remoto
+       │
+       ├─── [NÃO ENCONTRADA] ──────────────────────────────────────┐
+       │                                                            │
+       │         Gera QR Code com Machine ID                       │
+       │         Exibe na tela: QR Code + ID alfanumérico          │
+       │         Estado: AGUARDANDO CADASTRO                       │
+       │         (sistema bloqueado — operação suspensa)           │
+       │                                                            │
+       │    [Administrador cadastra a máquina no painel remoto]    │
+       │    [Sistema detecta liberação na próxima verificação] ◄───┘
+       │
+       ├─── [CADASTRADA / PENDENTE] → Aguarda liberação pelo admin
+       │
+       └─── [CADASTRADA E LIBERADA] → Prossegue operação normal
+                                      (reinicialização necessária
+                                       para aplicar liberação)
+```
+
+### Estados da Máquina
+
+| Estado | Descrição | Operação |
+|---|---|---|
+| **NÃO CADASTRADA** | Machine ID não encontrado no banco | Bloqueada — exibe QR Code |
+| **AGUARDANDO CADASTRO** | Cadastro submetido, aguardando aprovação admin | Bloqueada |
+| **LIBERADA** | Aprovada pelo administrador | Operação normal permitida |
+
+### Segurança
+
+- O Machine ID é derivado de identificadores únicos de hardware — não pode ser falsificado por software
+- A liberação ocorre exclusivamente via painel administrativo remoto
+- Após liberação, o sistema requer reinicialização para ativar operação normal
+- O QR Code é gerado dinamicamente e contém o Machine ID para facilitar o cadastro pelo administrador
+
+> **Nota de segurança:** O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.
 
 ---
 
