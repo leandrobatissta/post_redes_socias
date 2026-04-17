@@ -4,6 +4,16 @@
 
 ## Texto do Post:
 
+Sistema Kiosk completo com proteção multi-camada e operação 24/7. Feito em 7 dias. Por uma pessoa. Código, deploy e testes.
+
+Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia. Mas implementar, integrar, testar e colocar em produção levaria entre 30 a 60 dias no modelo tradicional, com uma equipe.
+
+Com IA como parceira de desenvolvimento, uma única pessoa escreveu os drivers, automatizou o deploy, testou cada camada de proteção e entregou o produto funcional em 7 dias.
+
+Não foi magia. Foi arquitetura sólida + execução acelerada pela IA.
+
+---
+
 Este documento apresenta um sistema completo de Kiosk/Loja virtual desenvolvido com arquitetura robusta e múltiplas camadas de proteção para operação contínua 24/7 sem intervenção manual.
 
 **Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional e pronto para produção.
