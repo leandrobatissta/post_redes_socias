@@ -10,12 +10,12 @@ O que levaria 30 a 60 dias com uma equipe, levou 7 dias. Por uma pessoa.
 
 Não estava errado em duvidar. Estava olhando para o lugar errado.
 
-Dario Amodei, CEO da Anthropic, disse em outubro de 2025 na Dreamforce:
+Como o próprio CEO da Anthropic disse:
 
 > “A IA já escreve 90% do código das nossas equipes. Isso não significa que precisamos de menos engenheiros — significa que cada um deles tem 10x mais alavancagem.”
-
-Fonte: Exame — exame.com, out. 2025
-https://exame.com/inteligencia-artificial/ia-escreve-90-do-codigo-da-anthropic-mas-ceo-nao-demite-engenheiros/
+>
+> Dario Amodei — CEO, Anthropic · Dreamforce, out. 2025
+> Fonte: Exame — https://exame.com/inteligencia-artificial/ia-escreve-90-do-codigo-da-anthropic-mas-ceo-nao-demite-engenheiros/
 
 Isso já aconteceu antes:
 
