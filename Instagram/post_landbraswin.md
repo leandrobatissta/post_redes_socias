@@ -20,164 +20,71 @@ Apresentação de um sistema de Kiosk/Loja virtual com arquitetura multi-camadas
 
 **🎉 Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional!
 
-### Explicação Didática
+### Arquitetura em 5 componentes 🔧
 
-Imagine um "caixa eletrônico inteligente" que funciona 24h sozinho! 🏦
+1. **driver_principal** — Core do protocolo serial proprietário (botões, sensores, noteiro, lâmpadas). Checksum por mensagem + reconexão automática.
+2. **auto_updater** — Atualização silenciosa com backup, verificação de integridade e rollback automático.
+3. **kiosk_launcher** — Interface fullscreen isolada do SO. Detecção de display, monitoramento de rede e análise preditiva integrados.
+4. **system_lock** — Bloqueio físico em 6 camadas no kernel. USB, wireless e Bluetooth bloqueados em até 1 segundo.
+5. **game** — Jogos Interativos (em desenvolvimento)
 
-✅ **O que faz:** Processa pagamentos e controla acesso
-✅ **Como funciona:** Tela preta, super seguro, totalmente automático
-✅ **Por que é especial:** Bloqueia hackers, se recupera sozinho, se atualiza sozinho 
+Boot determinístico com daemon de sistema gerenciando toda a sequência de inicialização.
 
-### O Sistema
-- Interface Kiosk minimalista (tela preta) 
-- Protocolo V18F para comunicação
-- Bloqueio físico de teclados (USB, wireless, Bluetooth)
-- Operação autônoma 24/7 sem intervenção manual
-- Atualizações automáticas com rollback
+### Proteção em 4 Camadas 🛡️
 
-### Arquitetura
-5 drivers principais em produção:
-1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
-2. auto_updater - Atualizações automáticas  
-3. kiosk_launcher - Interface Kiosk
-4. system_lock - Bloqueio físico (desenvolvimento específico)
-5. game - Jogos Interativos (em desenvolvimento)
+- **Física**: 6 métodos independentes no kernel. Qualquer dispositivo inserido é bloqueado instantaneamente.
+- **Software**: Kiosk isolado, sem terminal, sem acesso ao SO. Processo não pode ser encerrado.
+- **Sistema**: Boot sem interação manual, atualizações remotas com rollback e checksum criptográfico.
+- **Operacional**: Monitoramento contínuo, restart automático, logs de auditoria.
 
-### Desafios de Desenvolvimento
-O desenvolvimento de um sistema seguro que opera autonomamente apresentou desafios técnicos:
+### 🚀 IA como Acelerador
 
-**Soluções Implementadas:**
-- Proteção física multi-camada
-- Ambiente Kiosk isolado
-- Monitoramento contínuo com recuperação automática
-- Boot seguro e manutenção remota
+7 dias. 1 pessoa. O que levaria 30–60 dias com equipe tradicional.
 
-### Referências Técnicas e Créditos
+⚡ Drivers implementados iterativamente com IA
+📝 Padronização automática entre os 5 componentes
+🔧 Debug e arquitetura validados em tempo real
 
-**Cleyton Pedroza** - Criador dos componentes fundamentais:
-- Criação da arquitetura conceitual do sistema
-- Desenvolvimento original dos protocolos de autenticação e comunicação
-- Criação da infraestrutura de servidores e criptografia
-- Design original dos fluxos e componentes
+A profissão não foi substituída — foi amplificada.
 
-*Todos os componentes fundamentais foram criados pelo Cleyton Pedroza, servindo como base para todo o projeto.*
+**✅ Fase v1.0 concluída em 16/04/2026!** 🚀
 
-**Leandro Batista** - Aperfeiçoamento e implementação:
-- Aperfeiçoamento dos componentes criados pelo Cleyton
-- Sistema de bloqueio físico desenvolvido
-- Protocolo V18F otimizado e implementado
-- Desenvolvimento de hardware e interface final
+### Créditos
 
-*Leandro Batista aperfeiçoou e implementou muitas das coisas criadas pelo Cleyton Pedroza neste projeto.*
+**Cleyton Pedroza** — Arquitetura base, protocolo serial proprietário, infraestrutura e criptografia.
+**Leandro Batista** — Implementação, sistema de bloqueio físico, automação e entrega.
 
-*Componentes fundamentais criados por Cleyton Pedroza, com aperfeiçoamento prático por Leandro Batista*
-
-### Tecnologias
-Python, Linux/OpenBox, SystemD, Protocolo V18F customizado
-
-### 🚀 Desenvolvimento Acelerado com IA
-
-O uso de IA no desenvolvimento revolucionou o processo:
-
-⚡ **60% mais rápido** - Geração automática de código
-📝 **Padronização** - Código consistente em todos os componentes
-🔧 **Debug inteligente** - Problemas identificados instantaneamente
-📚 **Documentação automática** - Manuais gerados同步
-
-Um exemplo de como automação e segurança podem criar sistemas comerciais robustos e confiáveis!
-
-**✅ Marco alcançado:** Fase v1.0 concluída com sucesso em 16/04/2026! 🚀 
+### Stack
+Python 3 · Linux · Protocolo serial proprietário · Compilador de binários · Daemon de sistema · Git
 
 ---
 
-## Resumo Visual do Sistema
+## Carrossel Visual 🎨
 
-### 🎥 **Tour Virtual do Sistema**
+**Slide 1 — Arquitetura:**
+Diagrama com 5 blocos interconectados via protocolo proprietário. Cores: azul para comunicação, verde para segurança, laranja para automação.
 
-**Interface em Operação:**
-- Tela preta fullscreen com texto verde/amarelo
-- Status: "Sistema Online | Protocolo V18F Ativo"
-- Indicadores: Sensores OK, Serial Conectado, Bloqueio Ativo
-- Navegação automática entre telas de informação
+**Slide 2 — Interface Kiosk:**
+Tela preta fullscreen. Sem barra de tarefas, sem menus, cursor invisível. Apenas status essenciais do sistema.
 
-**Funcionalidades Demonstradas:**
-- Detecção automática de dispositivos USB bloqueados
-- Comunicação serial com noteiro/lâmpadas
-- Processamento de comandos V18F em tempo real
-- Recuperação automática de falhas
+**Slide 3 — Proteção em Camadas:**
+Infográfico das 4 camadas: Física → Software → Sistema → Operacional. Cada camada com ícone e descrição funcional.
 
-### 🎨 **Carrossel Visual**
-
-**Slide 1 - Arquitetura:**
-Diagrama mostrando 5 drivers interconectados via protocolo V18F. Cada driver com sua função específica: driver_principal (botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai.
-
-**Slide 2 - Interface Kiosk:**
-Print da tela preta com informações do sistema. Sem barra de tarefas, sem menus, apenas status essenciais em texto simples.
-
-**Slide 3 - Sistema de Bloqueio:**
-Representação das 6 camadas de segurança: kernel, xinput, módulos, HIDRAW, EVIOCGRAB, UDEV. Ícones de teclados com símbolos de bloqueio.
-
-**Slide 4 - Dashboard:**
-Interface web com gráficos de performance, logs em tempo real, alertas de segurança e métricas dos 5 componentes.
-
-### 📱 **Série Stories**
-
-**Story 1 - Introdução:**
-"Sistema Kiosk Protegido 24/7" com animação do logo e texto explicativo rápido.
-
-**Story 2 - Desafios:**
-"Proteção Multi-Camada" com ícones dos 6 métodos de bloqueio e animação de dispositivos sendo bloqueados.
-
-**Story 3 - Arquitetura:**
-"5 Drivers Integrados" com diagrama animado mostrando comunicação V18F entre componentes.
-
-**Story 4 - Demonstração:**
-"Operação Autônoma" com vídeo da tela preta em funcionamento e logs sendo gerados.
-
-**Story 5 - IA no Desenvolvimento:**
-"60% Mais Rápido" com gráfico mostrando redução do tempo de desenvolvimento e ícones de ferramentas de IA.
-
-**Story 6 - Resultados:**
-"Sistema 100% Funcional" com métricas de uptime e indicadores de sucesso.
+**Slide 4 — IA no Desenvolvimento:**
+Gráfico comparativo: 7 dias (1 pessoa + IA) vs 30–60 dias (equipe tradicional).
 
 *Imagens ilustrativas podem complementar estes conceitos visuais*
 
 ---
 
 ## Hashtags:
-#SistemaKiosk #ProteçãoFísica #AutomaçãoComercial #SegurançaDigital #Linux #Python #IoT #InovaçãoTecnológica #DesenvolvimentoDeSoftware #SegurançaDaInformação #KioskMode #Operação247
-
----
-
-## Sugestões de Conteúdo Visual:
-
-### Para Reel/Video:
-- 15-30 segundos mostrando o sistema em operação
-- Animações explicando a arquitetura multi-camada
-- Demonstração do sistema de bloqueio físico
-- Transições suaves entre os componentes
-
-### Para Carrossel:
-- Slide 1: Capa com logo e título
-- Slide 2: Arquitetura do sistema
-- Slide 3: Interface Kiosk
-- Slide 4: Sistema de proteção
-- Slide 5: Tecnologias utilizadas
-- Slide 6: Resultados e impacto
-
-### Para Stories:
-- Story 1: Introdução ao projeto
-- Story 2: Desafios técnicos
-- Story 3: Arquitetura detalhada
-- Story 4: Demonstração prática
-- Story 5: Reconhecimentos e equipe
-- Story 6: Próximos passos (game_ai)
+#SistemaKiosk #ProteçãoFísica #AutomaçãoComercial #SegurançaDigital #Linux #Python #SoftwareEmbarcado #InovaçãoTecnológica #DesenvolvimentoDeSoftware #SegurançaDaInformação #Kiosk #IA
 
 ---
 
 ## Call to Action:
-"Comente abaixo o que você achou dessa arquitetura de sistema! Quer saber mais sobre algum componente específico? "
+"Qual camada de proteção você achou mais interessante? Comente abaixo! 👇"
 
 ## Menções:
-Cleyton Pedroza - Arquitetura e tecnologia base
-Leandro Batista - Implementação e hardware
+@cleytonpedroza — Arquitetura e tecnologia base
+@LeandroBatista — Implementação e hardware

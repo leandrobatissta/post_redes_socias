@@ -23,13 +23,11 @@ Essa thread conta como foi feito. 👇
 
 **Sistema Kiosk Protegido com Operação 24/7!**
 
-Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada que opera autonomamente sem intervenção manual.
+Arquitetura modular com 5 componentes em produção, comunicação via protocolo serial proprietário e 4 camadas de proteção independentes: física, software, sistema e operacional.
 
-**Explicação simples:** "Caixa eletrônico inteligente" 24h, super seguro, totalmente automático!
+Opera com interface minimalista (tela preta), sem acesso ao sistema operacional subjacente, boot determinístico e recuperação automática de falhas.
 
-**🎉 Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional!
-
-Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispositivos + automação completa.
+**🎉 Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional e validado em campo!
 
 #SistemaKiosk #SegurançaDigital #Automação
 
@@ -37,34 +35,31 @@ Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispos
 
 ## Tweet 3/5 - Arquitetura:
 
-**Arquitetura Multi-Camadas:**
+**5 componentes. 1 protocolo. Operação contínua.**
 
-5 drivers principais em produção:
-1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
-2. auto_updater - Atualizações automáticas com rollback
-3. kiosk_launcher - Interface Kiosk
-4. system_lock - Bloqueio físico (desenvolvimento específico)
-5. game - Jogos Interativos (em desenvolvimento)
+1. driver_principal — Core do protocolo serial proprietário (botões, sensores, noteiro, lâmpadas). Validação de checksum por mensagem, reconexão automática.
+2. auto_updater — Atualização silenciosa com backup, validação de integridade e rollback automático em caso de falha.
+3. kiosk_launcher — Interface fullscreen sem acesso ao SO. Monitoramento de processos, rede e análise preditiva integrados.
+4. system_lock — Bloqueio físico em 6 camadas independentes no kernel. Latência de detecção: 1 segundo.
+5. game — Jogos Interativos (em desenvolvimento)
 
-Tudo integrado via protocolo V18F customizado!
+Boot determinístico com sequência de inicialização controlada por daemon de sistema.
 
-#Python #Linux #IoT
+#Python #Linux #SoftwareEmbarcado
 
 ---
 
-## Tweet 4/5 - Desafios e Proteção:
+## Tweet 4/5 - Proteção em 4 Camadas:
 
-**Desafios Superados:**
+**O maior desafio: operar 24/7 sem que ninguém consiga acessar o sistema.**
 
-O desenvolvimento de um sistema seguro que opera 24/7 apresentou os seguintes desafios:
+Camada 1 — Física: bloqueio de teclados USB, wireless e Bluetooth em 6 métodos independentes no kernel. Qualquer dispositivo inserido é bloqueado em até 1 segundo.
 
-**Soluções Implementadas:**
-- Bloqueio físico multi-camada (USB, wireless, Bluetooth)
-- Ambiente Kiosk isolado sem acesso ao sistema
-- Monitoramento contínuo com recuperação automática
-- Boot seguro e manutenção remota
+Camada 2 — Software: ambiente Kiosk isolado, sem terminal, sem acesso ao SO. Processo não pode ser encerrado pelo usuário.
 
-Proteção física + digital + sistema!
+Camada 3 — Sistema: boot sem interação manual, atualizações remotas com rollback automático, verificação de integridade por checksum.
+
+Camada 4 — Operacional: monitoramento contínuo, restart automático de todos os serviços, logs de auditoria completos.
 
 #SegurançaDaInformação #ProteçãoFísica
 
@@ -88,13 +83,13 @@ Proteção física + digital + sistema!
 - Interface e automação final implementadas
 
 
-**🚀 Aceleração com IA:**
-- Desenvolvimento 60% mais rápido
-- Código padronizado automaticamente
+**🚀 IA como parceira de desenvolvimento:**
+- Implementação dos drivers acelerada iterativamente
+- Padronização de código entre os 5 componentes
 - Debug assistido em tempo real
-- Documentação gerada同步
+- Arquitetura validada e refinada com suporte de IA
 
-Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller
+Stack: Python 3 · Linux · Protocolo serial proprietário · Compilador de binários · Daemon de sistema
 
 **✅ Marco alcançado:** Fase v1.0 concluída com sucesso em 16/04/2026!
 
