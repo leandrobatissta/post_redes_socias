@@ -32,7 +32,7 @@ Solução completa de automação comercial que combina:
 
 O sistema é composto por 5 drivers principais em produção:
 
-1. **driver_principal** - Core do protocolo V18F (sensores, noteiro, lâmpadas)
+1. **driver_principal** - Core do protocolo V18F (botões, sensores, noteiro, lâmpadas)
 2. **auto_updater** - Sistema de atualização automática com rollback
 3. **kiosk_launcher** - Interface Kiosk com machine learning integrado
 4. **system_lock** - Sistema de bloqueio físico de teclados (desenvolvimento específico)

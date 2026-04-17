@@ -35,7 +35,7 @@ Solução completa de automação comercial que combina:
 
 O sistema é composto por 5 drivers principais em produção:
 
-1. **driver_principal** - Core do protocolo V18F (sensores, noteiro, lâmpadas)
+1. **driver_principal** - Core do protocolo V18F (botões, sensores, noteiro, lâmpadas)
 2. **auto_updater** - Sistema de atualização automática com rollback
 3. **kiosk_launcher** - Interface Kiosk com machine learning integrado
 4. **system_lock** - Sistema de bloqueio físico de teclados (desenvolvimento específico)
@@ -130,7 +130,7 @@ Imagine um "caixa eletrônico inteligente" que funciona 24h sozinho!
 
 ### Arquitetura
 5 drivers principais em produção:
-1. driver_principal - Core V18F (sensores, noteiro, lâmpadas)
+1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
 2. auto_updater - Atualizações automáticas  
 3. kiosk_launcher - Interface Kiosk com IA
 4. system_lock - Bloqueio físico (desenvolvimento específico)
@@ -260,7 +260,7 @@ Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispos
 **Arquitetura Multi-Camadas:**
 
 5 drivers principais em produção:
-1. driver_principal - Core V18F (sensores, noteiro, lâmpadas)
+1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
 2. auto_updater - Atualizações automáticas com rollback
 3. kiosk_launcher - Interface Kiosk com IA integrada
 4. system_lock - Bloqueio físico (desenvolvimento específico)
@@ -325,7 +325,7 @@ Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller
 Logo minimalista com texto "Sistema Kiosk Protegido" sobre fundo preto. Interface futurista mostrando tela preta com texto verde/amarelo e indicadores de status. Design clean e tecnológico.
 
 **Tweet 2 - Arquitetura Simplificada:**
-Diagrama mostrando 5 blocos interconectados: driver_principal (centro), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.
+Diagrama mostrando 5 blocos interconectados: driver_principal (centro - botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.
 
 **Tweet 3 - Camadas de Proteção:**
 Infográfico em 3 níveis:

@@ -25,7 +25,7 @@ Imagine um "caixa eletrônico inteligente" que funciona 24h sozinho! 🏦
 
 ### Arquitetura
 5 drivers principais em produção:
-1. driver_principal - Core V18F (sensores, noteiro, lâmpadas)
+1. driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)
 2. auto_updater - Atualizações automáticas  
 3. kiosk_launcher - Interface Kiosk com IA
 4. system_lock - Bloqueio físico (desenvolvimento específico)
@@ -97,7 +97,7 @@ Um exemplo de como automação e segurança podem criar sistemas comerciais robu
 ### 🎨 **Carrossel Visual**
 
 **Slide 1 - Arquitetura:**
-Diagrama mostrando 5 drivers interconectados via protocolo V18F. Cada driver com sua função específica: driver_principal, auto_updater, kiosk_launcher, system_lock, game_ai.
+Diagrama mostrando 5 drivers interconectados via protocolo V18F. Cada driver com sua função específica: driver_principal (botões, sensores, noteiro, lâmpadas), auto_updater, kiosk_launcher, system_lock, game_ai.
 
 **Slide 2 - Interface Kiosk:**
 Print da tela preta com informações do sistema. Sem barra de tarefas, sem menus, apenas status essenciais em texto simples.
