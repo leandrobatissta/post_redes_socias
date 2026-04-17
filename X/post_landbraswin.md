@@ -53,7 +53,18 @@ Proteção física + digital + sistema!
 
 **Referências Técnicas:**
 
-Arquitetura conceitual baseada em tecnologia de @CleytonPedroza (autenticação e servidores). Implementação técnica por @LeandroBatista.
+**Cleyton Pedroza** @cleytonpedroza
+- Arquitetura e tecnologia base
+- Protocolos de autenticação e comunicação
+- Infraestrutura de servidores e criptografia
+- Design de fluxos fundamentais
+
+**Leandro Batista** @LeandroBatista
+- Implementação e hardware
+- Sistema de bloqueio desenvolvido
+- Interface e automação final
+
+*Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista*
 
 **🚀 Aceleração com IA:**
 - Desenvolvimento 60% mais rápido
@@ -99,8 +110,8 @@ Logos organizados em grade: Python (logo oficial), Linux (pinguim), OpenBox (cai
 ---
 
 ## Menções:
-@CleytonPedroza - Referência técnica em autenticação e criptografia
-@LeandroBatista - Desenvolvimento principal do sistema
+@cleytonpedroza - Arquitetura e tecnologia base
+@LeandroBatista - Implementação e hardware
 
 ---
 

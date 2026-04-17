@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts para Redes Sociais - Sistema Kiosk Protegido</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            font-weight: 600;
+        }
+
+        .tab-button:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .tab-button.active {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-header {
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .post-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .post-content {
+            margin-bottom: 30px;
+        }
+
+        .post-content h3 {
+            color: #34495e;
+            font-size: 1.4rem;
+            margin: 25px 0 15px 0;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+
+        .post-content ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        .post-content li {
+            margin-bottom: 8px;
+        }
+
+        .post-content strong {
+            color: #2c3e50;
+        }
+
+        .credits-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .credits-section h4 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .hashtags {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .hashtags span {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .tweet-thread {
+            border-left: 3px solid #1da1f2;
+            padding-left: 20px;
+        }
+
+        .tweet {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #e1e8ed;
+        }
+
+        .tweet-number {
+            background: #1da1f2;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .copy-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .copy-button:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+        }
+
+        .copy-button.copied {
+            background: #e67e22;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tab-button {
+                margin: 5px 0;
+                width: 200px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Posts para Redes Sociais</h1>
+            <p class="subtitle">Sistema Kiosk Protegido com Arquitetura Multi-Camadas e Operação 24/7</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('linkedin')">LinkedIn</button>
+            <button class="tab-button" onclick="showTab('instagram')">Instagram</button>
+            <button class="tab-button" onclick="showTab('x')">X (Twitter)</button>
+        </div>
+
+        <!-- LinkedIn Tab -->
+        <div id="linkedin" class="tab-content active">
+            <div class="post-header">
+                <h2 class="post-title">LinkedIn Post - Sistema Kiosk Protegido</h2>
+                <p class="post-meta">Post institucional e educativo para LinkedIn</p>
+                <button class="copy-button" onclick="copyToClipboard('linkedin-content')">Copiar Conteúdo</button>
+            </div>
+
+            <div id="linkedin-content" class="post-content">
+                <h3>Título Sugerido:</h3>
+                <p><strong>"Sistema Kiosk Protegido com Arquitetura Multi-Camadas e Operação 24/7"</strong></p>
+
+                <h3>Texto do Post:</h3>
+                <p>Este documento apresenta um sistema completo de Kiosk/Loja virtual desenvolvido com arquitetura robusta e múltiplas camadas de proteção para operação contínua 24/7 sem intervenção manual.</p>
+
+                <h3>Visão Didática do Projeto</h3>
+                <p>Pense neste sistema como um "caixa eletrônico inteligente" que opera sozinho 24 horas por dia, sem necessidade de funcionários. Ele precisa ser extremamente seguro (para evitar fraudes), totalmente automático (para reduzir custos) e capaz de se recuperar de qualquer problema sozinho.</p>
+
+                <p><strong>O que faz:</strong></p>
+                <ul>
+                    <li>Aceita pagamentos e controla acesso</li>
+                    <li>Opera com interface minimalista (tela preta)</li>
+                    <li>Bloqueia qualquer tentativa de acesso externo</li>
+                    <li>Se atualiza e se recupera automaticamente</li>
+                    <li>Monitora tudo em tempo real</li>
+                </ul>
+
+                <h3>Arquitetura do Sistema</h3>
+                <p>Solução completa de automação comercial que combina:</p>
+                <ul>
+                    <li>Protocolo V18F para comunicação padronizada</li>
+                    <li>Sistema Kiosk com interface minimalista (tela preta)</li>
+                    <li>Proteção física e digital avançada</li>
+                    <li>Automação completa de boot, atualizações e recuperação</li>
+                    <li>Monitoramento contínuo em tempo real</li>
+                </ul>
+
+                <h3>Arquitetura Técnica</h3>
+                <p>O sistema é composto por 5 drivers principais em produção:</p>
+                <ul>
+                    <li><strong>driver_principal</strong> - Core do protocolo V18F (sensores, noteiro, lâmpadas)</li>
+                    <li><strong>auto_updater</strong> - Sistema de atualização automática com rollback</li>
+                    <li><strong>kiosk_launcher</strong> - Interface Kiosk com machine learning integrado</li>
+                    <li><strong>system_lock</strong> - Sistema de bloqueio físico de teclados (desenvolvimento específico)</li>
+                    <li><strong>game_ai</strong> - IA para jogos (em desenvolvimento)</li>
+                </ul>
+
+                <h3>Desafios Técnicos Superados</h3>
+                <p>O principal desafio no desenvolvimento foi criar um sistema seguro que operasse autonomamente. As soluções implementadas incluem:</p>
+                <ul>
+                    <li><strong>Bloqueio físico multi-camada</strong>: USB, PS2, wireless, Bluetooth</li>
+                    <li><strong>Proteção de software</strong>: Ambiente Kiosk isolado sem acesso ao sistema</li>
+                    <li><strong>Proteção de sistema</strong>: Boot seguro e atualizações automáticas</li>
+                    <li><strong>Monitoramento contínuo</strong>: Detecção em tempo real com recuperação automática</li>
+                </ul>
+
+                <h3>Aceleração do Desenvolvimento com IA</h3>
+                <p>O uso de ferramentas de IA no processo de desenvolvimento permitiu:</p>
+                <ul>
+                    <li><strong>Padronização de código</strong>: Geração consistente de drivers e componentes</li>
+                    <li><strong>Otimização de arquitetura</strong>: Sugestões automáticas de melhores práticas</li>
+                    <li><strong>Documentação automática</strong>: Geração de documentação técnica</li>
+                    <li><strong>Testes automatizados</strong>: Criação rápida de suites de testes</li>
+                    <li><strong>Debug assistido</strong>: Identificação rápida de problemas</li>
+                </ul>
+                <p>Este acelerou significativamente o desenvolvimento, reduzindo tempo em ~60% enquanto mantinha alta qualidade e consistência entre todos os componentes.</p>
+
+                <div class="credits-section">
+                    <h4>Referências Técnicas e Créditos</h4>
+                    <p><strong><a href="https://www.linkedin.com/in/cleyton-pedroza-7b131250" target="_blank">Cleyton Pedroza</a></strong> - Arquitetura e tecnologia base:</p>
+                    <ul>
+                        <li><strong>Arquitetura conceitual</strong>: Design da estrutura fundamental do sistema</li>
+                        <li><strong>Protocolos de comunicação</strong>: Criação dos protocolos de autenticação e transmissão</li>
+                        <li><strong>Infraestrutura de servidores</strong>: Arquitetura de sistemas seguros e escaláveis</li>
+                        <li><strong>Criptografia e segurança</strong>: Implementação dos protocolos de segurança</li>
+                        <li><strong>Design de fluxos</strong>: Metodologia dos componentes base</li>
+                        <li><strong>Orientação técnica</strong>: Direcionamento do desenvolvimento conceitual</li>
+                    </ul>
+                    
+                    <p><strong>Leandro Batista</strong> - Implementação e hardware:</p>
+                    <ul>
+                        <li><strong>Desenvolvimento físico</strong>: Implementação dos componentes de hardware</li>
+                        <li><strong>Sistema de proteção</strong>: Desenvolvimento do sistema de bloqueio multi-camada</li>
+                        <li><strong>Protocolo V18F</strong>: Implementação prática da comunicação entre componentes</li>
+                        <li><strong>Sistemas de automação</strong>: Desenvolvimento dos processos de boot e recuperação</li>
+                        <li><strong>Interface Kiosk</strong>: Desenvolvimento da interface e integração final</li>
+                    </ul>
+                    <p><em>Base tecnológica desenvolvida por Cleyton Pedroza, com implementação prática e hardware por Leandro Batista</em></p>
+                </div>
+
+                <h3>Impacto e Resultados</h3>
+                <ul>
+                    <li>Operação 24/7 garantida sem intervenção manual</li>
+                    <li>Proteção contra manipulação física e digital</li>
+                    <li>Atualizações remotas sem interrupção do serviço</li>
+                    <li>Logs completos para auditoria e conformidade</li>
+                    <li>Recuperação automática de falhas</li>
+                </ul>
+
+                <h3>Tecnologias Utilizadas</h3>
+                <ul>
+                    <li>Python para desenvolvimento dos drivers</li>
+                    <li>Linux/OpenBox para ambiente Kiosk</li>
+                    <li>SystemD para gerenciamento de serviços</li>
+                    <li>Protocolo V18F customizado</li>
+                    <li>PyInstaller/Nuitka para build e deploy</li>
+                    <li>Git para versionamento e deploy remoto</li>
+                </ul>
+
+                <p>Este projeto demonstra como é possível criar sistemas autônomos e seguros aplicando princípios de segurança modernos e automação avançada.</p>
+
+                <div class="hashtags">
+                    <span>#DesenvolvimentoDeSoftware</span>
+                    <span>#SegurançaDaInformação</span>
+                    <span>#SistemasEmbarcados</span>
+                    <span>#IoT</span>
+                    <span>#Automacao</span>
+                    <span>#Linux</span>
+                    <span>#Python</span>
+                    <span>#Kiosk</span>
+                    <span>#ProteçãoDeSistemas</span>
+                    <span>#Inovação</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Tab -->
+        <div id="instagram" class="tab-content">
+            <div class="post-header">
+                <h2 class="post-title">Instagram Post - Sistema Kiosk Protegido</h2>
+                <p class="post-meta">Post visual e educativo para Instagram</p>
+                <button class="copy-button" onclick="copyToClipboard('instagram-content')">Copiar Conteúdo</button>
+            </div>
+
+            <div id="instagram-content" class="post-content">
+                <h3>Legenda Principal:</h3>
+                <p><strong>"Sistema Kiosk Protegido com Operação 24/7!"</strong></p>
+                
+                <p>Apresentação de um sistema de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada!</p>
+
+                <h3>Explicação Didática</h3>
+                <p>Imagine um "caixa eletrônico inteligente" que funciona 24h sozinho!</p>
+                <p>**O que faz:** Processa pagamentos e controla acesso</p>
+                <p>**Como funciona:** Tela preta, super seguro, totalmente automático</p>
+                <p>**Por que é especial:** Bloqueia hackers, se recupera sozinho, se atualiza sozinho</p>
+
+                <h3>O Sistema</h3>
+                <ul>
+                    <li>Interface Kiosk minimalista (tela preta)</li>
+                    <li>Protocolo V18F para comunicação</li>
+                    <li>Bloqueio físico de teclados (USB, wireless, Bluetooth)</li>
+                    <li>Operação autônoma 24/7 sem intervenção manual</li>
+                    <li>Atualizações automáticas com rollback</li>
+                </ul>
+
+                <h3>Arquitetura</h3>
+                <p>5 drivers principais em produção:</p>
+                <ul>
+                    <li>driver_principal - Core V18F (sensores, noteiro, lâmpadas)</li>
+                    <li>auto_updater - Atualizações automáticas</li>
+                    <li>kiosk_launcher - Interface Kiosk com IA</li>
+                    <li>system_lock - Bloqueio físico (desenvolvimento específico)</li>
+                    <li>game_ai - IA para jogos (em desenvolvimento)</li>
+                </ul>
+
+                <h3>Desafios de Desenvolvimento</h3>
+                <p>O desenvolvimento de um sistema seguro que opera autonomamente apresentou desafios técnicos:</p>
+                <p><strong>Soluções Implementadas:</strong></p>
+                <ul>
+                    <li>Proteção física multi-camada</li>
+                    <li>Ambiente Kiosk isolado</li>
+                    <li>Monitoramento contínuo com recuperação automática</li>
+                    <li>Boot seguro e manutenção remota</li>
+                </ul>
+
+                <div class="credits-section">
+                    <h4>Referências Técnicas e Créditos</h4>
+                    <p><strong>Cleyton Pedroza</strong> - Arquitetura e tecnologia base:</p>
+                    <ul>
+                        <li>Arquitetura conceitual do sistema</li>
+                        <li>Protocolos de autenticação e comunicação</li>
+                        <li>Infraestrutura de servidores e criptografia</li>
+                        <li>Design de fluxos e componentes</li>
+                    </ul>
+                    
+                    <p><strong>Leandro Batista</strong> - Implementação e hardware:</p>
+                    <ul>
+                        <li>Sistema de bloqueio físico</li>
+                        <li>Protocolo V18F implementado</li>
+                        <li>Desenvolvimento de hardware</li>
+                        <li>Interface Kiosk final</li>
+                    </ul>
+                    <p><em>Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista</em></p>
+                </div>
+
+                <h3>Tecnologias</h3>
+                <p>Python, Linux/OpenBox, SystemD, Protocolo V18F customizado</p>
+
+                <h3>Desenvolvimento Acelerado com IA</h3>
+                <p>O uso de IA no desenvolvimento revolucionou o processo:</p>
+                <ul>
+                    <li>**60% mais rápido** - Geração automática de código</li>
+                    <li>**Padronização** - Código consistente em todos os componentes</li>
+                    <li>**Debug inteligente** - Problemas identificados instantaneamente</li>
+                    <li>**Documentação automática** - Manuais gerados</li>
+                </ul>
+
+                <p>Um exemplo de como automação e segurança podem criar sistemas comerciais robustos e confiáveis!</p>
+
+                <h3>Resumo Visual do Sistema</h3>
+                
+                <h4>Tour Virtual do Sistema</h4>
+                <p><strong>Interface em Operação:</strong></p>
+                <ul>
+                    <li>Tela preta fullscreen com texto verde/amarelo</li>
+                    <li>Status: "Sistema Online | Protocolo V18F Ativo"</li>
+                    <li>Indicadores: Sensores OK, Serial Conectado, Bloqueio Ativo</li>
+                    <li>Navegação automática entre telas de informação</li>
+                </ul>
+
+                <p><strong>Funcionalidades Demonstradas:</strong></p>
+                <ul>
+                    <li>Detecção automática de dispositivos USB bloqueados</li>
+                    <li>Comunicação serial com noteiro/lâmpadas</li>
+                    <li>Processamento de comandos V18F em tempo real</li>
+                    <li>Recuperação automática de falhas</li>
+                </ul>
+
+                <h4>Carrossel Visual</h4>
+                <p><strong>Slide 1 - Arquitetura:</strong></p>
+                <p>Diagrama mostrando 5 drivers interconectados via protocolo V18F. Cada driver com sua função específica: driver_principal, auto_updater, kiosk_launcher, system_lock, game_ai.</p>
+
+                <p><strong>Slide 2 - Interface Kiosk:</strong></p>
+                <p>Print da tela preta com informações do sistema. Sem barra de tarefas, sem menus, apenas status essenciais em texto simples.</p>
+
+                <p><strong>Slide 3 - Sistema de Bloqueio:</strong></p>
+                <p>Representação das 6 camadas de segurança: kernel, xinput, módulos, HIDRAW, EVIOCGRAB, UDEV. Ícones de teclados com símbolos de bloqueio.</p>
+
+                <p><strong>Slide 4 - Dashboard:</strong></p>
+                <p>Interface web com gráficos de performance, logs em tempo real, alertas de segurança e métricas dos 5 componentes.</p>
+
+                <h4>Série Stories</h4>
+                <p><strong>Story 1 - Introdução:</strong></p>
+                <p>"Sistema Kiosk Protegido 24/7" com animação do logo e texto explicativo rápido.</p>
+
+                <p><strong>Story 2 - Desafios:</strong></p>
+                <p>"Proteção Multi-Camada" com ícones dos 6 métodos de bloqueio e animação de dispositivos sendo bloqueados.</p>
+
+                <p><strong>Story 3 - Arquitetura:</strong></p>
+                <p>"5 Drivers Integrados" com diagrama animado mostrando comunicação V18F entre componentes.</p>
+
+                <p><strong>Story 4 - Demonstração:</strong></p>
+                <p>"Operação Autônoma" com vídeo da tela preta em funcionamento e logs sendo gerados.</p>
+
+                <p><strong>Story 5 - IA no Desenvolvimento:</strong></p>
+                <p>"60% Mais Rápido" com gráfico mostrando redução do tempo de desenvolvimento e ícones de ferramentas de IA.</p>
+
+                <p><strong>Story 6 - Resultados:</strong></p>
+                <p>"Sistema 100% Funcional" com métricas de uptime e indicadores de sucesso.</p>
+
+                <p><em>Imagens ilustrativas podem complementar estes conceitos visuais</em></p>
+
+                <div class="hashtags">
+                    <span>#SistemaKiosk</span>
+                    <span>#ProteçãoFísica</span>
+                    <span>#AutomaçãoComercial</span>
+                    <span>#SegurançaDigital</span>
+                    <span>#Linux</span>
+                    <span>#Python</span>
+                    <span>#IoT</span>
+                    <span>#InovaçãoTecnológica</span>
+                    <span>#DesenvolvimentoDeSoftware</span>
+                    <span>#SegurançaDaInformação</span>
+                    <span>#KioskMode</span>
+                    <span>#Operação247</span>
+                </div>
+
+                <h3>Call to Action:</h3>
+                <p>"Comente abaixo o que você achou dessa arquitetura de sistema! Quer saber mais sobre algum componente específico?"</p>
+
+                <h3>Menções:</h3>
+                <p>Cleyton Pedroza - Arquitetura e tecnologia base</p>
+                <p>Leandro Batista - Implementação e hardware</p>
+            </div>
+        </div>
+
+        <!-- X (Twitter) Tab -->
+        <div id="x" class="tab-content">
+            <div class="post-header">
+                <h2 class="post-title">X (Twitter) Post - Sistema Kiosk Protegido</h2>
+                <p class="post-meta">Thread técnica em 4 partes para X/Twitter</p>
+                <button class="copy-button" onclick="copyToClipboard('x-content')">Copiar Conteúdo</button>
+            </div>
+
+            <div id="x-content" class="post-content">
+                <div class="tweet-thread">
+                    <div class="tweet">
+                        <div class="tweet-number">Tweet 1/4</div>
+                        <h3>Thread Principal:</h3>
+                        <p><strong>"Sistema Kiosk Protegido com Operação 24/7!"</strong></p>
+                        <p>Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada que opera autonomamente sem intervenção manual.</p>
+                        <p><strong>Explicação simples:</strong> "Caixa eletrônico inteligente" 24h, super seguro, totalmente automático!</p>
+                        <p>Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispositivos + automação completa.</p>
+                        <div class="hashtags">
+                            <span>#SistemaKiosk</span>
+                            <span>#SegurançaDigital</span>
+                            <span>#Automação</span>
+                        </div>
+                    </div>
+
+                    <div class="tweet">
+                        <div class="tweet-number">Tweet 2/4</div>
+                        <h3>Arquitetura:</h3>
+                        <p><strong>"Arquitetura Multi-Camadas:"</strong></p>
+                        <p>5 drivers principais em produção:</p>
+                        <ul>
+                            <li>driver_principal - Core V18F (sensores, noteiro, lâmpadas)</li>
+                            <li>auto_updater - Atualizações automáticas com rollback</li>
+                            <li>kiosk_launcher - Interface Kiosk com IA integrada</li>
+                            <li>system_lock - Bloqueio físico (desenvolvimento específico)</li>
+                            <li>game_ai - IA para jogos (em desenvolvimento)</li>
+                        </ul>
+                        <p>Tudo integrado via protocolo V18F customizado!</p>
+                        <div class="hashtags">
+                            <span>#Python</span>
+                            <span>#Linux</span>
+                            <span>#IoT</span>
+                        </div>
+                    </div>
+
+                    <div class="tweet">
+                        <div class="tweet-number">Tweet 3/4</div>
+                        <h3>Desafios e Proteção:</h3>
+                        <p><strong>"Desafios Superados:"</strong></p>
+                        <p>O desenvolvimento de um sistema seguro que opera 24/7 apresentou os seguintes desafios:</p>
+                        <p><strong>Soluções Implementadas:</strong></p>
+                        <ul>
+                            <li>Bloqueio físico multi-camada (USB, wireless, Bluetooth)</li>
+                            <li>Ambiente Kiosk isolado sem acesso ao sistema</li>
+                            <li>Monitoramento contínuo com recuperação automática</li>
+                            <li>Boot seguro e manutenção remota</li>
+                        </ul>
+                        <p>Proteção física + digital + sistema!</p>
+                        <div class="hashtags">
+                            <span>#SegurançaDaInformação</span>
+                            <span>#ProteçãoFísica</span>
+                        </div>
+                    </div>
+
+                    <div class="tweet">
+                        <div class="tweet-number">Tweet 4/4</div>
+                        <h3>Reconhecimento e Tecnologias:</h3>
+                        <p><strong>"Referências Técnicas:"</strong></p>
+                        <p><strong>Cleyton Pedroza</strong> <a href="https://twitter.com/cleytonpedroza" target="_blank">@cleytonpedroza</a></p>
+                        <ul>
+                            <li>Arquitetura e tecnologia base</li>
+                            <li>Protocolos de autenticação e comunicação</li>
+                            <li>Infraestrutura de servidores e criptografia</li>
+                            <li>Design de fluxos fundamentais</li>
+                        </ul>
+                        
+                        <p><strong>Leandro Batista</strong> <a href="https://twitter.com/LeandroBatista" target="_blank">@LeandroBatista</a></p>
+                        <ul>
+                            <li>Implementação e hardware</li>
+                            <li>Sistema de bloqueio desenvolvido</li>
+                            <li>Interface e automação final</li>
+                        </ul>
+                        
+                        <p><em>Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista</em></p>
+
+                        <p><strong>"Aceleração com IA:"</strong></p>
+                        <ul>
+                            <li>Desenvolvimento 60% mais rápido</li>
+                            <li>Código padronizado automaticamente</li>
+                            <li>Debug assistido em tempo real</li>
+                            <li>Documentação gerada</li>
+                        </ul>
+                        
+                        <p>Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller</p>
+                        
+                        <div class="hashtags">
+                            <span>#DesenvolvimentoDeSoftware</span>
+                            <span>#Inovação</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Descrições Visuais para cada Tweet</h3>
+                
+                <p><strong>Tweet 1 - Conceito Visual:</strong></p>
+                <p>Logo minimalista com texto "Sistema Kiosk Protegido" sobre fundo preto. Interface futurista mostrando tela preta com texto verde/amarelo e indicadores de status. Design clean e tecnológico.</p>
+
+                <p><strong>Tweet 2 - Arquitetura Simplificada:</strong></p>
+                <p>Diagrama mostrando 5 blocos interconectados: driver_principal (centro), auto_updater, kiosk_launcher, system_lock, game_ai ao redor. Setas indicando comunicação via protocolo V18F. Cores: azul para sistema, verde para segurança, laranja para automação.</p>
+
+                <p><strong>Tweet 3 - Camadas de Proteção:</strong></p>
+                <p>Infográfico em 3 níveis:</p>
+                <ul>
+                    <li>Nível 1 (Física): Ícones de teclados USB/Bluetooth com cadeados</li>
+                    <li>Nível 2 (Software): Tela preta com ícone de escudo</li>
+                    <li>Nível 3 (Sistema): Servidor com ícone de engrenagem e relógio</li>
+                </ul>
+
+                <p><strong>Tweet 4 - Stack Tecnológico:</strong></p>
+                <p>Logos organizados em grade: Python (logo oficial), Linux (pinguim), OpenBox (caixa), SystemD (engrenagem), PyInstaller (caixa de build), Git (diamond). Fundo escuro com texto branco.</p>
+
+                <p><em>Imagens ilustrativas podem complementar estas descrições visuais</em></p>
+
+                <div class="hashtags">
+                    <span>#SistemaKiosk</span>
+                    <span>#ProteçãoFísica</span>
+                    <span>#AutomaçãoComercial</span>
+                    <span>#SegurançaCibernética</span>
+                    <span>#Linux</span>
+                    <span>#Python</span>
+                    <span>#IoT</span>
+                    <span>#InovaçãoTecnológica</span>
+                </div>
+
+                <h3>Call to Action:</h3>
+                <p>"Quer saber mais sobre sistemas autônomos e seguros? Comente abaixo!"</p>
+
+                <h3>Menções:</h3>
+                <p><a href="https://twitter.com/cleytonpedroza" target="_blank">@cleytonpedroza</a> - Arquitetura e tecnologia base</p>
+                <p><a href="https://twitter.com/LeandroBatista" target="_blank">@LeandroBatista</a> - Implementação e hardware</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 - Sistema Kiosk Protegido | Posts para Redes Sociais</p>
+            <p>Desenvolvido com HTML5, CSS3 e JavaScript | Conteúdo pronto para publicação</p>
+        </footer>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.innerText;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                // Change button text temporarily
+                const button = event.target;
+                const originalText = button.innerText;
+                button.innerText = 'Copiado!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.innerText = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Erro ao copiar texto: ', err);
+                
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    const button = event.target;
+                    const originalText = button.innerText;
+                    button.innerText = 'Copiado!';
+                    button.classList.add('copied');
+                    
+                    setTimeout(function() {
+                        button.innerText = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Fallback: Erro ao copiar texto: ', err);
+                }
+                
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

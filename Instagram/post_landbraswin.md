@@ -38,8 +38,21 @@ O desenvolvimento de um sistema seguro que opera autonomamente apresentou desafi
 - Monitoramento contínuo com recuperação automática
 - Boot seguro e manutenção remota
 
-### Referências Técnicas
-A arquitetura conceitual foi baseada em tecnologia desenvolvida por Cleyton Pedroza (autenticação e servidores). A implementação técnica foi desenvolvida por Leandro Batista.
+### Referências Técnicas e Créditos
+
+**Cleyton Pedroza** - Arquitetura e tecnologia base:
+- Arquitetura conceitual do sistema
+- Protocolos de autenticação e comunicação
+- Infraestrutura de servidores e criptografia
+- Design de fluxos e componentes
+
+**Leandro Batista** - Implementação e hardware:
+- Sistema de bloqueio físico
+- Protocolo V18F implementado
+- Desenvolvimento de hardware
+- Interface Kiosk final
+
+*Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista*
 
 ### Tecnologias
 Python, Linux/OpenBox, SystemD, Protocolo V18F customizado
@@ -146,5 +159,5 @@ Interface web com gráficos de performance, logs em tempo real, alertas de segur
 "Comente abaixo o que você achou dessa arquitetura de sistema! Quer saber mais sobre algum componente específico? "
 
 ## Menções:
-Cleyton Pedroza - Referência técnica em autenticação e criptografia
-Leandro Batista - Desenvolvimento principal do sistema
+Cleyton Pedroza - Arquitetura e tecnologia base
+Leandro Batista - Implementação e hardware

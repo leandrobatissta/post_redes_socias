@@ -58,16 +58,26 @@ Este acelerou significativamente o desenvolvimento, reduzindo tempo em ~60% enqu
 
 ### Reconhecimentos e Referências
 
-### Referências Técnicas
+### Referências Técnicas e Créditos
 
-A arquitetura conceitual e fluxo do sistema foram baseados em tecnologia desenvolvida por **Cleyton Pedroza**, com expertise em:
+[Cleyton Pedroza](https://www.linkedin.com/in/cleyton-pedroza-7b131250) - Arquitetura e tecnologia base:
 
-- Arquitetura de servidores seguros
-- Sistemas de autenticação e criptografia
-- Design de fluxos e componentes
-- Protocolos de comunicação segura
+- **Arquitetura conceitual**: Design da estrutura fundamental do sistema
+- **Protocolos de comunicação**: Criação dos protocolos de autenticação e transmissão
+- **Infraestrutura de servidores**: Arquitetura de sistemas seguros e escaláveis
+- **Criptografia e segurança**: Implementação dos protocolos de segurança
+- **Design de fluxos**: Metodologia dos componentes base
+- **Orientação técnica**: Direcionamento do desenvolvimento conceitual
 
-A implementação técnica do sistema de bloqueio físico, protocolo de comunicação e automação foi desenvolvida por **Leandro Batista**.
+Leandro Batista - Implementação e hardware:
+
+- **Desenvolvimento físico**: Implementação dos componentes de hardware
+- **Sistema de proteção**: Desenvolvimento do sistema de bloqueio multi-camada
+- **Protocolo V18F**: Implementação prática da comunicação entre componentes
+- **Sistemas de automação**: Desenvolvimento dos processos de boot e recuperação
+- **Interface Kiosk**: Desenvolvimento da interface e integração final
+
+*Base tecnológica desenvolvida por Cleyton Pedroza, com implementação prática e hardware por Leandro Batista*
 
 ### Impacto e Resultados
 
