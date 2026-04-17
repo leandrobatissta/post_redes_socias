@@ -6,6 +6,8 @@
 
 Este documento apresenta um sistema completo de Kiosk/Loja virtual desenvolvido com arquitetura robusta e múltiplas camadas de proteção para operação contínua 24/7 sem intervenção manual.
 
+**Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional e pronto para produção.
+
 ### Visão Didática do Projeto
 
 Pense neste sistema como um "caixa eletrônico inteligente" que opera sozinho 24 horas por dia, sem necessidade de funcionários. Ele precisa ser extremamente seguro (para evitar fraudes), totalmente automático (para reduzir custos) e capaz de se recuperar de qualquer problema sozinho.
@@ -60,24 +62,29 @@ Este acelerou significativamente o desenvolvimento, reduzindo tempo em ~60% enqu
 
 ### Referências Técnicas e Créditos
 
-[Cleyton Pedroza](https://www.linkedin.com/in/cleyton-pedroza-7b131250) - Arquitetura e tecnologia base:
+[Cleyton Pedroza](https://www.linkedin.com/in/cleyton-pedroza-7b131250) - Criador dos componentes fundamentais:
 
-- **Arquitetura conceitual**: Design da estrutura fundamental do sistema
-- **Protocolos de comunicação**: Criação dos protocolos de autenticação e transmissão
-- **Infraestrutura de servidores**: Arquitetura de sistemas seguros e escaláveis
-- **Criptografia e segurança**: Implementação dos protocolos de segurança
-- **Design de fluxos**: Metodologia dos componentes base
-- **Orientação técnica**: Direcionamento do desenvolvimento conceitual
+- **Arquitetura conceitual**: Design completo da estrutura fundamental do sistema
+- **Protocolos de comunicação**: Criação original dos protocolos de autenticação e transmissão
+- **Infraestrutura de servidores**: Arquitetura base de sistemas seguros e escaláveis
+- **Criptografia e segurança**: Desenvolvimento original dos protocolos de segurança
+- **Design de fluxos**: Criação da metodologia e componentes base
+- **Orientação técnica**: Mentoria completa do desenvolvimento conceitual
 
-Leandro Batista - Implementação e hardware:
+*Todos os componentes fundamentais do sistema foram criados pelo Cleyton Pedroza, servindo como base para todo o projeto.*
 
-- **Desenvolvimento físico**: Implementação dos componentes de hardware
-- **Sistema de proteção**: Desenvolvimento do sistema de bloqueio multi-camada
-- **Protocolo V18F**: Implementação prática da comunicação entre componentes
+Leandro Batista - Aperfeiçoamento e implementação:
+
+- **Aperfeiçoamento de componentes**: Melhoria significativa dos componentes criados pelo Cleyton
+- **Desenvolvimento físico**: Implementação prática dos componentes de hardware
+- **Sistema de proteção**: Desenvolvimento avançado do sistema de bloqueio multi-camada
+- **Protocolo V18F**: Implementação otimizada da comunicação entre componentes
 - **Sistemas de automação**: Desenvolvimento dos processos de boot e recuperação
 - **Interface Kiosk**: Desenvolvimento da interface e integração final
 
-*Base tecnológica desenvolvida por Cleyton Pedroza, com implementação prática e hardware por Leandro Batista*
+*Leandro Batista aperfeiçoou e implementou muitas das coisas criadas pelo Cleyton Pedroza neste projeto, levando a tecnologia base para um nível prático e funcional.*
+
+*Componentes fundamentais criados por Cleyton Pedroza, com aperfeiçoamento prático e implementação por Leandro Batista*
 
 ### Impacto e Resultados
 
@@ -97,6 +104,8 @@ Leandro Batista - Implementação e hardware:
 - Git para versionamento e deploy remoto
 
 Este projeto demonstra como é possível criar sistemas autônomos e seguros aplicando princípios de segurança modernos e automação avançada.
+
+**Marco alcançado:** Fase v1.0 concluída com sucesso em 16/04/2026, estabelecendo uma base sólida para futuras evoluções.
 
 #DesenvolvimentoDeSoftware #SegurançaDaInformação #SistemasEmbarcados #IoT #Automacao #Linux #Python #Kiosk #ProteçãoDeSistemas #Inovação
 

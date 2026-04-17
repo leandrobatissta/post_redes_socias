@@ -8,6 +8,8 @@ Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas e proteçã
 
 **Explicação simples:** "Caixa eletrônico inteligente" 24h, super seguro, totalmente automático!
 
+**🎉 Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional!
+
 Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispositivos + automação completa.
 
 #SistemaKiosk #SegurançaDigital #Automação
@@ -54,17 +56,23 @@ Proteção física + digital + sistema!
 **Referências Técnicas:**
 
 **Cleyton Pedroza** @cleytonpedroza
-- Arquitetura e tecnologia base
-- Protocolos de autenticação e comunicação
-- Infraestrutura de servidores e criptografia
-- Design de fluxos fundamentais
+- Criador dos componentes fundamentais
+- Criação original da arquitetura e tecnologia
+- Desenvolvimento dos protocolos de autenticação e comunicação
+- Criação da infraestrutura de servidores e criptografia
+- Design original dos fluxos fundamentais
+
+*Todos os componentes base foram criados pelo Cleyton Pedroza.*
 
 **Leandro Batista** @LeandroBatista
-- Implementação e hardware
-- Sistema de bloqueio desenvolvido
-- Interface e automação final
+- Aperfeiçoamento e implementação
+- Melhoria dos componentes criados pelo Cleyton
+- Sistema de bloqueio desenvolvido e otimizado
+- Interface e automação final implementadas
 
-*Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista*
+*Leandro aperfeiçoou muitas coisas criadas pelo Cleyton neste projeto.*
+
+*Componentes fundamentais criados por Cleyton Pedroza, com aperfeiçoamento prático por Leandro Batista*
 
 **🚀 Aceleração com IA:**
 - Desenvolvimento 60% mais rápido
@@ -73,6 +81,8 @@ Proteção física + digital + sistema!
 - Documentação gerada同步
 
 Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller
+
+**✅ Marco alcançado:** Fase v1.0 concluída com sucesso em 16/04/2026!
 
 #DesenvolvimentoDeSoftware #Inovação
 

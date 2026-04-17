@@ -6,6 +6,8 @@
 
 Apresentação de um sistema de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada!
 
+**🎉 Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional!
+
 ### Explicação Didática
 
 Imagine um "caixa eletrônico inteligente" que funciona 24h sozinho! 🏦
@@ -40,19 +42,23 @@ O desenvolvimento de um sistema seguro que opera autonomamente apresentou desafi
 
 ### Referências Técnicas e Créditos
 
-**Cleyton Pedroza** - Arquitetura e tecnologia base:
-- Arquitetura conceitual do sistema
-- Protocolos de autenticação e comunicação
-- Infraestrutura de servidores e criptografia
-- Design de fluxos e componentes
+**Cleyton Pedroza** - Criador dos componentes fundamentais:
+- Criação da arquitetura conceitual do sistema
+- Desenvolvimento original dos protocolos de autenticação e comunicação
+- Criação da infraestrutura de servidores e criptografia
+- Design original dos fluxos e componentes
 
-**Leandro Batista** - Implementação e hardware:
-- Sistema de bloqueio físico
-- Protocolo V18F implementado
-- Desenvolvimento de hardware
-- Interface Kiosk final
+*Todos os componentes fundamentais foram criados pelo Cleyton Pedroza, servindo como base para todo o projeto.*
 
-*Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista*
+**Leandro Batista** - Aperfeiçoamento e implementação:
+- Aperfeiçoamento dos componentes criados pelo Cleyton
+- Sistema de bloqueio físico desenvolvido
+- Protocolo V18F otimizado e implementado
+- Desenvolvimento de hardware e interface final
+
+*Leandro Batista aperfeiçoou e implementou muitas das coisas criadas pelo Cleyton Pedroza neste projeto.*
+
+*Componentes fundamentais criados por Cleyton Pedroza, com aperfeiçoamento prático por Leandro Batista*
 
 ### Tecnologias
 Python, Linux/OpenBox, SystemD, Protocolo V18F customizado
@@ -66,7 +72,9 @@ O uso de IA no desenvolvimento revolucionou o processo:
 🔧 **Debug inteligente** - Problemas identificados instantaneamente
 📚 **Documentação automática** - Manuais gerados同步
 
-Um exemplo de como automação e segurança podem criar sistemas comerciais robustos e confiáveis! 
+Um exemplo de como automação e segurança podem criar sistemas comerciais robustos e confiáveis!
+
+**✅ Marco alcançado:** Fase v1.0 concluída com sucesso em 16/04/2026! 🚀 
 
 ---
 
