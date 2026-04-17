@@ -1,19 +1,34 @@
 # X (Twitter) Post - Sistema Kiosk Protegido
 
-## Tweet 1/5 - Introdução:
+## Tweet 1/5 — Gancho:
 
-Sistema Kiosk completo com proteção multi-camada e operação 24/7.
+Me disseram que a IA ia mudar tudo. Não acreditei.
 
-Feito em 7 dias. Por uma pessoa. Código, deploy e testes.
+Até que precisei entregar um sistema em produção sozinho.
 
-Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia.
-Mas implementar, integrar, testar e colocar em produção levaria entre 30 a 60 dias no modelo tradicional, com uma equipe.
+O que levaria 30 a 60 dias com uma equipe, levou 7 dias. Por uma pessoa.
 
-Com IA como parceira de desenvolvimento, uma única pessoa escreveu os drivers, automatizou o deploy, testou cada camada de proteção e entregou o produto funcional em 7 dias.
+Não estava errado em duvidar. Estava olhando para o lugar errado.
 
-Não foi magia. Foi arquitetura sólida + execução acelerada pela IA.
+Dario Amodei, CEO da Anthropic, disse em outubro de 2025 na Dreamforce:
 
-Essa thread conta como foi feito. 👇
+> “A IA já escreve 90% do código das nossas equipes. Isso não significa que precisamos de menos engenheiros — significa que cada um deles tem 10x mais alavancagem.”
+
+Fonte: Exame — exame.com, out. 2025
+https://exame.com/inteligencia-artificial/ia-escreve-90-do-codigo-da-anthropic-mas-ceo-nao-demite-engenheiros/
+
+Isso já aconteceu antes:
+
+→ Compiladores substituíram assembly. “Programadores vão sumir.”
+→ Frameworks substituíram boilerplate. “Programadores vão sumir.”
+→ Cloud substituiu servidores físicos. “Programadores vão sumir.”
+
+Resultado de cada vez: mais engenheiros. Produtos mais complexos. Mercado maior.
+
+Quando software fica mais barato de construir, mais problemas se tornam viáveis de resolver com software.
+O denominador encolhe. O numerador explode. Isso se chama Paradoxo de Jevons.
+
+Eu não acreditei. Até construir. Essa thread mostra o que saíu. 👇
 
 #IA #DesenvolvimentoDeSoftware #Inovação
 
