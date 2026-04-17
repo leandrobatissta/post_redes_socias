@@ -445,107 +445,73 @@
                         <h3>Introdução:</h3>
                         <p>Sistema Kiosk completo com proteção multi-camada e operação 24/7.</p>
                         <p>Feito em 7 dias. Por uma pessoa. Código, deploy e testes.</p>
-                        <p>Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia.<br>
-                        Mas implementar, integrar, testar e colocar em produção levaria entre 30 a 60 dias no modelo tradicional, com uma equipe.</p>
+                        <p>Havia uma base técnica sólida já existente — arquitetura, protocolos, criptografia. Mas implementar, integrar, testar e colocar em produção levaria entre 30 a 60 dias no modelo tradicional, com uma equipe.</p>
                         <p>Com IA como parceira de desenvolvimento, uma única pessoa escreveu os drivers, automatizou o deploy, testou cada camada de proteção e entregou o produto funcional em 7 dias.</p>
-                        <p>Não foi magia. Foi arquitetura sólida + execução acelerada pela IA.</p>
-                        <p>Essa thread conta como foi feito. 👇</p>
-                        <div class="hashtags">
-                            <span>#IA</span>
-                            <span>#DesenvolvimentoDeSoftware</span>
-                            <span>#Inovação</span>
-                        </div>
+                        <p>Não foi magia. Foi arquitetura sólida + execução acelerada pela IA. Essa thread conta como foi feito. 👇</p>
+                        <div class="hashtags"><span>#IA</span><span>#DesenvolvimentoDeSoftware</span><span>#Inovação</span></div>
                     </div>
 
                     <div class="tweet">
                         <div class="tweet-number">Tweet 2/5</div>
                         <h3>Visão Geral:</h3>
-                        <p><strong>"Sistema Kiosk Protegido com Operação 24/7!"</strong></p>
-                        <p>Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada que opera autonomamente sem intervenção manual.</p>
-                        <p><strong>Explicação simples:</strong> "Caixa eletrônico inteligente" 24h, super seguro, totalmente automático!</p>
-                        <p><strong>🎉 Fase v1.0 finalizada em 16/04/2026</strong> - Sistema 100% funcional!</p>
-                        <p>Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispositivos + automação completa.</p>
-                        <div class="hashtags">
-                            <span>#SistemaKiosk</span>
-                            <span>#SegurançaDigital</span>
-                            <span>#Automação</span>
-                        </div>
+                        <p><strong>Sistema Kiosk Protegido com Operação 24/7!</strong></p>
+                        <p>Arquitetura modular com 5 componentes em produção, protocolo serial proprietário e 4 camadas de proteção independentes: física, software, sistema e operacional.</p>
+                        <p>Opera com interface minimalista (tela preta), sem acesso ao SO subjacente, boot determinístico e recuperação automática de falhas.</p>
+                        <p><strong>🎉 Fase v1.0 finalizada em 16/04/2026</strong> — Sistema 100% funcional e validado em campo!</p>
+                        <div class="hashtags"><span>#SistemaKiosk</span><span>#SegurançaDigital</span><span>#Automação</span></div>
                     </div>
 
                     <div class="tweet">
                         <div class="tweet-number">Tweet 3/5</div>
-                        <h3>Arquitetura:</h3>
-                        <p><strong>"Arquitetura Multi-Camadas:"</strong></p>
-                        <p>5 drivers principais em produção:</p>
+                        <h3>Arquitetura + Validação de Máquina:</h3>
+                        <p>🔐 <strong>A máquina só funciona se estiver cadastrada.</strong></p>
+                        <p>Antes de qualquer driver subir, o sistema valida o Machine ID contra o banco remoto. Não cadastrada: exibe QR Code + Machine ID e bloqueia tudo. Após o admin liberar e reiniciar: operação normal. Controle total de quem pode usar.</p>
+                        <p><strong>5 componentes. 1 protocolo. Operação contínua.</strong></p>
                         <ul>
-                            <li>driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)</li>
-                            <li>auto_updater - Atualizações automáticas com rollback</li>
-                            <li>kiosk_launcher - Interface Kiosk fullscreen isolada. Valida Machine ID.</li>
-                            <li>system_lock - Bloqueio físico em 6 camadas no kernel (USB, PS2, Wireless, Bluetooth)</li>
-                            <li>game - Módulo de entretenimento (em desenvolvimento)</li>
+                            <li>1️⃣ <strong>driver_principal</strong> — Core do protocolo serial proprietário. Botões, sensores, noteiro, lâmpadas. Checksum + reconexão automática.</li>
+                            <li>2️⃣ <strong>auto_updater</strong> — Atualização remota silenciosa: backup, integridade, rollback automático.</li>
+                            <li>3️⃣ <strong>kiosk_launcher</strong> — Interface fullscreen isolada. Valida Machine ID e libera o entretenimento só para máquinas cadastradas.</li>
+                            <li>4️⃣ <strong>system_lock</strong> — Bloqueio físico em 6 camadas no kernel: USB, PS2, Wireless, Bluetooth. Até 1 segundo.</li>
+                            <li>5️⃣ <strong>game</strong> — Módulo de entretenimento (em desenvolvimento)</li>
                         </ul>
-                        <p>Tudo integrado via protocolo serial proprietário!</p>
-                        <div class="hashtags">
-                            <span>#Python</span>
-                            <span>#Linux</span>
-                            <span>#IoT</span>
-                        </div>
+                        <p>Seguro. Atualizado. Bloqueado. Liberado só para quem deve usar.</p>
+                        <p>⚠️ Requer internet: validação de máquina e atualizações dependem de conectividade. Bloqueio é físico no kernel — não por rede.</p>
+                        <div class="hashtags"><span>#Python</span><span>#Linux</span><span>#SoftwareEmbarcado</span></div>
                     </div>
 
                     <div class="tweet">
                         <div class="tweet-number">Tweet 4/5</div>
-                        <h3>Desafios e Proteção:</h3>
-                        <p><strong>"Desafios Superados:"</strong></p>
-                        <p>O desenvolvimento de um sistema seguro que opera 24/7 apresentou os seguintes desafios:</p>
-                        <p><strong>Soluções Implementadas:</strong></p>
-                        <ul>
-                            <li>Bloqueio físico multi-camada (USB, wireless, Bluetooth)</li>
-                            <li>Ambiente Kiosk isolado sem acesso ao sistema</li>
-                            <li>Monitoramento contínuo com recuperação automática</li>
-                            <li>Boot seguro e manutenção remota</li>
-                        </ul>
-                        <p>Proteção física + digital + sistema!</p>
-                        <div class="hashtags">
-                            <span>#SegurançaDaInformação</span>
-                            <span>#ProteçãoFísica</span>
-                        </div>
+                        <h3>Proteção em Camadas:</h3>
+                        <p><strong>A máquina só funciona se estiver cadastrada e liberada. Esse é o controle.</strong></p>
+                        <p>🔐 <strong>Validação de máquina</strong> — Machine ID único derivado do hardware. Não cadastrada = QR Code na tela + operação 100% bloqueada até o admin liberar. Após liberação: reinicialização obrigatória.</p>
+                        <p>📦 <strong>Física</strong> — 6 camadas independentes no kernel: USB, PS2, Wireless, Bluetooth. Detecção em até 1 segundo.</p>
+                        <p>🖥 <strong>Software</strong> — Kiosk isolado, sem terminal, sem acesso ao SO. Processo inencerrável pelo usuário.</p>
+                        <p>🔄 <strong>Sistema</strong> — Boot autônomo, atualização remota com rollback, integridade por checksum.</p>
+                        <p>📊 <strong>Operacional</strong> — Monitoramento contínuo, restart automático, logs de auditoria.</p>
+                        <p>Seguro. Atualizado. Bloqueado.</p>
+                        <p>⚠️ O sistema requer internet: validação de máquina e atualizações remotas dependem de conectividade. Bloqueio é exclusivamente físico no kernel — não existe bloqueio por rede ou firewall.</p>
+                        <div class="hashtags"><span>#SegurançaDaInformação</span><span>#ProteçãoFísica</span></div>
                     </div>
 
                     <div class="tweet">
                         <div class="tweet-number">Tweet 5/5</div>
-                        <h3>Reconhecimento e Tecnologias:</h3>
-                        <p><strong>"Referências Técnicas:"</strong></p>
+                        <h3>Créditos e Stack:</h3>
                         <p><strong>Cleyton Pedroza</strong> <a href="https://twitter.com/cleytonpedroza" target="_blank">@cleytonpedroza</a></p>
                         <ul>
                             <li>Criador dos componentes fundamentais</li>
-                            <li>Criação original da arquitetura e tecnologia</li>
-                            <li>Desenvolvimento dos protocolos de autenticação e comunicação</li>
-                            <li>Criação da infraestrutura de servidores e criptografia</li>
-                            <li>Design original dos fluxos fundamentais</li>
+                            <li>Arquitetura base, protocolos de comunicação e criptografia</li>
+                            <li>Infraestrutura de servidores e design original dos fluxos</li>
                         </ul>
                         <p><strong>Leandro Batista</strong> <a href="https://twitter.com/LeandroBatista" target="_blank">@LeandroBatista</a></p>
                         <ul>
-                            <li>Aperfeiçoamento e implementação</li>
-                            <li>Melhoria dos componentes criados pelo Cleyton</li>
-                            <li>Sistema de bloqueio desenvolvido e otimizado</li>
-                            <li>Interface e automação final implementadas</li>
+                            <li>Aperfeiçoamento e implementação prática</li>
+                            <li>Sistema de bloqueio físico multi-camada</li>
+                            <li>Automação de boot, atualizações e recuperação</li>
+                            <li>Entrega da fase v1.0 em 7 dias com IA</li>
                         </ul>
-
-                        <p><strong>"🚀 Aceleração com IA:"</strong></p>
-                        <ul>
-                            <li>Desenvolvimento 60% mais rápido</li>
-                            <li>Código padronizado automaticamente</li>
-                            <li>Debug assistido em tempo real</li>
-                            <li>Documentação gerada</li>
-                        </ul>
-                        
-                        <p>Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller</p>
+                        <p>Stack: Python 3 · Linux · Protocolo serial proprietário · Compilador de binários · Daemon de sistema · Git</p>
                         <p><strong>✅ Marco alcançado:</strong> Fase v1.0 concluída com sucesso em 16/04/2026!</p>
-                        
-                        <div class="hashtags">
-                            <span>#DesenvolvimentoDeSoftware</span>
-                            <span>#Inovação</span>
-                        </div>
+                        <div class="hashtags"><span>#DesenvolvimentoDeSoftware</span><span>#Inovação</span></div>
                     </div>
                 </div>
 
@@ -632,33 +598,26 @@
                     <li>Monitora tudo em tempo real</li>
                 </ul>
 
-                <h3>Arquitetura do Sistema</h3>
-                <p>Solução completa de automação comercial que combina:</p>
+                <h3>Controle de Acesso por Máquina</h3>
+                <p>🔐 <strong>A máquina só funciona se estiver cadastrada e liberada.</strong> A primeira coisa que o sistema faz no boot é verificar se a máquina está cadastrada e liberada no banco de dados remoto. Se não estiver: exibe QR Code com o Machine ID na tela e bloqueia completamente toda operação. Após o administrador realizar o cadastro e liberar, o sistema reinicia e entra em operação normal. Controle total de quem pode ou não utilizar o equipamento.</p>
+                <p>Machine ID derivado de hardware — não falsificável por software. O Launcher só libera o módulo de entretenimento para máquinas cadastradas e ativas.</p>
+                <blockquote style="border-left:4px solid #e67e22;padding:8px 14px;background:#fef9f0;color:#555;margin:8px 0">⚠️ <strong>Dependência de internet:</strong> O sistema requer conectividade ativa para validação de Machine ID e recebimento de atualizações remotas. O bloqueio de dispositivos é exclusivamente físico, implementado no kernel — não há bloqueio via rede ou firewall.</blockquote>
+
+                <h3>5 Componentes. 1 Protocolo. Operação Contínua.</h3>
                 <ul>
-                    <li>Protocolo V18F para comunicação padronizada</li>
-                    <li>Sistema Kiosk com interface minimalista (tela preta)</li>
-                    <li>Proteção física e digital avançada</li>
-                    <li>Automação completa de boot, atualizações e recuperação</li>
-                    <li>Monitoramento contínuo em tempo real</li>
+                    <li><strong>driver_principal</strong> — Core do protocolo serial proprietário. Gerencia botões, sensores, noteiro e lâmpadas. Checksum por mensagem, health check contínuo, reconexão automática.</li>
+                    <li><strong>auto_updater</strong> — Atualização remota silenciosa: verificação de versão → download seguro → backup → validação de integridade → instalação → rollback automático.</li>
+                    <li><strong>kiosk_launcher</strong> — Interface fullscreen isolada. Sem terminal, sem acesso ao SO, cursor invisível. Valida Machine ID e libera o entretenimento só para máquinas autorizadas.</li>
+                    <li><strong>system_lock</strong> — Bloqueio físico em 6 camadas independentes no kernel: USB, PS2, Wireless, Bluetooth. Latência máxima: 1 segundo.</li>
+                    <li><strong>game</strong> — Módulo de entretenimento (em desenvolvimento)</li>
                 </ul>
 
-                <h3>Arquitetura Técnica</h3>
-                <p>O sistema é composto por 5 drivers principais em produção:</p>
+                <h3>Proteção em 4 Camadas</h3>
                 <ul>
-                    <li><strong>driver_principal</strong> - Core do protocolo V18F (botões, sensores, noteiro, lâmpadas)</li>
-                    <li><strong>auto_updater</strong> - Sistema de atualização automática com rollback</li>
-                    <li><strong>kiosk_launcher</strong> - Interface Kiosk fullscreen isolada. Valida Machine ID e libera entretenimento só para máquinas cadastradas.</li>
-                    <li><strong>system_lock</strong> - Bloqueio físico em 6 camadas no kernel (USB, PS2, Wireless, Bluetooth)</li>
-                    <li><strong>game</strong> - Módulo de entretenimento (em desenvolvimento)</li>
-                </ul>
-
-                <h3>Desafios Técnicos Superados</h3>
-                <p>O principal desafio no desenvolvimento foi criar um sistema seguro que operasse autonomamente. As soluções implementadas incluem:</p>
-                <ul>
-                    <li><strong>Bloqueio físico multi-camada</strong>: USB, PS2, wireless, Bluetooth</li>
-                    <li><strong>Proteção de software</strong>: Ambiente Kiosk isolado sem acesso ao sistema</li>
-                    <li><strong>Proteção de sistema</strong>: Boot seguro e atualizações automáticas</li>
-                    <li><strong>Monitoramento contínuo</strong>: Detecção em tempo real com recuperação automática</li>
+                    <li><strong>Física</strong>: Bloqueio de dispositivos de entrada em 6 métodos independentes no kernel. Qualquer hardware inserido é bloqueado em até 1 segundo.</li>
+                    <li><strong>Software</strong>: Ambiente Kiosk isolado sem terminal, sem acesso ao SO subjacente. Processo não pode ser encerrado pelo usuário.</li>
+                    <li><strong>Sistema</strong>: Boot sem interação manual, atualizações remotas com rollback automático, verificação de integridade por checksum criptográfico.</li>
+                    <li><strong>Operacional</strong>: Monitoramento contínuo, restart automático de todos os serviços, logs de auditoria completos.</li>
                 </ul>
 
                 <h3>Aceleração do Desenvolvimento com IA</h3>
@@ -763,93 +722,51 @@
                 <hr>
                 <div class="tweet-thread">
                     <div class="tweet">
-                        <div class="tweet-number">Tweet 1/4</div>
-                        <h3>Thread Principal:</h3>
-                        <p><strong>"Sistema Kiosk Protegido com Operação 24/7!"</strong></p>
-                        <p>Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas e proteção avançada que opera autonomamente sem intervenção manual.</p>
-                        <p><strong>Explicação simples:</strong> "Caixa eletrônico inteligente" 24h, super seguro, totalmente automático!</p>
-                        <p>Interface minimalista (tela preta) + protocolo V18F + bloqueio físico de dispositivos + automação completa.</p>
-                        <div class="hashtags">
-                            <span>#SistemaKiosk</span>
-                            <span>#SegurançaDigital</span>
-                            <span>#Automação</span>
-                        </div>
+                        <div class="tweet-number">Slide 1/4</div>
+                        <h3>Visão Geral:</h3>
+                        <p><strong>Sistema Kiosk Protegido com Operação 24/7!</strong></p>
+                        <p>Sistema completo de Kiosk/Loja virtual com arquitetura multi-camadas. Opera autonomamente sem intervenção manual — interface minimalista (tela preta), sem acesso ao SO, boot determinístico e recuperação automática de falhas.</p>
+                        <p><strong>🎉 Fase v1.0 finalizada em 16/04/2026</strong> — Sistema 100% funcional!</p>
+                        <div class="hashtags"><span>#SistemaKiosk</span><span>#SegurançaDigital</span><span>#Automação</span></div>
                     </div>
 
                     <div class="tweet">
-                        <div class="tweet-number">Tweet 2/4</div>
-                        <h3>Arquitetura:</h3>
-                        <p><strong>"Arquitetura Multi-Camadas:"</strong></p>
-                        <p>5 drivers principais em produção:</p>
+                        <div class="tweet-number">Slide 2/4</div>
+                        <h3>Validação de Máquina + 5 Componentes:</h3>
+                        <p>🔐 <strong>A máquina só funciona se estiver cadastrada.</strong></p>
+                        <p>Antes de qualquer coisa, o sistema verifica se a máquina está registrada no banco remoto. Não está? QR Code na tela + tudo bloqueado. Admin libera, reinicia, opera. Controle total.</p>
+                        <p>O Launcher só libera o entretenimento para máquinas com cadastro ativo. Machine ID derivado do hardware — não dá pra falsificar.</p>
                         <ul>
-                            <li>driver_principal - Core V18F (botões, sensores, noteiro, lâmpadas)</li>
-                            <li>auto_updater - Atualizações automáticas com rollback</li>
-                            <li>kiosk_launcher - Interface Kiosk fullscreen isolada. Valida Machine ID.</li>
-                            <li>system_lock - Bloqueio físico em 6 camadas no kernel (USB, PS2, Wireless, Bluetooth)</li>
-                            <li>game - Módulo de entretenimento (em desenvolvimento)</li>
+                            <li>1️⃣ <strong>driver_principal</strong> — Protocolo serial proprietário. Botões, sensores, noteiro, lâmpadas.</li>
+                            <li>2️⃣ <strong>auto_updater</strong> — Atualização remota silenciosa. Backup, integridade, rollback.</li>
+                            <li>3️⃣ <strong>kiosk_launcher</strong> — Interface fullscreen isolada. Valida Machine ID.</li>
+                            <li>4️⃣ <strong>system_lock</strong> — 6 camadas no kernel: USB, PS2, Wireless, Bluetooth. Até 1s.</li>
+                            <li>5️⃣ <strong>game</strong> — Módulo de entretenimento (em desenvolvimento)</li>
                         </ul>
-                        <p>Tudo integrado via protocolo serial proprietário!</p>
-                        <div class="hashtags">
-                            <span>#Python</span>
-                            <span>#Linux</span>
-                            <span>#IoT</span>
-                        </div>
+                        <p>⚠️ Requer internet: validação de máquina e atualizações dependem de conectividade. Bloqueio é físico no kernel — não por rede.</p>
+                        <div class="hashtags"><span>#Python</span><span>#Linux</span><span>#SoftwareEmbarcado</span></div>
                     </div>
 
                     <div class="tweet">
-                        <div class="tweet-number">Tweet 3/4</div>
-                        <h3>Desafios e Proteção:</h3>
-                        <p><strong>"Desafios Superados:"</strong></p>
-                        <p>O desenvolvimento de um sistema seguro que opera 24/7 apresentou os seguintes desafios:</p>
-                        <p><strong>Soluções Implementadas:</strong></p>
-                        <ul>
-                            <li>Bloqueio físico multi-camada (USB, wireless, Bluetooth)</li>
-                            <li>Ambiente Kiosk isolado sem acesso ao sistema</li>
-                            <li>Monitoramento contínuo com recuperação automática</li>
-                            <li>Boot seguro e manutenção remota</li>
-                        </ul>
-                        <p>Proteção física + digital + sistema!</p>
-                        <div class="hashtags">
-                            <span>#SegurançaDaInformação</span>
-                            <span>#ProteçãoFísica</span>
-                        </div>
+                        <div class="tweet-number">Slide 3/4</div>
+                        <h3>Proteção em 4 Camadas:</h3>
+                        <p>🔐 <strong>Autorização</strong> — Machine ID validado antes de tudo. Não cadastrada = bloqueio total + QR Code.</p>
+                        <p>📦 <strong>Física</strong> — 6 métodos independentes no kernel. Qualquer dispositivo inserido é bloqueado instantaneamente.</p>
+                        <p>🖥 <strong>Software</strong> — Kiosk isolado, sem terminal, sem acesso ao SO. Processo não pode ser encerrado.</p>
+                        <p>🔄 <strong>Sistema</strong> — Boot autônomo, atualizações remotas com rollback e checksum criptográfico.</p>
+                        <p>📊 <strong>Operacional</strong> — Monitoramento contínuo, restart automático, logs de auditoria.</p>
+                        <p>Seguro. Atualizado. Bloqueado.</p>
+                        <div class="hashtags"><span>#SegurançaDaInformação</span><span>#ProteçãoFísica</span></div>
                     </div>
 
                     <div class="tweet">
-                        <div class="tweet-number">Tweet 4/4</div>
-                        <h3>Reconhecimento e Tecnologias:</h3>
-                        <p><strong>"Referências Técnicas:"</strong></p>
-                        <p><strong>Cleyton Pedroza</strong> <a href="https://twitter.com/cleytonpedroza" target="_blank">@cleytonpedroza</a></p>
-                        <ul>
-                            <li>Arquitetura e tecnologia base</li>
-                            <li>Protocolos de autenticação e comunicação</li>
-                            <li>Infraestrutura de servidores e criptografia</li>
-                            <li>Design de fluxos fundamentais</li>
-                        </ul>
-                        
-                        <p><strong>Leandro Batista</strong> <a href="https://twitter.com/LeandroBatista" target="_blank">@LeandroBatista</a></p>
-                        <ul>
-                            <li>Implementação e hardware</li>
-                            <li>Sistema de bloqueio desenvolvido</li>
-                            <li>Interface e automação final</li>
-                        </ul>
-                        
-                        <p><em>Base tecnológica: Cleyton Pedroza | Implementação: Leandro Batista</em></p>
-
-                        <p><strong>"Aceleração com IA:"</strong></p>
-                        <ul>
-                            <li>Desenvolvimento 60% mais rápido</li>
-                            <li>Código padronizado automaticamente</li>
-                            <li>Debug assistido em tempo real</li>
-                            <li>Documentação gerada</li>
-                        </ul>
-                        
-                        <p>Tecnologias: Python, Linux/OpenBox, SystemD, PyInstaller</p>
-                        
-                        <div class="hashtags">
-                            <span>#DesenvolvimentoDeSoftware</span>
-                            <span>#Inovação</span>
-                        </div>
+                        <div class="tweet-number">Slide 4/4</div>
+                        <h3>Créditos e Stack:</h3>
+                        <p><strong>Cleyton Pedroza</strong> — Arquitetura base, protocolo serial proprietário, infraestrutura e criptografia.</p>
+                        <p><strong>Leandro Batista</strong> — Implementação, sistema de bloqueio físico, automação e entrega v1.0 em 7 dias com IA.</p>
+                        <p>Stack: Python 3 · Linux · Protocolo serial proprietário · Compilador de binários · Daemon de sistema · Git</p>
+                        <p><strong>✅ Fase v1.0 concluída em 16/04/2026!</strong></p>
+                        <div class="hashtags"><span>#DesenvolvimentoDeSoftware</span><span>#Inovação</span></div>
                     </div>
                 </div>
 
