@@ -20,18 +20,21 @@ Apresentação de um sistema de Kiosk/Loja virtual com arquitetura multi-camadas
 
 **🎉 Fase v1.0 finalizada em 16/04/2026** - Sistema 100% funcional!
 
-### Arquitetura em 5 componentes 🔧
+🔐 **A máquina só funciona se estiver cadastrada.**
 
-1. **driver_principal** — Core do protocolo serial proprietário (botões, sensores, noteiro, lâmpadas). Checksum por mensagem + reconexão automática.
-2. **auto_updater** — Atualização silenciosa com backup, verificação de integridade e rollback automático.
-3. **kiosk_launcher** — Interface fullscreen isolada do SO. Detecção de display, monitoramento de rede e análise preditiva integrados.
-4. **system_lock** — Bloqueio físico em 6 camadas no kernel. USB, wireless e Bluetooth bloqueados em até 1 segundo.
-5. **game** — Jogos Interativos (em desenvolvimento)
+Antes de qualquer coisa, o sistema verifica se a máquina está registrada no banco remoto. Não está? QR Code na tela + tudo bloqueado. Admin libera, reinicia, opera. Controle total. Seguro. Atualizado. Bloqueado.
 
-Boot determinístico com 8 estágios. Estágio 3.5 — antes de qualquer driver:
+O Launcher só libera o entretenimento para máquinas com cadastro ativo. Machine ID derivado do hardware — não dá pra falsificar.
 
-🔐 **Validação de máquina** contra banco de dados remoto.
-Máquina não cadastrada exibe QR Code + Machine ID e fica bloqueada até o admin liberar. Após liberação: reinicialização para operação normal.
+⚠️ Requer internet: validação de máquina e atualizações dependem de conectividade. Bloqueio de dispositivos é físico no kernel — não por rede.
+
+### Sistema em 5 componentes 🔧
+
+1️⃣ **driver_principal** — Core do protocolo serial proprietário. Botões, sensores, noteiro, lâmpadas. Checksum + reconexão automática.
+2️⃣ **auto_updater** — Atualização remota silenciosa. Backup, integridade, rollback automático.
+3️⃣ **kiosk_launcher** — Interface fullscreen isolada. Sem terminal, sem SO acessível. Valida Machine ID e controla acesso ao entretenimento.
+4️⃣ **system_lock** — 6 camadas de bloqueio no kernel: USB, PS2, Wireless, Bluetooth. Até 1 segundo para bloquear.
+5️⃣ **game** — Módulo de entretenimento (em desenvolvimento)
 
 ### Proteção em 4 Camadas 🛡️
 

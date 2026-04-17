@@ -20,7 +20,9 @@ Responsável pelo aperfeiçoamento, implementação prática e desenvolvimento d
 
 Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional. O ambiente de execução é baseado em Linux com gerenciador de janelas minimalista, gerenciamento de serviços via daemon de sistema e binários compilados para distribuição segura. A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.
 
-**Palavras-chave:** Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.
+> **Palavras-chave:** Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.
+
+> **Dependência de rede:** O sistema requer conexão à internet para operação. A validação de máquina e as atualizações remotas dependem de conectividade ativa. O bloqueio de dispositivos de entrada é exclusivamente físico (kernel) — não há bloqueio via rede ou firewall.
 
 ---
 
@@ -48,7 +50,7 @@ O sistema é composto por cinco componentes principais organizados em uma arquit
 | 2 | Updater | Sistema de atualização automática com rollback | Produção |
 | 3 | Launcher | Interface Kiosk fullscreen | Produção |
 | 4 | System Lock | Bloqueio físico de dispositivos de entrada | Produção |
-| 5 | Game Module | Jogos Interativos | Em desenvolvimento |
+| 5 | Game Module | Módulo de entretenimento | Em desenvolvimento |
 
 Todos os componentes se comunicam via protocolo serial proprietário e são orquestrados por um gerenciador de interface gráfica minimalista com inicialização sequencial controlada via daemon de serviços do sistema.
 
@@ -138,6 +140,8 @@ Consulta banco de dados remoto
 - A liberação ocorre exclusivamente via painel administrativo remoto
 - Após liberação, o sistema requer reinicialização para ativar operação normal
 - O QR Code é gerado dinamicamente e contém o Machine ID para facilitar o cadastro pelo administrador
+
+> **Dependência de conectividade:** A validação de Machine ID requer conexão ativa à internet. Sem conexão, o sistema não consegue consultar o banco de dados remoto. O bloqueio de dispositivos é exclusivamente físico via kernel — não existe bloqueio por rede.
 
 > **Nota de segurança:** O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.
 
@@ -299,11 +303,10 @@ O Launcher integra os seguintes subsistemas:
 - Monitoramento de consumo de recursos (CPU, memória)
 - Validação de integridade de aplicações autorizadas
 
-**Motor de Análise Preditiva**
-- Reconhecimento de padrões de uso do sistema
-- Análise preditiva de falhas antes que ocorram
-- Otimização automática de performance em tempo de execução
-- Análise de comportamento para detecção de anomalias
+**Monitor de Saúde do Sistema**
+- Monitoramento contínuo de consumo de recursos
+- Detecção de anomalias de comportamento
+- Reinicialização automática de componentes com falha
 
 ### 6.3 Proteções da Interface
 

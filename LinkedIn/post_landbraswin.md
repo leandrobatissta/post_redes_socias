@@ -22,21 +22,23 @@ Este documento apresenta um sistema completo de Kiosk/Loja virtual desenvolvido 
 
 5 componentes em produção com comunicação via protocolo serial proprietário:
 
-1. **driver_principal** — Core do protocolo de comunicação serial (botões, sensores, noteiro, lâmpadas). Validação de checksum por mensagem, health check contínuo e reconexão automática.
-2. **auto_updater** — Ciclo completo de atualização silenciosa: verificação de versão → download seguro → backup → validação de integridade → instalação → rollback automático em caso de falha.
-3. **kiosk_launcher** — Interface fullscreen isolada do SO. Integra detecção de display, gerenciamento de rede, monitoramento de processos e análise preditiva.
-4. **system_lock** — Bloqueio físico em 6 camadas independentes no kernel. Cobre USB, PS2, wireless e Bluetooth. Latência máxima de detecção: 1 segundo.
-5. **game** — Jogos Interativos (em desenvolvimento)
+**🔐 Controle de acesso por máquina — o sistema só funciona se estiver cadastrado.**
 
-Boot determinístico com 8 estágios. No estágio 3.5, **antes de qualquer driver subir**, ocorre a validação de máquina:
+A primeira coisa que o sistema faz no boot é verificar se a máquina está cadastrada e liberada no banco de dados remoto. Se não estiver: exibe QR Code com o Machine ID na tela e bloqueia completamente toda operação. Após o administrador realizar o cadastro e liberar, o sistema reinicia e entra em operação normal. Controle total de quem pode ou não utilizar o equipamento.
 
-- Gera Machine ID único derivado do hardware
-- Consulta banco de dados remoto
-- Máquina não cadastrada: exibe QR Code + ID alfanumérico e bloqueia operação
-- Administrador cadastra no painel remoto e libera
-- Após liberação: reinicialização obrigatória para operação normal
+Machine ID derivado de hardware — não falsificável por software. O Launcher só libera o módulo de entretenimento para máquinas cadastradas e ativas.
 
-Machine ID derivado de hardware — não falsificável por software. Cada componente possui restart automático independente.
+**5 componentes. 1 protocolo. Operação contínua.**
+
+1. **driver_principal** — Core do protocolo serial proprietário. Gerencia botões, sensores, noteiro e lâmpadas. Checksum por mensagem, health check contínuo, reconexão automática.
+2. **auto_updater** — Atualização remota silenciosa: verificação de versão → download seguro → backup → validação de integridade → instalação → rollback automático.
+3. **kiosk_launcher** — Interface fullscreen isolada. Sem terminal, sem acesso ao SO, cursor invisível. Valida Machine ID e libera o entretenimento só para máquinas autorizadas.
+4. **system_lock** — Bloqueio físico em 6 camadas independentes no kernel: USB, PS2, Wireless, Bluetooth. Latência máxima: 1 segundo.
+5. **game** — Módulo de entretenimento (em desenvolvimento)
+
+Seguro. Atualizado. Bloqueado. Liberado só para quem deve usar.
+
+> ⚠️ **Dependência de internet:** O sistema requer conectividade ativa para validação de Machine ID e recebimento de atualizações remotas. O bloqueio de dispositivos de entrada é exclusivamente físico, implementado no kernel — não há bloqueio via rede ou firewall.
 
 ### Proteção em 4 Camadas
 

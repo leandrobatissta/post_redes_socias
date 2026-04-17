@@ -386,12 +386,14 @@
         <h2>Resumo</h2>
         <p>Este paper descreve a arquitetura, implementação e validação de um sistema completo de Kiosk/Loja virtual desenvolvido para operação autônoma ininterrupta (24/7) sem necessidade de intervenção manual. O sistema integra cinco componentes de software — quatro em produção e um em desenvolvimento — comunicando-se via protocolo serial proprietário. São implementadas quatro camadas de proteção: física, de software, de sistema e operacional. A fase v1.0 foi entregue em 7 dias por um único desenvolvedor, com aceleração significativa proporcionada pelo uso de ferramentas de Inteligência Artificial — uma tarefa que, no modelo tradicional com equipe, demandaria entre 30 e 60 dias.</p>
         <p class="keywords"><strong>Palavras-chave:</strong> Kiosk, Protocolo Serial Proprietário, Bloqueio Físico, Automação, Linux, Python, Inteligência Artificial, Desenvolvimento Acelerado.</p>
+        <p class="keywords"><strong>Dependência de rede:</strong> O sistema requer conexão à internet para operação. A validação de máquina e as atualizações remotas dependem de conectividade ativa. O bloqueio de dispositivos de entrada é exclusivamente físico (kernel) — não há bloqueio via rede ou firewall.</p>
     </div>
 
     <!-- SECTION 1 -->
     <h2 class="section-title">1. Introdução</h2>
     <p>Sistemas de Kiosk são amplamente utilizados em aplicações comerciais que exigem operação contínua e segura sem supervisão humana direta. O desafio fundamental nesse domínio é garantir que o sistema opere de forma autônoma, resista a tentativas de manipulação física e digital, e se recupere automaticamente de falhas — tudo isso com latência mínima e sem interrupção do serviço.</p>
     <p>O sistema foi concebido com uma base técnica sólida pré-existente — arquitetura, protocolos e criptografia desenvolvidos por Cleyton Pedroza — e implementado em sua totalidade funcional por Leandro Batista em 7 dias, com auxílio de ferramentas de IA. Este resultado representa uma redução de 75–90% no tempo de desenvolvimento estimado pelo modelo tradicional (30–60 dias com equipe).</p>
+    <p><strong>Dependência de internet:</strong> O sistema requer conexão à internet para duas funções críticas: (1) validação do Machine ID contra o banco de dados remoto a cada inicialização, e (2) recebimento de atualizações remotas pelo Updater. O bloqueio de dispositivos de entrada é implementado exclusivamente no kernel do sistema operacional — não há bloqueio via rede, firewall ou qualquer mecanismo baseado em conexão.</p>
     <p><strong>Requisito fundamental de operação:</strong> o sistema só entra em funcionamento se a máquina estiver previamente cadastrada e liberada no banco de dados remoto. No boot, o Launcher verifica o Machine ID da máquina — um identificador único derivado do hardware. Se a máquina não estiver cadastrada, o sistema exibe um QR Code com o Machine ID, bloqueia toda a operação e permanece nesse estado até que o administrador realize o cadastro e a liberação no painel remoto. Após a liberação, o sistema deve ser reinicializado para entrar em operação normal. O Launcher também é responsável por liberar o acesso ao módulo de jogos apenas para máquinas com cadastro válido e ativo.</p>
     <div class="security-note">
         <strong>Nota:</strong> Detalhes de configuração, caminhos de instalação, mensagens do protocolo e identificadores internos foram omitidos intencionalmente. O sistema encontra-se em fase de stage/teste em campo.
@@ -410,7 +412,7 @@
             <tr><td>2</td><td>Updater</td><td>Atualização automática com rollback</td><td class="status-ok">✔ Produção</td></tr>
             <tr><td>3</td><td>Launcher</td><td>Interface Kiosk fullscreen isolada</td><td class="status-ok">✔ Produção</td></tr>
             <tr><td>4</td><td>System Lock</td><td>Bloqueio físico de dispositivos de entrada</td><td class="status-ok">✔ Produção</td></tr>
-            <tr><td>5</td><td>Game Module</td><td>Jogos Interativos</td><td class="status-dev">⚙ Em desenvolvimento</td></tr>
+            <tr><td>5</td><td>Game Module</td><td>Módulo de entretenimento</td><td class="status-dev">⚙ Em desenvolvimento</td></tr>
         </tbody>
     </table>
 
@@ -463,6 +465,9 @@ Estágio 8 → Monitoramento contínuo ativo em todos os componentes
         <li><strong>Liberação</strong> exclusivamente via painel administrativo remoto</li>
         <li><strong>Reinicialização obrigatória</strong> após liberação para ativar operação normal</li>
     </ul>
+    <div class="security-note">
+        <strong>Dependência de conectividade:</strong> A validação de Machine ID requer conexão ativa à internet. Sem conexão, o sistema não consegue consultar o banco de dados remoto. O bloqueio de dispositivos é exclusivamente físico via kernel — não existe bloqueio por rede.
+    </div>
     <div class="security-note">
         <strong>Nota de segurança:</strong> O algoritmo de geração do Machine ID e o protocolo de comunicação com o banco de dados são informações proprietárias e não são divulgados neste documento.
     </div>
@@ -565,7 +570,7 @@ Estágio 8 → Monitoramento contínuo ativo em todos os componentes
             <tr><td>Input validation</td><td>Apenas entradas autorizadas pelo protocolo são processadas</td></tr>
         </tbody>
     </table>
-    <p>Subsistemas integrados: detecção automática de display com suporte multi-monitor, gerenciamento de rede com reconexão automática, monitoramento de processos com controle por lista de permissões e motor de análise preditiva para detecção antecipada de falhas.</p>
+    <p>Subsistemas integrados: detecção automática de display com suporte multi-monitor, gerenciamento de rede com reconexão automática, monitoramento de processos com controle por lista de permissões e monitoramento de processos com controle por lista de permissões.</p>
 
     <!-- SECTION 7 -->
     <h2 class="section-title">7. Sistema de Atualização (Updater)</h2>
